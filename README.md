@@ -3,7 +3,7 @@
 This task is one of two application microtasks for T317083
 
 Overview
-For this task, you're required to set up the infrastructure for the Frontend Web Application. 
+For this task, you're required to set up the infrastructure for the Frontend Web Application.
 
 Tools you could use are as follows:
 
