@@ -83,6 +83,10 @@ nav > .link-container > a:hover {
   margin-inline: auto;
 }
 
+.container.container-small {
+  max-width: 900px;
+}
+
 .centered {
   display: flex;
   flex-direction: column;
@@ -91,7 +95,6 @@ nav > .link-container > a:hover {
 }
 
 .row {
-  max-width: 900px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -126,6 +129,12 @@ nav > .link-container > a:hover {
 
   .container {
     margin-block: 1rem;
+  }
+}
+
+@media (min-width: 1264px) {
+  .container {
+    max-width: 1185px;
   }
 }
 
