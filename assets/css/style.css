@@ -20,11 +20,14 @@ h1 {
   margin: 12px 4px;
 }
 
-h2,
+h2 {
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
 h3 {
   font-size: 1.25rem;
   font-weight: 500;
-  letter-spacing: 0.125em;
   line-height: 2rem;
 }
 
@@ -64,7 +67,6 @@ nav > .link-container > a:hover {
 }
 
 .container {
-  max-width: 900px;
   padding: 12px;
   margin-inline: auto;
 }
@@ -97,4 +99,27 @@ nav > .link-container > a:hover {
   .container {
     max-width: 1185px;
   }
+}
+
+/* -- Leaderboard Table styles -- */
+
+table * {
+  outline: 1px solid red;
+}
+
+table {
+  width: 100%;
+}
+
+.table-title {
+  padding: 4px 16px;
+}
+
+.table-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
 }
