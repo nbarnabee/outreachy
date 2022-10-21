@@ -32,6 +32,12 @@ h3 {
   line-height: 2rem;
 }
 
+/* Utility */
+
+.spacer {
+  margin-block: 2rem;
+}
+
 /* Visuals */
 
 .shadowed {
