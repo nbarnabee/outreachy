@@ -1,35 +1,52 @@
 const leaderboard = [
   {
-    name: "DannyBoyyy77",
+    user: "DannyBoyyy77",
     link: "https://en.wikipedia.org/wiki/User:DannyBoyyy77",
-    month_edits: 23,
-    total_edits: 56,
+    latest: 23,
+    allTime: 56,
   },
   {
-    name: "Tabby578",
+    user: "Tabby578",
     link: "https://en.wikipedia.org/wiki/User:Tabby578",
-    month_edits: 19,
-    total_edits: 19,
+    latest: 19,
+    allTime: 19,
   },
   {
-    name: "Ellenello",
+    user: "Ellenello",
     link: "https://en.wikipedia.org/wiki/User:Ellenello",
-    month_edits: 11,
-    total_edits: 39,
+    latest: 11,
+    allTime: 39,
   },
   {
-    name: "Poppa shark",
+    user: "Poppa shark",
     link: "https://en.wikipedia.org/wiki/User:Poppa%20shark",
-    month_edits: 9,
-    total_edits: 12,
+    latest: 9,
+    allTime: 12,
   },
   {
-    name: "Javier Alejandro Herrera Carvajal",
+    user: "Javier Alejandro Herrera Carvajal",
     link: "https://en.wikipedia.org/wiki/User:Javier%20Alejandro%20Herrera%20Carvajal",
-    month_edits: 7,
-    total_edits: 21,
+    latest: 7,
+    allTime: 21,
   },
 ];
 
-leaderboard.sort((a, b) => b["points"] - a["points"]);
-console.log(leaderboard);
+// ids: latest and all-time
+
+function populateTable(tableID) {
+  sortedLeaderboard = leaderboard.sort((a, b) => b[tableID] - a[tableID]);
+  const tableBody = document.getElementById(tableID);
+  for (let entry of sortedLeaderboard) {
+    let row = document.createElement("tr");
+    let user = document.createElement("td");
+    let score = document.createElement("td");
+    user.innerText = entry.user;
+    score.innerText = entry[tableID];
+    row.appendChild(user);
+    row.appendChild(score);
+    tableBody.appendChild(row);
+  }
+}
+
+populateTable("latest");
+populateTable("allTime");
