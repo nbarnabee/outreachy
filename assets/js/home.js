@@ -78,13 +78,13 @@ function getTask(num) {
 
 function clearOld() {
   document.getElementById("tool-info").innerHTML = "";
-  document.getElementById("task-info").innerHTML = "";
+  document.getElementById("task-form").innerHTML = "";
 }
 
 function prepTool(tool, task) {
   let callToAction = document.createElement("h3");
   callToAction.innerText = `${tool.title} is missing its ${task}.  Can you find it?`;
-  document.getElementById("tool-info").appendChild(callToAction);
+  document.getElementById("task-form").appendChild(callToAction);
 }
 
 function prepTask(task) {
@@ -92,7 +92,7 @@ function prepTask(task) {
   if (task === "for_wikis" || task === "available_ui_languages") {
     taskDescription.innerHTML = `${task}: ${anno_keys[task]}`;
   } else taskDescription.innerText = `${task}: ${anno_keys[task]}`;
-  document.getElementById("task-info").appendChild(taskDescription);
+  document.getElementById("task-form").appendChild(taskDescription);
 }
 
 // a function to bulk-add attributes to a dynamically generated HTML element
