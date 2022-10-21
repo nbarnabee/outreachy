@@ -79,6 +79,13 @@ nav > .link-container > a:hover {
   align-items: center;
 }
 
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
   margin: 1rem;
   display: flex;
@@ -101,6 +108,13 @@ nav > .link-container > a:hover {
   line-height: 1.375rem;
 }
 
+@media (min-width: 900px) {
+  .row {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
 @media (min-width: 1264px) {
   nav {
     height: 56px;
@@ -108,6 +122,7 @@ nav > .link-container > a:hover {
 
   .container {
     max-width: 1185px;
+    margin-block: 1rem;
   }
 }
 
