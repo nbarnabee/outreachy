@@ -32,18 +32,20 @@ h3 {
   line-height: 2rem;
 }
 
-/* General Visual Classes */
+/* Visuals */
 
 .shadowed {
   box-shadow: var(--shadow);
   border: var(--border);
 }
 
-/* Components/containers */
-
 body *:not(nav) {
   border-radius: 4px;
 }
+
+/* ---- Components/containers -------- */
+
+/* ------ Navigation -------  */
 
 nav {
   height: 56px;
@@ -73,6 +75,8 @@ nav > .link-container > a:hover {
   height: 2.5rem;
   width: 2.5rem;
 }
+
+/* ------ Containers & Cards -------- */
 
 .container {
   padding: 12px 20px;
@@ -125,7 +129,7 @@ nav > .link-container > a:hover {
   }
 }
 
-/* -- Leaderboard Table styles -- */
+/* -- Tables (Leaderboard page) -- */
 
 table {
   width: 100%;
