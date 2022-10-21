@@ -1,18 +1,10 @@
 # Outreachy
 
+Live at:  https://nbarnabee.github.io/outreachy/
+
 This task is one of two application microtasks for T317083
 
-Overview
-For this task, you're required to set up the infrastructure for the Frontend Web Application.
 
-Tools you could use are as follows:
-
-    Any frontend framework or library of your choice
-    Any testing frameworks/libraries of your choice
-    Git
-    Any repository hosting service of your choice
-
-This task would give a sense of your Frontend skills. Don't worry, the project in itself would entail more coding and UI styling. Don't be under pressure to impress, feel free to reach out to any mentor for additional support if anything seems unclear or you get stuck on any part of the task. Also feel free to use any other tool that you consider beneficial to your project.
 
 Steps to follow
 
@@ -28,3 +20,6 @@ Dashboard:
 
 - The "My Edits" section would reference the user's most recent contributions
 - "Latest Activity" would draw on the latest global contributions
+
+
+Support for unit testing?
