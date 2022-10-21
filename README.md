@@ -24,9 +24,7 @@ Steps to follow
     Each page should have a Navigation bar containing links to the other pages.
     The Dashboard is required to show the following metrics with mock figures (feel free to add other analytics you think may be useful to monitor): Total number of Tools in the records, number of tools with missing information, percentage of tools with missing information compared with the total number of tools in the records, number of tools edited using this record management tool
 
-    Add these UI to a commit and push up the changes.
-    Ensure your code is well documented in the README.md file.
-    If you feel you have completed all the steps in this task, you may request feedback, and we will provide high-level feedback on what is good and what is missing. To do so, email both of the mentors (sstefanova@wikimedia.org and dadedoyin@wikimedia.org) with the link to your public PAWS notebook. We will try to make time to provide this feedback once to anyone who would like it.
-    When you feel you are happy with the state of your repository, you should include the public link in your final Outreachy project application as a recorded contribution. We encourage you to record contributions as you go, as well to track progress.
+Dashboard:
 
-All the best!
+- The "My Edits" section would reference the user's most recent contributions
+- "Latest Activity" would draw on the latest global contributions
