@@ -35,19 +35,28 @@
         <p>If you can find the requested information, fill out the form and click <b>Submit</b>.
           If
           you don't like
-          the look of your task, or you can't find anything that completes it, click <b>Skip</b>.</p>
+          the look of your task, or can't find the requested information, click <b>Skip</b>.</p>
       </div>
     </div>
-    <div class="spacer"></div>
-    <div id="tool-info" class="container">
+    <!-- <div class="spacer"></div> -->
+    <form id="task-form" class="container centered">
+      <!-- statement of the task -->
+      <!-- input options and submit button -->
+      <!-- if the task is tool_type, checkboxes instead of an input bar -->
+      <!-- if the task is available_ui_languages, an input field, and validate that it's just two letters.  also might want to give the option of adding more input bars -->
+      <!-- field description -->
+    </form>
+    <div id="tool-info" class="container container-small centered shadowed">
+      <!-- links to toolhub and url, repo, if they exist -->
+      <!-- if the task === wikidata_qid, a link to wikidata -->
 
     </div>
-    <div id="task-info">
 
+    <div class="container centered">
+      <label for="info-missing"><input type="checkbox" name="info-missing" value="true" id="info-missing">Information
+        could not be found / does not exist.</label>
+      <button id="get-new-task">Skip</button>
     </div>
-    <label for="info-missing"><input type="checkbox" name="info-missing" value="true" id="info-missing">Information
-      could not be found / does not exist.</label>
-    <button id="get-new-task">Skip</button>
 
 
 
