@@ -31,20 +31,26 @@ const leaderboard = [
   },
 ];
 
-// ids: latest and all-time
-
 function populateTable(tableID) {
   sortedLeaderboard = leaderboard.sort((a, b) => b[tableID] - a[tableID]);
   const tableBody = document.getElementById(tableID);
   for (let entry of sortedLeaderboard) {
     let row = document.createElement("tr");
-    let user = document.createElement("td");
+    let userEntry = document.createElement("td");
     let score = document.createElement("td");
+    let user = document.createElement("span");
+    let userLink = document.createElement("a");
+    userLink.setAttribute("href", entry.link);
+    userLink.setAttribute("target", "_blank");
+    userLink.style.color = "var(--blue)";
+    userLink.style.textDecoration = "underline";
     user.innerText = entry.user;
     score.innerText = entry[tableID];
-    row.appendChild(user);
-    row.appendChild(score);
     tableBody.appendChild(row);
+    row.appendChild(userEntry);
+    userEntry.appendChild(userLink);
+    userLink.appendChild(user);
+    row.appendChild(score);
   }
 }
 
