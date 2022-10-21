@@ -3,7 +3,7 @@
 const anno_keys = {
   wikidata_qid: "Wikidata item ID",
   for_wikis:
-    "A string or array of strings describing the wiki(s) this tool can be used on.  Use hostnames such as <code>zh.wiktionary.org</code>.  Use asterisks as wildcards.  For example, <code>*.wikisource.org</code means 'this tool works on all Wikisource wikis.'  <code>*</code> means 'this works on all wikis, including Wikimedia wikis.'",
+    "A string or array of strings describing the wiki(s) this tool can be used on.  Use hostnames such as <code>zh.wiktionary.org</code>.  Use asterisks as wildcards.  For example, <code>*.wikisource.org</code> means 'this tool works on all Wikisource wikis.'  <code>*</code> means 'this works on all wikis, including Wikimedia wikis.'",
   icon: "A link to a Wikimedia Commons file description page for an icon that depicts the tool.",
   available_ui_languages:
     "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language codes</a> like <code>zh</code> and <code>scn</code>.",
@@ -50,4 +50,56 @@ const pywikibot = {
   missing: ["wikidata_qid", "api_url", "feedback_url", "privacy_policy_url"],
 };
 
-// Going to need a different interface if we're working on "tool type"
+const availableTools = [pywikibot, mm_wikidata_todo];
+
+/* I'm declaring taskNum and oldNum globally so that I can access their values 
+when "skipping" a task. This ensures that the same task won't come up twice in a row. */
+
+let taskNum, oldNum;
+document.getElementById("get-new-task").addEventListener("click", function () {
+  clearOld();
+  getTask(oldNum);
+});
+
+function getTask(num) {
+  oldNum = num;
+  let toolNum = Math.floor(Math.random() * availableTools.length);
+  let tool = availableTools[toolNum];
+  taskNum = Math.floor(Math.random() * tool.missing.length);
+  while (taskNum === oldNum) {
+    taskNum = Math.floor(Math.random() * tool.missing.length);
+  }
+  let task = tool.missing[taskNum];
+  console.log(tool, task);
+  oldNum = taskNum;
+  prepTool(tool, task);
+  prepTask(task);
+}
+
+function clearOld() {
+  document.getElementById("tool-info").innerHTML = "";
+  document.getElementById("task-info").innerHTML = "";
+}
+
+function prepTool(tool, task) {
+  let callToAction = document.createElement("h3");
+  callToAction.innerText = `${tool.title} is missing its ${task}.  Can you find it?`;
+  document.getElementById("tool-info").appendChild(callToAction);
+}
+
+function prepTask(task) {
+  let taskDescription = document.createElement("p");
+  if (task === "for_wikis" || task === "available_ui_languages") {
+    taskDescription.innerHTML = `${task}: ${anno_keys[task]}`;
+  } else taskDescription.innerText = `${task}: ${anno_keys[task]}`;
+  document.getElementById("task-info").appendChild(taskDescription);
+}
+
+// a function to bulk-add attributes to a dynamically generated HTML element
+function setAttributes(elem, attributes) {
+  for (let entry in attributes) {
+    elem.setAttribute(entry, attributes[entry]);
+  }
+}
+
+getTask(null);
