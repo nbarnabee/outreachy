@@ -32,6 +32,13 @@ h3 {
   line-height: 2rem;
 }
 
+/* General Visual Classes */
+
+.shadowed {
+  box-shadow: var(--shadow);
+  border: var(--border);
+}
+
 /* Components/containers */
 
 body *:not(nav) {
@@ -90,8 +97,6 @@ nav > .link-container > a:hover {
   margin: 1rem;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow);
-  border: var(--border);
 }
 
 .card-header {
@@ -130,8 +135,6 @@ nav > .link-container > a:hover {
 
 table {
   width: 100%;
-  box-shadow: var(--shadow);
-  border: var(--border);
   margin-inline: 1rem;
   border-collapse: collapse;
 }
