@@ -71,7 +71,7 @@ function getTask(num) {
   }
   let task = tool.missing[taskNum];
   oldNum = taskNum;
-  prepToolLinks(tool, task);
+  prepToolLinks(tool);
   prepTask(tool, task);
 }
 
@@ -90,7 +90,7 @@ function prepTask(tool, task) {
 
 // Functions for populating the div with id "tool-info"
 
-function prepToolLinks(tool, task) {
+function prepToolLinks(tool) {
   const toolNameReferences = Array.from(
     document.querySelectorAll(".tool-name")
   );
@@ -110,17 +110,20 @@ function makeLink(tool, linkType) {
   let toolLink = document.createElement("a");
   toolLink.setAttribute("href", tool[linkType]);
   toolLink.setAttribute("target", "_blank");
+  // The "disposable" class allows me to remove the links without touching the rest of the element
+  toolLink.classList.add("disposable");
   toolLink.style.color = "var(--blue)";
   toolLink.style.textDecoration = "underline";
   toolLink.innerText = tool[linkType];
   return toolLink;
 }
 
-// Function to reset the divs "tool-info" and "task-info"
+// Function to reset the content of the divs "tool-info" and "task-info"
 
 function clearElements() {
-  document.getElementById("tool-info").innerHTML = "";
   document.getElementById("task-form").innerHTML = "";
+  const disposableLinks = Array.from(document.querySelectorAll(".disposable"));
+  disposableLinks.forEach((link) => link.remove());
   document.getElementById("repository-link").hidden = true;
 }
 
