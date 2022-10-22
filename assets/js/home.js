@@ -56,10 +56,16 @@ const availableTools = [pywikibot, mm_wikidata_todo];
 when "skipping" a task. This ensures that the same task won't come up twice in a row. */
 
 let taskNum, oldNum;
+
+// Function that resets the page and selects a new task when the user clicks "skip"
+
 document.getElementById("get-new-task").addEventListener("click", function () {
   clearElements();
   getTask(oldNum);
 });
+
+/* Function that picks a tool from the mock data set 
+and selects one of the elements from its "missing" array */
 
 function getTask(num) {
   oldNum = num;
@@ -75,7 +81,12 @@ function getTask(num) {
   prepTask(tool, task);
 }
 
-// Function for populating the div with id "task-info"
+/* Function for populating the div with id "task-info"
+It's producing three things:  
+1. A statement of the task.
+2. An input element (or elements) appropriate to the task type.
+3. A description of the requested value.
+*/
 
 function prepTask(tool, task) {
   let callToAction = document.createElement("h3");
@@ -88,7 +99,9 @@ function prepTask(tool, task) {
   document.getElementById("task-form").appendChild(taskDescription);
 }
 
-// Functions for populating the div with id "tool-info"
+/* Functions for populating the div with id "tool-info"
+They're producing a list of relevant links taken from the data for the selected tool.
+*/
 
 function prepToolLinks(tool) {
   const toolNameReferences = Array.from(
