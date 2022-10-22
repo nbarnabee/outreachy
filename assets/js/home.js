@@ -156,15 +156,17 @@ Three functions which produce three things, and a head function that calls them 
 1. A statement of the task.
 2. An input element (or elements) appropriate to the task type.
 3. A description of the requested value.
+4. (Where appropriate) a button to add additional fields.
+5. A submit button.
 */
 
 function populateTaskDiv(tool, task) {
-  document
-    .getElementById("task-form")
-    .appendChild(createTaskStatement(tool, task));
-  document
-    .getElementById("task-form")
-    .appendChild(createTaskDescription(tool, task));
+  let taskForm = document.getElementById("task-form");
+  taskForm.appendChild(createTaskStatement(tool, task));
+  const taskInputs = createInput(tool, task);
+  // array expected
+  taskInputs.forEach((entry) => taskForm.appendChild(entry));
+  taskForm.appendChild(createTaskDescription(tool, task));
 }
 
 function createTaskStatement(tool, task) {
@@ -173,9 +175,21 @@ function createTaskStatement(tool, task) {
   return taskStatement;
 }
 
-// function createInput(tool, task) {
-//   if
-// }
+function createInput(tool, task) {
+  const inputs = [];
+  if (taskType[task].input.includes("select")) {
+    const select = document.createElement("p");
+    inputs.push(select);
+    return inputs;
+  } else {
+    taskType[task].input.forEach((entry) => {
+      const newInput = document.createElement("input");
+      newInput.type = [entry];
+      inputs.push(newInput);
+    });
+    return inputs;
+  }
+}
 
 function createTaskDescription(tool, task) {
   let taskDescription = document.createElement("p");
