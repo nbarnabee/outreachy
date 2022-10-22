@@ -49,6 +49,11 @@ body *:not(nav) {
   border-radius: 4px;
 }
 
+a[target="_blank"] {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
 /* ---- Components/containers -------- */
 
 /* ------ Navigation -------  */
