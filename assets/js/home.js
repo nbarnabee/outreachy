@@ -13,9 +13,9 @@ const anno_keys = {
   api_url: "A link to the tool's API, if available.",
   developer_docs_url:
     "A link to the tool's developer documentation, if available.",
-  user_docs_url: "A link to the tool's user documentation, if available.",
+  tool_docs_url: "A link to the tool's tool documentation, if available.",
   feedback_url:
-    "A link to a location where the tool's user can leave feedback.",
+    "A link to a location where the tool's tool can leave feedback.",
   privacy_policy_url: "A link to the tool's privacy policy, if available.",
   translate_url: "A link to the tool's translation interface.",
   bugtracker_url:
@@ -33,7 +33,7 @@ const mm_wikidata_todo = {
     "for_wikis",
     "icon",
     "api_url",
-    "user_docs_url",
+    "tool_docs_url",
     "feedback_url",
     "privacy_policy_url",
     "translate_url",
@@ -57,7 +57,7 @@ when "skipping" a task. This ensures that the same task won't come up twice in a
 
 let taskNum, oldNum;
 document.getElementById("get-new-task").addEventListener("click", function () {
-  clearOld();
+  clearElements();
   getTask(oldNum);
 });
 
@@ -70,24 +70,17 @@ function getTask(num) {
     taskNum = Math.floor(Math.random() * tool.missing.length);
   }
   let task = tool.missing[taskNum];
-  console.log(tool, task);
   oldNum = taskNum;
-  prepTool(tool, task);
-  prepTask(task);
+  prepToolLinks(tool, task);
+  prepTask(tool, task);
 }
 
-function clearOld() {
-  document.getElementById("tool-info").innerHTML = "";
-  document.getElementById("task-form").innerHTML = "";
-}
+// Function for populating the div with id "task-info"
 
-function prepTool(tool, task) {
+function prepTask(tool, task) {
   let callToAction = document.createElement("h3");
   callToAction.innerText = `${tool.title} is missing its ${task}.  Can you find it?`;
   document.getElementById("task-form").appendChild(callToAction);
-}
-
-function prepTask(task) {
   let taskDescription = document.createElement("p");
   if (task === "for_wikis" || task === "available_ui_languages") {
     taskDescription.innerHTML = `${task}: ${anno_keys[task]}`;
@@ -95,11 +88,40 @@ function prepTask(task) {
   document.getElementById("task-form").appendChild(taskDescription);
 }
 
-// a function to bulk-add attributes to a dynamically generated HTML element
-function setAttributes(elem, attributes) {
-  for (let entry in attributes) {
-    elem.setAttribute(entry, attributes[entry]);
+// Functions for populating the div with id "tool-info"
+
+function prepToolLinks(tool, task) {
+  const toolNameReferences = Array.from(
+    document.querySelectorAll(".tool-name")
+  );
+  toolNameReferences.forEach((reference) => (reference.innerText = tool.title));
+  const toolhubLink = makeLink(tool, "toolhub");
+  document.getElementById("toolhub-link").appendChild(toolhubLink);
+  const urlLink = makeLink(tool, "url");
+  document.getElementById("url-link").appendChild(urlLink);
+  if (tool.repository) {
+    const repositoryLink = makeLink(tool, "repository");
+    document.getElementById("repository-link").appendChild(repositoryLink);
+    document.getElementById("repository-link").hidden = false;
   }
+}
+
+function makeLink(tool, linkType) {
+  let toolLink = document.createElement("a");
+  toolLink.setAttribute("href", tool[linkType]);
+  toolLink.setAttribute("target", "_blank");
+  toolLink.style.color = "var(--blue)";
+  toolLink.style.textDecoration = "underline";
+  toolLink.innerText = tool[linkType];
+  return toolLink;
+}
+
+// Function to reset the divs "tool-info" and "task-info"
+
+function clearElements() {
+  document.getElementById("tool-info").innerHTML = "";
+  document.getElementById("task-form").innerHTML = "";
+  document.getElementById("repository-link").hidden = true;
 }
 
 getTask(null);
