@@ -42,8 +42,6 @@ function populateTable(tableID) {
     let userLink = document.createElement("a");
     userLink.setAttribute("href", entry.link);
     userLink.setAttribute("target", "_blank");
-    userLink.style.color = "var(--blue)";
-    userLink.style.textDecoration = "underline";
     user.innerText = entry.user;
     score.innerText = entry[tableID];
     tableBody.appendChild(row);
