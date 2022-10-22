@@ -49,28 +49,30 @@ const taskType = {
     multiple: false,
     pattern: [null],
   },
-  // the default value of the text input for the following should be "en"
   developer_docs_url: {
-    description: "A link to the tool's developer documentation, if available.",
+    description:
+      "A link to the tool's developer documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["text", "url"],
     multiple: false,
     pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   user_docs_url: {
-    description: "A link to the tool's user documentation, if available.",
+    description:
+      "A link to the tool's user documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["text", "url"],
     multiple: false,
     pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   feedback_url: {
     description:
-      "A link to a location where the tool's tool can leave feedback.",
+      "A link to a location where the tool's user can leave feedback, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the expected language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["text", "url"],
     multiple: false,
     pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   privacy_policy_url: {
-    description: "A link to the tool's privacy policy, if available.",
+    description:
+      "A link to the tool's privacy policy, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the policy's language.  (If no value is given, this value will default to <code>en</code>.",
     input: ["text", "url"],
     multiple: false,
     pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
@@ -145,33 +147,49 @@ function getTask(num) {
   }
   let task = tool.missing[taskNum];
   oldNum = taskNum;
-  prepToolLinks(tool);
-  prepTask(tool, task);
+  populateToolLinks(tool);
+  populateTaskDiv(tool, task);
 }
 
-/* Function for populating the div with id "task-info"
-It's producing three things:  
+/* Functions for populating the div with id "task-info"
+Three functions which produce three things, and a head function that calls them in turn:  
 1. A statement of the task.
 2. An input element (or elements) appropriate to the task type.
 3. A description of the requested value.
 */
 
-function prepTask(tool, task) {
-  let callToAction = document.createElement("h3");
-  callToAction.innerText = `${tool.title} is missing its ${task}.  Can you find it?`;
-  document.getElementById("task-form").appendChild(callToAction);
+function populateTaskDiv(tool, task) {
+  document
+    .getElementById("task-form")
+    .appendChild(createTaskStatement(tool, task));
+  document
+    .getElementById("task-form")
+    .appendChild(createTaskDescription(tool, task));
+}
+
+function createTaskStatement(tool, task) {
+  let taskStatement = document.createElement("h3");
+  taskStatement.innerText = `${tool.title} is missing its ${task}.  Can you find it?`;
+  return taskStatement;
+}
+
+// function createInput(tool, task) {
+//   if
+// }
+
+function createTaskDescription(tool, task) {
   let taskDescription = document.createElement("p");
-  if (task === "for_wikis" || task === "available_ui_languages") {
+  if (taskType[task].description.includes("</")) {
     taskDescription.innerHTML = `${task}: ${taskType[task].description}`;
   } else taskDescription.innerText = `${task}: ${taskType[task].description}`;
-  document.getElementById("task-form").appendChild(taskDescription);
+  return taskDescription;
 }
 
 /* Functions for populating the div with id "tool-info"
 They're producing a list of relevant links taken from the data for the selected tool.
 */
 
-function prepToolLinks(tool) {
+function populateToolLinks(tool) {
   const toolNameReferences = Array.from(
     document.querySelectorAll(".tool-name")
   );
