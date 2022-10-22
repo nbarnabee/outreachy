@@ -5,7 +5,7 @@ const taskType = {
     description: "Wikidata item ID",
     input: ["text"],
     multiple: false,
-    pattern: ["/^Qd+$/"],
+    pattern: ["^Qd+$"],
   },
   for_wikis: {
     description:
@@ -13,7 +13,7 @@ const taskType = {
     input: ["text"],
     multiple: true,
     pattern: [
-      "/^(*|(.*)?.?(mediawiki|wiktionary|wiki(pedia|quote|books|source|news|versity|data|voyage|media)).org)$/",
+      "^(*|(.*)?.?(mediawiki|wiktionary|wiki(pedia|quote|books|source|news|versity|data|voyage|media)).org)$",
     ],
   },
   icon: {
@@ -21,14 +21,14 @@ const taskType = {
       "A link to a Wikimedia Commons file description page for an icon that depicts the tool.",
     input: ["url"],
     multiple: false,
-    pattern: ["/^https://commons.wikimedia.org/wiki/File:.+..+$/"],
+    pattern: ["^https://commons.wikimedia.org/wiki/File:.+..+$"],
   },
   available_ui_languages: {
     description:
       "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language codes</a> like <code>zh</code> and <code>scn</code>.",
     input: ["text"],
     multiple: "true",
-    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/"],
+    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   tool_type: {
     description:
@@ -54,26 +54,26 @@ const taskType = {
     description: "A link to the tool's developer documentation, if available.",
     input: ["text", "url"],
     multiple: false,
-    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   user_docs_url: {
     description: "A link to the tool's user documentation, if available.",
     input: ["text", "url"],
     multiple: false,
-    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   feedback_url: {
     description:
       "A link to a location where the tool's tool can leave feedback.",
     input: ["text", "url"],
     multiple: false,
-    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   privacy_policy_url: {
     description: "A link to the tool's privacy policy, if available.",
     input: ["text", "url"],
     multiple: false,
-    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
   },
   translate_url: {
     description: "A link to the tool's translation interface.",
