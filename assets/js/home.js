@@ -1,25 +1,93 @@
 /*  ---  MOCK DATA ---- */
 
-const anno_keys = {
-  wikidata_qid: "Wikidata item ID",
-  for_wikis:
-    "A string or array of strings describing the wiki(s) this tool can be used on.  Use hostnames such as <code>zh.wiktionary.org</code>.  Use asterisks as wildcards.  For example, <code>*.wikisource.org</code> means 'this tool works on all Wikisource wikis.'  <code>*</code> means 'this works on all wikis, including Wikimedia wikis.'",
-  icon: "A link to a Wikimedia Commons file description page for an icon that depicts the tool.",
-  available_ui_languages:
-    "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language codes</a> like <code>zh</code> and <code>scn</code>.",
-  tool_type:
-    "The manner in which the tool is used.  Select one from the available options.",
-  repository: "A link to the repository where the tool code is hosted.",
-  api_url: "A link to the tool's API, if available.",
-  developer_docs_url:
-    "A link to the tool's developer documentation, if available.",
-  tool_docs_url: "A link to the tool's tool documentation, if available.",
-  feedback_url:
-    "A link to a location where the tool's tool can leave feedback.",
-  privacy_policy_url: "A link to the tool's privacy policy, if available.",
-  translate_url: "A link to the tool's translation interface.",
-  bugtracker_url:
-    "A link to the tool's bug tracker on GitHub, Bitbucket, Phabricator, etc.",
+const taskType = {
+  wikidata_qid: {
+    description: "Wikidata item ID",
+    input: ["text"],
+    multiple: false,
+    pattern: ["/^Qd+$/"],
+  },
+  for_wikis: {
+    description:
+      "A string or array of strings describing the wiki(s) this tool can be used on.  Use hostnames such as <code>zh.wiktionary.org</code>.  Use asterisks as wildcards.  For example, <code>*.wikisource.org</code> means 'this tool works on all Wikisource wikis.'  <code>*</code> means 'this works on all wikis, including Wikimedia wikis.'",
+    input: ["text"],
+    multiple: true,
+    pattern: [
+      "/^(*|(.*)?.?(mediawiki|wiktionary|wiki(pedia|quote|books|source|news|versity|data|voyage|media)).org)$/",
+    ],
+  },
+  icon: {
+    description:
+      "A link to a Wikimedia Commons file description page for an icon that depicts the tool.",
+    input: ["url"],
+    multiple: false,
+    pattern: ["/^https://commons.wikimedia.org/wiki/File:.+..+$/"],
+  },
+  available_ui_languages: {
+    description:
+      "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language codes</a> like <code>zh</code> and <code>scn</code>.",
+    input: ["text"],
+    multiple: "true",
+    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/"],
+  },
+  tool_type: {
+    description:
+      "The manner in which the tool is used.  Select one from the available options.",
+    input: ["select"],
+    multiple: false,
+    pattern: [null],
+  },
+  repository: {
+    description: "A link to the repository where the tool code is hosted.",
+    input: ["url"],
+    multiple: false,
+    pattern: [null],
+  },
+  api_url: {
+    description: "A link to the tool's API, if available.",
+    input: ["url"],
+    multiple: false,
+    pattern: [null],
+  },
+  // the default value of the text input for the following should be "en"
+  developer_docs_url: {
+    description: "A link to the tool's developer documentation, if available.",
+    input: ["text", "url"],
+    multiple: false,
+    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+  },
+  user_docs_url: {
+    description: "A link to the tool's user documentation, if available.",
+    input: ["text", "url"],
+    multiple: false,
+    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+  },
+  feedback_url: {
+    description:
+      "A link to a location where the tool's tool can leave feedback.",
+    input: ["text", "url"],
+    multiple: false,
+    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+  },
+  privacy_policy_url: {
+    description: "A link to the tool's privacy policy, if available.",
+    input: ["text", "url"],
+    multiple: false,
+    pattern: ["/^(x-.*|[A-Za-z]{2,3}(-.*)?)$/", null],
+  },
+  translate_url: {
+    description: "A link to the tool's translation interface.",
+    input: ["url"],
+    multiple: false,
+    pattern: [null],
+  },
+  bugtracker_url: {
+    description:
+      "A link to the tool's bug tracker on GitHub, Bitbucket, Phabricator, etc.",
+    input: ["url"],
+    multiple: false,
+    pattern: [null],
+  },
 };
 
 const mm_wikidata_todo = {
@@ -94,8 +162,8 @@ function prepTask(tool, task) {
   document.getElementById("task-form").appendChild(callToAction);
   let taskDescription = document.createElement("p");
   if (task === "for_wikis" || task === "available_ui_languages") {
-    taskDescription.innerHTML = `${task}: ${anno_keys[task]}`;
-  } else taskDescription.innerText = `${task}: ${anno_keys[task]}`;
+    taskDescription.innerHTML = `${task}: ${taskType[task].description}`;
+  } else taskDescription.innerText = `${task}: ${taskType[task].description}`;
   document.getElementById("task-form").appendChild(taskDescription);
 }
 
