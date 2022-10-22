@@ -103,7 +103,7 @@ const mm_wikidata_todo = {
     "for_wikis",
     "icon",
     "api_url",
-    "tool_docs_url",
+    "user_docs_url",
     "feedback_url",
     "privacy_policy_url",
     "translate_url",
