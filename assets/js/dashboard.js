@@ -155,7 +155,9 @@ function fillTable(contributionsArray, tableID) {
     // Otherwise it can be skipped.
     if (tableID === "global-contributions") {
       let user = document.createElement("td");
-      user.appendChild(makeElementWithLink(entry, "user"));
+      // Check to see that the user does have a profile link
+      if (user.link) user.appendChild(makeElementWithLink(entry, "user"));
+      else user.innerText = entry.user;
       row.appendChild(user);
     }
     let tool = document.createElement("td");
