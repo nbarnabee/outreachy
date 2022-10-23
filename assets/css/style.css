@@ -60,6 +60,18 @@ a[target="_blank"] {
 
 /* ---- Components/containers -------- */
 
+/* ------ Elements ----------  */
+
+input:not([type="checkbox"]) {
+  border: var(--border);
+  box-shadow: var(--shadow);
+  line-height: 20px;
+  margin-block: 12px;
+  padding-block: 8px;
+  width: 100%;
+  max-width: 800px;
+}
+
 /* ------ Navigation -------  */
 
 nav {
