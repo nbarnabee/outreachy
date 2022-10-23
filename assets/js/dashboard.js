@@ -56,19 +56,19 @@ const mockUser = {
       toolName: "pywikibot",
       toolTitle: "Pywikibot",
       fieldEdited: "available_ui_languages",
-      dateModified: 1666514747862,
+      dateModified: 1666214747862,
     },
     {
       toolName: "mm_wikidata_todo",
       toolTitle: "Wikidata Todo",
       fieldEdited: "for_wikis",
-      dateModified: 1652227200000,
+      dateModified: 1658227200000,
     },
     {
       toolName: "mm_find_duplicate_items",
       toolTitle: "Find duplicate items",
       fieldEdited: "repository",
-      dateModified: 1651449600000,
+      dateModified: 1655449600000,
     },
     {
       toolName: "pywikibot",
@@ -127,10 +127,64 @@ const globalActivity = [
 
 /* ------  Functions to populate page -------- */
 
-function createElements() {
+function createGreeting() {
   document.querySelector(
     ".user-name"
   ).innerText = `Welcome back, ${mockUser.user}!`;
 }
 
-createElements();
+/* This function takes an array of values and a table id, and populates the given table.
+It is similar to the populateTable() function I wrote in the 
+leaderboard.js file, and the two could probably be combined.
+ */
+
+function fillTable(contributionsArray, tableID) {
+  sortedContributions = contributionsArray.sort(
+    (a, b) => b.dateModified - a.dateModified
+  );
+  const tableBody = document.getElementById(tableID);
+  for (let entry of sortedContributions) {
+    let row = document.createElement("tr");
+    tableBody.appendChild(row);
+    // Create and insert the date field
+    let date = document.createElement("td");
+    let dateObj = new Date(entry.dateModified);
+    date.innerText = dateObj.toLocaleDateString();
+    row.appendChild(date);
+    // If this is the "global activity" we have the "user" field
+    // Otherwise it can be skipped.
+    if (tableID === "global-contributions") {
+      let user = document.createElement("td");
+      user.appendChild(makeElementWithLink(entry, "user"));
+      row.appendChild(user);
+    }
+    let tool = document.createElement("td");
+    tool.appendChild(makeElementWithLink(entry, "tool"));
+    row.appendChild(tool);
+    let contribution = document.createElement("td");
+    contribution.innerText = `Added ${entry.fieldEdited}`;
+    row.appendChild(contribution);
+  }
+}
+
+// For generating the links to insert in the table
+// Currently, the value of "type" would be either "tool" or "user"
+function makeElementWithLink(entry, type) {
+  let link = document.createElement("a");
+  if (type === "tool") {
+    link.setAttribute(
+      "href",
+      `https://toolhub.wikimedia.org/tools/${entry.toolName}`
+    );
+    link.innerText = entry.toolTitle;
+  } else {
+    link.setAttribute("href", entry.link);
+    link.innerText = entry.user;
+  }
+  link.setAttribute("target", "_blank");
+  return link;
+}
+
+createGreeting();
+fillTable(mockUser.latestActivity, "user-contributions");
+fillTable(globalActivity, "global-contributions");
