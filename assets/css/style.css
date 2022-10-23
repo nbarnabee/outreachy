@@ -153,7 +153,8 @@ nav > .link-container > a:hover {
 
 table {
   width: 100%;
-  margin-inline: 1rem;
+  margin-inline: auto;
+  margin-bottom: 3rem;
   border-collapse: collapse;
 }
 
@@ -174,14 +175,6 @@ tbody > tr:nth-child(odd) {
   color: white;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-.table-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
 }
 
 @media (min-width: 1000px) {
