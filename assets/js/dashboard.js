@@ -89,6 +89,7 @@ const globalActivity = [
     toolName: "xtools-ec",
     toolTitle: "XTools Edit Counter",
     fieldEdited: "icon",
+    dateModified: 1666514747862,
   },
   {
     user: "Ellenello",
@@ -96,6 +97,7 @@ const globalActivity = [
     toolName: "metawiki-jon-harald-søby-diffedit",
     toolTitle: "diffedit",
     fieldEdited: "repository",
+    dateModified: 1666505047862,
   },
   {
     user: "DannyBoyyy77",
@@ -103,6 +105,7 @@ const globalActivity = [
     toolName: "xtools-ec",
     toolTitle: "XTools Edit Counter",
     fieldEdited: "privacy_policy_url",
+    dateModified: 1666500047862,
   },
   {
     user: "Javier Alejandro Herrera Carvajal",
@@ -110,6 +113,7 @@ const globalActivity = [
     toolName: "toolforge-croptool",
     toolTitle: "CropTool",
     fieldEdited: "available_ui_languages",
+    dateModified: 1666410745862,
   },
   {
     user: "Tabby578",
@@ -117,5 +121,6 @@ const globalActivity = [
     toolName: "pywikibot",
     toolTitle: "Pywikibot",
     fieldEdited: "tool_type",
+    dateModified: 1666304737862,
   },
 ];
