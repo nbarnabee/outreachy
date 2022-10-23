@@ -33,7 +33,7 @@ const taskType = {
   },
   tool_type: {
     description:
-      "The manner in which the tool is used.  Select one from the available options.",
+      "The manner in which the tool is used.  Select one of the available options.",
     input: ["select"],
     multiple: false,
     pattern: [null],
