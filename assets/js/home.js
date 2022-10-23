@@ -52,30 +52,30 @@ const taskType = {
   developer_docs_url: {
     description:
       "A link to the tool's developer documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
-    input: ["text", "url"],
+    input: ["url", "text"],
     multiple: false,
-    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
+    pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   user_docs_url: {
     description:
       "A link to the tool's user documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
-    input: ["text", "url"],
+    input: ["url", "text"],
     multiple: false,
-    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
+    pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   feedback_url: {
     description:
       "A link to a location where the tool's user can leave feedback, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the expected language.  (If no value is given, this value will default to <code>en</code>.)",
-    input: ["text", "url"],
+    input: ["url", "text"],
     multiple: false,
-    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
+    pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   privacy_policy_url: {
     description:
-      "A link to the tool's privacy policy, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the policy's language.  (If no value is given, this value will default to <code>en</code>.",
-    input: ["text", "url"],
+      "A link to the tool's privacy policy, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the policy's language.  (If no value is given, this value will default to <code>en</code>.)",
+    input: ["url", "text"],
     multiple: false,
-    pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$", null],
+    pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   translate_url: {
     description: "A link to the tool's translation interface.",
@@ -196,6 +196,7 @@ function createTaskDescription(tool, task) {
   if (taskType[task].description.includes("</")) {
     taskDescription.innerHTML = `${task}: ${taskType[task].description}`;
   } else taskDescription.innerText = `${task}: ${taskType[task].description}`;
+  taskDescription.style.maxWidth = "66ch";
   return taskDescription;
 }
 
