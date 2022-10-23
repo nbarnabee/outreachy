@@ -4,6 +4,7 @@ const taskType = {
   wikidata_qid: {
     description: "Wikidata item ID",
     input: ["text"],
+    inputDescription: ["item ID"],
     multiple: false,
     pattern: ["^Qd+$"],
   },
@@ -110,6 +111,14 @@ const mm_wikidata_todo = {
   ],
 };
 
+const totally_fake = {
+  title: "A totally fake tool",
+  toolhub: "https://toolhub.wikimedia.org/tools/mm_wikidata_todo",
+  description: "I just made this one up to test some things.",
+  url: "http://www.google.com",
+  missing: ["tool_type", "available_ui_languages", "for_wikis"],
+};
+
 const pywikibot = {
   title: "Pywikibot",
   description:
@@ -120,7 +129,9 @@ const pywikibot = {
   missing: ["wikidata_qid", "api_url", "feedback_url", "privacy_policy_url"],
 };
 
-const availableTools = [pywikibot, mm_wikidata_todo];
+// const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
+
+const availableTools = [totally_fake];
 
 /* I'm declaring taskNum and oldNum globally so that I can access their values 
 when "skipping" a task. This ensures that the same task won't come up twice in a row. */
@@ -163,7 +174,7 @@ Three functions which produce three things, and a head function that calls them 
 function populateTaskDiv(tool, task) {
   let taskForm = document.getElementById("task-form");
   taskForm.appendChild(createTaskStatement(tool, task));
-  const taskInputs = createInput(tool, task);
+  const taskInputs = createInput(task);
   // array expected
   taskInputs.forEach((entry) => taskForm.appendChild(entry));
   taskForm.appendChild(createTaskDescription(tool, task));
@@ -175,20 +186,47 @@ function createTaskStatement(tool, task) {
   return taskStatement;
 }
 
-function createInput(tool, task) {
+function createInput(task) {
   const inputs = [];
-  if (taskType[task].input.includes("select")) {
-    const select = document.createElement("p");
-    inputs.push(select);
-    return inputs;
+  if (task === "tool_type") {
+    // For "tool_type" users must select from a pre-defined set of answers.
+    // This gets a little complicated so I'll make it its own function.
+    inputs.push(buildSelectMenu());
   } else {
     taskType[task].input.forEach((entry) => {
       const newInput = document.createElement("input");
       newInput.type = [entry];
+      newInput.required = true;
+      newInput.setAttribute("name", task);
+      newInput.placeholder = task;
       inputs.push(newInput);
     });
-    return inputs;
   }
+  return inputs;
+}
+
+function buildSelectMenu() {
+  const tool_types = [
+    "web app",
+    "desktop app",
+    "bot",
+    "gadget",
+    "user script",
+    "command line tool",
+    "coding framework",
+    "lua module",
+    "template",
+    "other",
+  ];
+  const newSelect = document.createElement("select");
+  newSelect.setAttribute("name", "tool_type");
+  tool_types.forEach((type) => {
+    let option = document.createElement("option");
+    option.value = [type];
+    option.innerText = [type];
+    newSelect.appendChild(option);
+  });
+  return newSelect;
 }
 
 function createTaskDescription(tool, task) {
