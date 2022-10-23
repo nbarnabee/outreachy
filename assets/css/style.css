@@ -62,7 +62,8 @@ a[target="_blank"] {
 
 /* ------ Elements ----------  */
 
-input:not([type="checkbox"]) {
+input:not([type="checkbox"]),
+select {
   border: var(--border);
   box-shadow: var(--shadow);
   line-height: 20px;
@@ -70,6 +71,11 @@ input:not([type="checkbox"]) {
   padding-block: 8px;
   width: 100%;
   max-width: 800px;
+  background-color: var(--lgt-grey);
+}
+
+select {
+  max-width: 400px;
 }
 
 /* ------ Navigation -------  */
