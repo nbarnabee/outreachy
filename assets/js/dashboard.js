@@ -78,8 +78,8 @@ const mockUser = {
     },
   ],
 };
-// base URL for tool https://toolhub.wikimedia.org/tools/
 
+// base URL for Toolhub https://toolhub.wikimedia.org/tools/
 // base URL for users: https://en.wikipedia.org/wiki/User:
 
 const globalActivity = [
@@ -124,3 +124,13 @@ const globalActivity = [
     dateModified: 1666304737862,
   },
 ];
+
+/* ------  Functions to populate page -------- */
+
+function createElements() {
+  document.querySelector(
+    ".user-name"
+  ).innerText = `Welcome back, ${mockUser.user}!`;
+}
+
+createElements();
