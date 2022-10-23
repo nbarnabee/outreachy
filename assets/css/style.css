@@ -71,11 +71,11 @@ select {
   padding-block: 8px;
   width: 100%;
   max-width: 800px;
-  background-color: var(--lgt-grey);
 }
 
 select {
   max-width: 400px;
+  background-color: white;
 }
 
 /* ------ Navigation -------  */
