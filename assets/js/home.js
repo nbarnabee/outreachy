@@ -28,7 +28,7 @@ const taskType = {
     description:
       "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639-1 language codes</a> like <code>zh</code> and <code>scn</code>.",
     input: ["text"],
-    multiple: "true",
+    multiple: true,
     pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   tool_type: {
@@ -177,7 +177,7 @@ function populateTaskDiv(tool, task) {
   // array expected
   taskInputs.forEach((entry) => taskForm.appendChild(entry));
   taskForm.appendChild(createTaskDescription(task));
-  taskForm.appendChild(makeButtons());
+  taskForm.appendChild(makeButtons(task));
 }
 
 function createTaskStatement(tool, task) {
@@ -246,7 +246,13 @@ function createTaskDescription(task) {
   return taskDescription;
 }
 
-function makeButtons() {
+function makeButtons(task) {
+  let buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("row");
+  // "for_wikis" and "available_ui_languages" can take multiple inputs
+  if (taskType[task].multiple === true) {
+    buttonContainer.appendChild(makeAddButton(task));
+  }
   let submitButton = document.createElement("button");
   submitButton.setAttribute("type", "button");
   submitButton.innerText = "Submit";
@@ -255,7 +261,23 @@ function makeButtons() {
     clearElements();
     getTask(oldNum);
   });
-  return submitButton;
+  buttonContainer.appendChild(submitButton);
+  return buttonContainer;
+}
+
+/* This function produces a button that, when clicked, 
+  will append a new input element to the existing inputs */
+
+function makeAddButton(task) {
+  let addButton = document.createElement("button");
+  addButton.setAttribute("type", "button");
+  addButton.innerText = "Add another value";
+  addButton.addEventListener("click", function () {
+    const newInput = createInput(task)[0];
+    let inputs = Array.from(document.getElementsByName([task]));
+    inputs[inputs.length - 1].insertAdjacentElement("afterend", newInput);
+  });
+  return addButton;
 }
 
 /* Functions for populating the div with id "tool-info" with a list of relevant 
