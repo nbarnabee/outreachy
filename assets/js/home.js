@@ -26,7 +26,7 @@ const taskType = {
   },
   available_ui_languages: {
     description:
-      "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language codes</a> like <code>zh</code> and <code>scn</code>.",
+      "The language(s) the tool's interface has been translated into.  Use <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639-1 language codes</a> like <code>zh</code> and <code>scn</code>.",
     input: ["text"],
     multiple: "true",
     pattern: ["^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
@@ -52,28 +52,28 @@ const taskType = {
   },
   developer_docs_url: {
     description:
-      "A link to the tool's developer documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
+      "A link to the tool's developer documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639-1 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["url", "text"],
     multiple: false,
     pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   user_docs_url: {
     description:
-      "A link to the tool's user documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
+      "A link to the tool's user documentation, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639-1 language code</a> that indicates the documentation's language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["url", "text"],
     multiple: false,
     pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   feedback_url: {
     description:
-      "A link to a location where the tool's user can leave feedback, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the expected language.  (If no value is given, this value will default to <code>en</code>.)",
+      "A link to a location where the tool's user can leave feedback, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639-1 language code</a> that indicates the expected language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["url", "text"],
     multiple: false,
     pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
   },
   privacy_policy_url: {
     description:
-      "A link to the tool's privacy policy, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639 language code</a> that indicates the policy's language.  (If no value is given, this value will default to <code>en</code>.)",
+      "A link to the tool's privacy policy, and an <a href='https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes' target='_blank'>ISO 639-1 language code</a> that indicates the policy's language.  (If no value is given, this value will default to <code>en</code>.)",
     input: ["url", "text"],
     multiple: false,
     pattern: [null, "^(x-.*|[A-Za-z]{2,3}(-.*)?)$"],
@@ -162,7 +162,7 @@ function getTask(num) {
 
 /* Functions for populating the div with id "task-info"
 
-A set of functions which produce the following elements, and a main function that calls them in turn:  
+We have a main function, which calls a set of functions that produce the following elements: 
 1. A statement of the task.
 2. An input element (or elements) appropriate to the task type.
 3. A description of the requested value.
@@ -197,18 +197,20 @@ function createInput(task) {
       newInput.type = [entry];
       newInput.required = true;
       newInput.setAttribute("name", task);
-      // In the event that an ISO 639 language code is required, I want that to be clearly indicated.
-      newInput.placeholder =
-        i === 1 || task === "available_ui_languages"
-          ? "ISO 639 language code"
-          : task;
+      /* In the event that an ISO 639 language code is required, I want that to be
+       clearly indicated.  The value should default to "en" in all cases other than
+      "available_ui_languages" */
+      if (i === 1) newInput.value = "en";
+      else if (task === "available_ui_languages")
+        newInput.placeholder = "ISO 639-1 language code";
+      else newInput.placeholder = task;
       inputs.push(newInput);
     });
   }
   return inputs;
 }
 
-// available_ui_languages problem with the placeholder;
+/* a note about available_ui_languages generally - if, as stated in the API docs, the default value should be "en," then surely that should be auto-generated on tool creation? */
 
 function buildSelectMenu() {
   const tool_types = [
