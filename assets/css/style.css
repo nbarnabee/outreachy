@@ -60,7 +60,7 @@ a[target="_blank"] {
 
 /* ---- Components/containers -------- */
 
-/* ------ Elements ----------  */
+/* ------ General Elements ----------  */
 
 input:not([type="checkbox"]),
 select {
@@ -175,6 +175,10 @@ nav > .link-container > a:hover {
 
   .container {
     margin-block: 1rem;
+  }
+
+  .offset * {
+    align-self: flex-end;
   }
 }
 
