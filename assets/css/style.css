@@ -68,9 +68,13 @@ select {
   box-shadow: var(--shadow);
   line-height: 20px;
   margin-block: 12px;
-  padding-block: 8px;
+  padding: 8px 10px;
   width: 100%;
   max-width: 800px;
+}
+
+input:nth-of-type(even) {
+  margin-top: -5px;
 }
 
 select {
