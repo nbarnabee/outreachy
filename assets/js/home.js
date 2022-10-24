@@ -177,6 +177,7 @@ function populateTaskDiv(tool, task) {
   // array expected
   taskInputs.forEach((entry) => taskForm.appendChild(entry));
   taskForm.appendChild(createTaskDescription(task));
+  taskForm.appendChild(makeButtons());
 }
 
 function createTaskStatement(tool, task) {
@@ -189,7 +190,7 @@ function createInput(task) {
   const inputs = [];
   if (task === "tool_type") {
     // For "tool_type" users must select from a pre-defined set of answers.
-    // This gets a little complicated so I'll make it its own function.
+    // I wrote a separate function to generate the select menu.
     inputs.push(buildSelectMenu());
   } else {
     taskType[task].input.forEach((entry, i) => {
@@ -245,14 +246,26 @@ function createTaskDescription(task) {
   return taskDescription;
 }
 
-/* Functions for populating the div with id "tool-info"
+function makeButtons() {
+  let submitButton = document.createElement("button");
+  submitButton.setAttribute("type", "button");
+  submitButton.innerText = "Submit";
+  submitButton.addEventListener("click", () => {
+    console.log("ok");
+    clearElements();
+    getTask(oldNum);
+  });
+  return submitButton;
+}
 
-They're producing a list of relevant links taken from the data for the selected tool.
+/* Functions for populating the div with id "tool-info" with a list of relevant 
+links taken from the data for the selected tool.
 
 All tools must have both a URL and a Toolhub link, so those will always be included.
-If the tool has a repository, I'll include a link to that as well.
-If the task is wikidata_qid I'll include a link to Wikidata
-If the task is icon I'll include a link to Wikimedia Commons
+If the tool has a repository, the function will generate a link.
+If the task is wikidata_qid the function will reveal the link to Wikidata.
+If the task is icon the function will reveal the link to Wikimedia Commons.
+
 */
 
 function populateToolLinks(tool, task) {
