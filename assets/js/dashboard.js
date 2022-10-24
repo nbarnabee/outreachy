@@ -187,6 +187,35 @@ function makeElementWithLink(entry, type) {
   return link;
 }
 
+/* ------- Defining the charts --------- */
+
+const ctx = document.getElementById("missing-values");
+const myChart = new Chart(ctx, {
+  type: "pie",
+  data: {
+    labels: ["0-10", "11", "12", "13"],
+    datasets: [
+      {
+        label: "# of missing fields",
+        data: [347, 759, 450, 1146],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  },
+});
+
 createGreeting();
 fillTable(mockUser.latestActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
