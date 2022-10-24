@@ -147,6 +147,10 @@ nav > .link-container > a:hover {
   align-items: center;
 }
 
+.offset > button {
+  margin-top: 8px;
+}
+
 .card {
   margin: 1rem;
   display: flex;
@@ -179,6 +183,7 @@ nav > .link-container > a:hover {
 
   .offset * {
     align-self: flex-end;
+    margin-right: 24px;
   }
 }
 
