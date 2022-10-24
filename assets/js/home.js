@@ -156,7 +156,7 @@ function getTask(num) {
   }
   let task = tool.missing[taskNum];
   oldNum = taskNum;
-  populateToolLinks(tool);
+  populateToolLinks(tool, task);
   populateTaskDiv(tool, task);
 }
 
@@ -192,17 +192,23 @@ function createInput(task) {
     // This gets a little complicated so I'll make it its own function.
     inputs.push(buildSelectMenu());
   } else {
-    taskType[task].input.forEach((entry) => {
+    taskType[task].input.forEach((entry, i) => {
       const newInput = document.createElement("input");
       newInput.type = [entry];
       newInput.required = true;
       newInput.setAttribute("name", task);
-      newInput.placeholder = task;
+      // In the event that an ISO 639 language code is required, I want that to be clearly indicated.
+      newInput.placeholder =
+        i === 1 || task === "available_ui_languages"
+          ? "ISO 639 language code"
+          : task;
       inputs.push(newInput);
     });
   }
   return inputs;
 }
+
+// available_ui_languages problem with the placeholder;
 
 function buildSelectMenu() {
   const tool_types = [
@@ -238,13 +244,20 @@ function createTaskDescription(task) {
 }
 
 /* Functions for populating the div with id "tool-info"
+
 They're producing a list of relevant links taken from the data for the selected tool.
+
+All tools must have both a URL and a Toolhub link, so those will always be included.
+If the tool has a repository, I'll include a link to that as well.
+If the task is wikidata_qid I'll include a link to Wikidata
+If the task is icon I'll include a link to Wikimedia Commons
 */
 
-function populateToolLinks(tool) {
+function populateToolLinks(tool, task) {
   const toolNameReferences = Array.from(
     document.querySelectorAll(".tool-name")
   );
+  // This fills in the blank spans in the hardcoded "li" elements
   toolNameReferences.forEach((reference) => (reference.innerText = tool.title));
   const toolhubLink = makeLink(tool, "toolhub");
   document.getElementById("toolhub-link").appendChild(toolhubLink);
@@ -255,6 +268,9 @@ function populateToolLinks(tool) {
     document.getElementById("repository-link").appendChild(repositoryLink);
     document.getElementById("repository-link").hidden = false;
   }
+  if (task === "wikidata_qid")
+    document.getElementById("wikidata-link").hidden = false;
+  if (task === "icon") document.getElementById("wikimedia-link").hidden = false;
 }
 
 function makeLink(tool, linkType) {
@@ -276,6 +292,8 @@ function clearElements() {
   const disposableLinks = Array.from(document.querySelectorAll(".disposable"));
   disposableLinks.forEach((link) => link.remove());
   document.getElementById("repository-link").hidden = true;
+  document.getElementById("wikidata-link").hidden = true;
+  document.getElementById("wikimedia-link").hidden = true;
 }
 
 getTask(null);
