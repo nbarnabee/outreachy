@@ -113,8 +113,8 @@ const mm_wikidata_todo = {
 
 const totally_fake = {
   title: "A totally fake tool",
-  toolhub: "https://toolhub.wikimedia.org/tools/mm_wikidata_todo",
   description: "I just made this one up to test some things.",
+  toolhub: "https://toolhub.wikimedia.org/tools/mm_wikidata_todo",
   url: "http://www.google.com",
   missing: ["tool_type", "available_ui_languages", "for_wikis"],
 };
@@ -129,9 +129,7 @@ const pywikibot = {
   missing: ["wikidata_qid", "api_url", "feedback_url", "privacy_policy_url"],
 };
 
-// const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
-
-const availableTools = [totally_fake];
+const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
 
 /* I'm declaring taskNum and oldNum globally so that I can access their values 
 when "skipping" a task. This ensures that the same task won't come up twice in a row. */
@@ -163,7 +161,8 @@ function getTask(num) {
 }
 
 /* Functions for populating the div with id "task-info"
-Three functions which produce three things, and a head function that calls them in turn:  
+
+A set of functions which produce the following elements, and a main function that calls them in turn:  
 1. A statement of the task.
 2. An input element (or elements) appropriate to the task type.
 3. A description of the requested value.
@@ -177,12 +176,12 @@ function populateTaskDiv(tool, task) {
   const taskInputs = createInput(task);
   // array expected
   taskInputs.forEach((entry) => taskForm.appendChild(entry));
-  taskForm.appendChild(createTaskDescription(tool, task));
+  taskForm.appendChild(createTaskDescription(task));
 }
 
 function createTaskStatement(tool, task) {
   let taskStatement = document.createElement("h3");
-  taskStatement.innerText = `${tool.title} is missing its ${task}.  Can you find it?`;
+  taskStatement.innerText = `${tool.title} is missing its ${task}.`;
   return taskStatement;
 }
 
@@ -229,7 +228,7 @@ function buildSelectMenu() {
   return newSelect;
 }
 
-function createTaskDescription(tool, task) {
+function createTaskDescription(task) {
   let taskDescription = document.createElement("p");
   if (taskType[task].description.includes("</")) {
     taskDescription.innerHTML = `${task}: ${taskType[task].description}`;
@@ -270,7 +269,7 @@ function makeLink(tool, linkType) {
   return toolLink;
 }
 
-// Function to reset the content of the divs "tool-info" and "task-info"
+// Function to reset the content of the divs "tool-info" and "task-info" when the "skip button is pressed"
 
 function clearElements() {
   document.getElementById("task-form").innerHTML = "";
