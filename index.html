@@ -41,20 +41,23 @@
     <!-- <div class="spacer"></div> -->
     <form id="task-form" class="container centered">
       <!-- statement of the task -->
-      <!-- input options and submit button -->
-      <!-- if the task is tool_type, checkboxes instead of an input bar -->
-      <!-- if the task is available_ui_languages, an input field, and validate that it's just two letters.  also might want to give the option of adding more input bars -->
+      <!-- input field -->
+      <!-- if the task is tool_type, a select menu instead of an input bar -->
       <!-- field description -->
+      <!-- option to add more fields, where appropriate (e.g., the task is "for_wikis" or "available_ui_languages") -->
+      <!-- submit button -->
     </form>
     <div id="tool-info" class="container container-small centered shadowed">
       <h3>These links may help you with your search:</h3>
       <ul>
+        <li id="wikidata-link" hidden><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"
+            target="_blank">Wikidata</a></li>
+        <li id="wikimedia-link" hidden><a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank">Wikimedia
+            Commons</a></li>
         <li id="toolhub-link"><span class="tool-name"></span> on Toolhub:&nbsp;</li>
         <li id="url-link"><span class="tool-name"></span> on the web:&nbsp;</li>
         <li id="repository-link" hidden>Repository:&nbsp;</li>
       </ul>
-      <!-- links to toolhub and url, repo, if they exist -->
-      <!-- if the task === wikidata_qid, a link to wikidata -->
 
     </div>
 
