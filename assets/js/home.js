@@ -331,6 +331,7 @@ function clearElements() {
   document.getElementById("repository-link").hidden = true;
   document.getElementById("wikidata-link").hidden = true;
   document.getElementById("wikimedia-link").hidden = true;
+  document.getElementById("info-missing").checked = false;
 }
 
 getTask(null);
