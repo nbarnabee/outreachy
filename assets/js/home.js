@@ -334,12 +334,11 @@ function clearElements() {
 a tool reset.  */
 
 function fakeSubmit() {
-  document.querySelector(".modal").classList.remove("modal-closed");
+  document.body.classList.add("modal-open");
 }
 
 document.querySelector(".close-modal").addEventListener("click", function () {
-  const modal = document.querySelector(".modal");
-  modal.classList.add("modal-closed");
+  document.body.classList.remove("modal-open");
   clearElements();
   getTask(oldNum);
 });
