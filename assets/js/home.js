@@ -256,11 +256,7 @@ function makeButtons(task) {
   let submitButton = document.createElement("button");
   submitButton.setAttribute("type", "button");
   submitButton.innerText = "Submit";
-  submitButton.addEventListener("click", () => {
-    console.log("ok");
-    clearElements();
-    getTask(oldNum);
-  });
+  submitButton.addEventListener("click", fakeSubmit);
   buttonContainer.appendChild(submitButton);
   return buttonContainer;
 }
@@ -333,5 +329,19 @@ function clearElements() {
   document.getElementById("wikimedia-link").hidden = true;
   document.getElementById("info-missing").checked = false;
 }
+
+/* Upon clicking the submit button, the modal pops open.  Closing the modal triggers
+a tool reset.  */
+
+function fakeSubmit() {
+  document.querySelector(".modal").classList.remove("modal-closed");
+}
+
+document.querySelector(".close-modal").addEventListener("click", function () {
+  const modal = document.querySelector(".modal");
+  modal.classList.add("modal-closed");
+  clearElements();
+  getTask(oldNum);
+});
 
 getTask(null);
