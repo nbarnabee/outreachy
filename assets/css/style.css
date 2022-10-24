@@ -5,6 +5,8 @@
   --black: #202122;
   --shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  --dk-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.8), 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.18);
   --border: 1px solid #e7e7e7;
 }
 
@@ -191,6 +193,34 @@ nav > .link-container > a:hover {
   .container {
     max-width: 1185px;
   }
+}
+
+/* ---- Modal --------- */
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 500px);
+  height: 300px;
+  overflow-y: auto;
+  border: var(--border);
+  box-shadow: var(--dk-shadow);
+  background-color: white;
+}
+
+.modal-closed {
+  transform: translateX(100vw);
+}
+
+.modal > button {
+  align-self: flex-end;
+  margin: 8px;
 }
 
 /* -- Tables (Leaderboard page) -- */
