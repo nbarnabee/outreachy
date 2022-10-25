@@ -36,55 +36,92 @@
           the Toolhunt project.</p>
       </div>
     </div>
-    <section>
-      <table class="shadowed">
-        <caption>
-          <h2 class="table-title reduced-size">My Contributions</h2>
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">
-              <h3>Date</h3>
-            </th>
-            <th scope="col">
-              <h3>Tool</h3>
-            </th>
-            <th scope="col">
-              <h3>Contribution</h3>
-            </th>
-          </tr>
-        </thead>
-        <tbody id="user-contributions">
-        </tbody>
-      </table>
 
-      <table class="shadowed">
-        <caption>
-          <h2 class="table-title reduced-size">Latest Activity</h2>
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">
-              <h3>Date</h3>
-            </th>
-            <th scope="col">
-              <h3>User</h3>
-            </th>
-            <th scope="col">
-              <h3>Tool</h3>
-            </th>
-            <th scope="col">
-              <h3>Contribution</h3>
-            </th>
-          </tr>
-        </thead>
-        <tbody id="global-contributions">
-        </tbody>
-      </table>
-    </section>
+    <table class="shadowed">
+      <caption>
+        <h2 class="table-title reduced-size clr-white bg-blue">My Contributions</h2>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">
+            <h3>Date</h3>
+          </th>
+          <th scope="col">
+            <h3>Tool</h3>
+          </th>
+          <th scope="col">
+            <h3>Contribution</h3>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="user-contributions">
+      </tbody>
+    </table>
+
+    <table class="shadowed">
+      <caption>
+        <h2 class="table-title reduced-size clr-white bg-blue">Latest Activity</h2>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">
+            <h3>Date</h3>
+          </th>
+          <th scope="col">
+            <h3>User</h3>
+          </th>
+          <th scope="col">
+            <h3>Tool</h3>
+          </th>
+          <th scope="col">
+            <h3>Contribution</h3>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="global-contributions">
+      </tbody>
+    </table>
+
+
     <div>
       <canvas id="missing-values-count"></canvas>
     </div>
+
+    <div class="row">
+      <div class="card shadowed border">
+        <h3 class="card-title bg-grey">At a Glance</h3>
+        <div class="card-body">
+          <div class="card-text">
+            <p>Number of tools on record: </p>
+            <p>Number of tools with missing data: </p>
+            <p>Percentage of tools with missing data: </p>
+          </div>
+          <div class="card-text">
+            <p id="tool-num-total">1</p>
+            <p id="tool-missing-data-total">1</p>
+            <p id="tool-missing-data-percent">1</p>
+          </div>
+        </div>
+      </div>
+      <div class="card shadowed border">
+        <h3 class="card-title bg-grey">Contribution Stats</h3>
+        <div class="card-body">
+          <div class="card-text">
+            <p>My contributions in the last 30 days:</p>
+            <p>My total contributions: </p>
+            <p>Global contributions in the last 30 days: </p>
+            <p>Total contributions: </p>
+          </div>
+          <div class="card-text">
+            <p id="user-contributions-30">1</p>
+            <p id="user-contributions-total">1</p>
+            <p id="global-contributions-30">1</p>
+            <p id="global-contributions-total">1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- <section>
       <div>
