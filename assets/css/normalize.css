@@ -27,10 +27,14 @@ body {
 img,
 picture,
 video,
-canvas,
 svg {
   display: block;
   max-width: 100%;
+}
+
+canvas {
+  display: inline-block;
+  max-height: 100%;
 }
 
 input,
