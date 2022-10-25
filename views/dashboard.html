@@ -58,6 +58,56 @@
       </tbody>
     </table>
 
+    <section class="row container" aria-labelledby="at-a-glance">
+      <div class="column">
+        <div class="card shadowed border">
+          <h3 class="card-title bg-grey" id="at-a-glance">Toolhub at a Glance</h3>
+          <div class="card-body">
+            <div class="card-text">
+              <p>Number of tools on record: </p>
+              <p>Number of tools with missing data: </p>
+              <p>Percentage of tools with missing data: </p>
+            </div>
+            <div class="card-text">
+              <p id="tool-num-total">1</p>
+              <p id="tool-missing-data-total">1</p>
+              <p id="tool-missing-data-percent">1</p>
+            </div>
+          </div>
+        </div>
+        <div class="card shadowed border">
+          <h3 class="card-title bg-grey">Contribution Stats</h3>
+          <div class="card-body">
+            <div class="card-text">
+              <p>My contributions in the last 30 days:</p>
+              <p>My total contributions: </p>
+              <p>Global contributions in the last 30 days: </p>
+              <p>Total contributions: </p>
+            </div>
+            <div class="card-text">
+              <p id="user-contributions-recent">1</p>
+              <p id="user-contributions-total">1</p>
+              <p id="global-contributions-recent">1</p>
+              <p id="global-contributions-total">1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card shadowed border">
+        <h3 class="card-title bg-grey">How Much Are We Missing?</h3>
+        <div class="card-body row">
+          <div class="chart-text">
+            <p>Currently, <span id="one-to-ten"></span> of tools on Toolhub are missing between 1 and 10 values. <span
+                id="eleven"></span> are missing 11 values, <span id="twelve"></span> are missing 12 values, and <span
+                id="thirteen"></span> are missing 13 values!</p>
+          </div>
+          <div class="padding-bottom">
+            <canvas id="missing-values-count"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <table class="shadowed">
       <caption>
         <h2 class="table-title reduced-size clr-white bg-blue">Latest Activity</h2>
@@ -81,53 +131,6 @@
       <tbody id="global-contributions">
       </tbody>
     </table>
-
-
-    <div>
-      <canvas id="missing-values-count"></canvas>
-    </div>
-
-    <div class="row">
-      <div class="card shadowed border">
-        <h3 class="card-title bg-grey">Toolhub at a Glance</h3>
-        <div class="card-body">
-          <div class="card-text">
-            <p>Number of tools on record: </p>
-            <p>Number of tools with missing data: </p>
-            <p>Percentage of tools with missing data: </p>
-          </div>
-          <div class="card-text">
-            <p id="tool-num-total">1</p>
-            <p id="tool-missing-data-total">1</p>
-            <p id="tool-missing-data-percent">1</p>
-          </div>
-        </div>
-      </div>
-      <div class="card shadowed border">
-        <h3 class="card-title bg-grey">Contribution Stats</h3>
-        <div class="card-body">
-          <div class="card-text">
-            <p>My contributions in the last 30 days:</p>
-            <p>My total contributions: </p>
-            <p>Global contributions in the last 30 days: </p>
-            <p>Total contributions: </p>
-          </div>
-          <div class="card-text">
-            <p id="user-contributions-recent">1</p>
-            <p id="user-contributions-total">1</p>
-            <p id="global-contributions-recent">1</p>
-            <p id="global-contributions-total">1</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- <section>
-      <div>
-        <canvas id=""></canvas>
-      </div>
-    </section> -->
 
   </main>
 
