@@ -1,12 +1,13 @@
 // The following data was produced in my Juypter notebook.
 
-const missingFieldStats = {
+const globalStats = {
   totalTools: 2702,
   toolsMissingInfo: 2701,
-  howMuchIsMissing: {
+  missingByCount: {
     // number of fields missing : number of tools for which this is true
     0: 1,
     1: 1,
+    2: 0,
     3: 7,
     4: 6,
     5: 10,
@@ -19,7 +20,7 @@ const missingFieldStats = {
     12: 450,
     13: 1146,
   },
-  whatIsMissing: {
+  missingByType: {
     tool_type: 1671,
     repository: 1893,
     user_docs_url: 1958,
@@ -36,7 +37,17 @@ const missingFieldStats = {
   },
 };
 
-// I'm thinking pie charts for those.
+// So few tools are missing between 1 and 10 values that there's no point in representing them individually on the chart.
+
+function calcOneToTen() {
+  let oneToTen = 0;
+  for (let i = 1; i <= 10; i++) {
+    oneToTen += globalStats.missingByCount[i];
+  }
+  globalStats.missingByCount.oneToTen = oneToTen;
+}
+
+calcOneToTen();
 
 // Mock data sets now
 
@@ -188,7 +199,8 @@ function makeElementWithLink(entry, type) {
   return link;
 }
 
-/* ----  Filling in the "At A Glance" and "Contribution Stats" cards --- */
+/* ----  Filling in the "At A Glance," "Contribution Stats," and
+"How Much Are We Missing?" cards --- */
 
 function fillStatsCards(global, user, globalUsers) {
   document.getElementById("tool-num-total").innerText = global.totalTools;
@@ -209,6 +221,22 @@ function fillStatsCards(global, user, globalUsers) {
     globalUsers.contributions.recent;
   document.getElementById("global-contributions-total").innerText =
     globalUsers.contributions.total;
+  document.getElementById("one-to-ten").innerText = (
+    (347 / global.totalTools) *
+    100
+  ).toFixed(2);
+  document.getElementById("eleven").innerText = (
+    (global.missingByCount[11] / global.totalTools) *
+    100
+  ).toFixed(2);
+  document.getElementById("twelve").innerText = (
+    (global.missingByCount[12] / global.totalTools) *
+    100
+  ).toFixed(2);
+  document.getElementById("thirteen").innerText = (
+    (global.missingByCount[13] / global.totalTools) *
+    100
+  ).toFixed(2);
 }
 
 /* ------- Defining the charts --------- */
@@ -219,14 +247,19 @@ const chart1 = document.getElementById("missing-values-count");
 const missingValues = new Chart(chart1, {
   type: "pie",
   data: {
-    labels: ["0-10", "11", "12", "13"],
+    labels: ["1-10", "11", "12", "13"],
     datasets: [
       {
         label: "# of missing values",
-        data: [347, 759, 450, 1146],
+        data: [
+          globalStats.missingByCount.oneToTen,
+          globalStats.missingByCount[11],
+          globalStats.missingByCount[12],
+          globalStats.missingByCount[13],
+        ],
         backgroundColor: ["#7698ff", "#ff7062", "#5ee7be", "#ffff6e"],
         borderColor: ["#567fe9", "#fd524a", "#3ccba3", "#ffe852"],
-        borderWidth: 1,
+        borderWidth: 2,
       },
     ],
   },
@@ -234,52 +267,14 @@ const missingValues = new Chart(chart1, {
     plugins: {
       title: {
         display: true,
-        text: "# of Missing Values",
+        text: "# of Tools That Are Missing Values",
         align: "center",
       },
     },
   },
 });
 
-// const chart2 = document.getElementById("missing-values-count");
-// const missingValues = new Chart(chart1, {
-//   type: "pie",
-//   data: {
-//     labels: ["0-10", "11", "12", "13"],
-//     datasets: [
-//       {
-//         label: "# of missing values",
-//         data: [347, 759, 450, 1146],
-//         backgroundColor: [
-//           "rgba(255, 99, 132, 0.2)",
-//           "rgba(54, 162, 235, 0.2)",
-//           "rgba(255, 206, 86, 0.2)",
-//           "rgba(75, 192, 192, 0.2)",
-//         ],
-//         borderColor: [
-//           "rgba(255, 99, 132, 1)",
-//           "rgba(54, 162, 235, 1)",
-//           "rgba(255, 206, 86, 1)",
-//           "rgba(75, 192, 192, 1)",
-//         ],
-//         borderWidth: 1,
-//       },
-//     ],
-//   },
-//   options: {
-//     plugins: {
-//       title: {
-//         display: true,
-//         text: "# of Missing Values",
-//         align: "center",
-//       },
-//     },
-//   },
-// });
-
 createGreeting();
 fillTable(userActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
-fillStatsCards(missingFieldStats, userActivity, globalActivity);
-
-// The Dashboard is required to show the following metrics with mock figures (feel free to add other analytics you think may be useful to monitor): Total number of Tools in the records, number of tools with missing information, percentage of tools with missing information compared with the total number of tools in the records, number of tools edited using this record management tool
+fillStatsCards(globalStats, userActivity, globalActivity);
