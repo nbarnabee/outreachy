@@ -189,14 +189,16 @@ function makeElementWithLink(entry, type) {
 
 /* ------- Defining the charts --------- */
 
-const ctx = document.getElementById("missing-values");
-const myChart = new Chart(ctx, {
+// Displaying the # of missing values
+
+const chart1 = document.getElementById("missing-values-count");
+const missingValues = new Chart(chart1, {
   type: "pie",
   data: {
     labels: ["0-10", "11", "12", "13"],
     datasets: [
       {
-        label: "# of missing fields",
+        label: "# of missing values",
         data: [347, 759, 450, 1146],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -214,8 +216,55 @@ const myChart = new Chart(ctx, {
       },
     ],
   },
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: "# of Missing Values",
+        align: "center",
+      },
+    },
+  },
 });
+
+// const chart2 = document.getElementById("missing-values-count");
+// const missingValues = new Chart(chart1, {
+//   type: "pie",
+//   data: {
+//     labels: ["0-10", "11", "12", "13"],
+//     datasets: [
+//       {
+//         label: "# of missing values",
+//         data: [347, 759, 450, 1146],
+//         backgroundColor: [
+//           "rgba(255, 99, 132, 0.2)",
+//           "rgba(54, 162, 235, 0.2)",
+//           "rgba(255, 206, 86, 0.2)",
+//           "rgba(75, 192, 192, 0.2)",
+//         ],
+//         borderColor: [
+//           "rgba(255, 99, 132, 1)",
+//           "rgba(54, 162, 235, 1)",
+//           "rgba(255, 206, 86, 1)",
+//           "rgba(75, 192, 192, 1)",
+//         ],
+//         borderWidth: 1,
+//       },
+//     ],
+//   },
+//   options: {
+//     plugins: {
+//       title: {
+//         display: true,
+//         text: "# of Missing Values",
+//         align: "center",
+//       },
+//     },
+//   },
+// });
 
 createGreeting();
 fillTable(mockUser.latestActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
+
+// The Dashboard is required to show the following metrics with mock figures (feel free to add other analytics you think may be useful to monitor): Total number of Tools in the records, number of tools with missing information, percentage of tools with missing information compared with the total number of tools in the records, number of tools edited using this record management tool
