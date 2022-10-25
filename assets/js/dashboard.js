@@ -40,16 +40,11 @@ const missingFieldStats = {
 
 // Mock data sets now
 
-const globalContributions = {
-  thisMonth: 73,
-  allTime: 226,
-};
-
-const mockUser = {
+const userActivity = {
   user: "NicoleLBee",
   contributions: {
-    thisMonth: 4,
-    total: 7,
+    thirtyDays: 1,
+    total: 4,
   },
   latestActivity: [
     {
@@ -82,64 +77,70 @@ const mockUser = {
 // base URL for Toolhub https://toolhub.wikimedia.org/tools/
 // base URL for users: https://en.wikipedia.org/wiki/User:
 
-const globalActivity = [
-  {
-    user: "DannyBoyyy77",
-    link: "https://en.wikipedia.org/wiki/User:DannyBoyyy77",
-    toolName: "xtools-ec",
-    toolTitle: "XTools Edit Counter",
-    fieldEdited: "icon",
-    dateModified: 1666514747862,
+const globalActivity = {
+  contributions: {
+    thirtyDays: 73,
+    total: 226,
   },
-  {
-    user: "Ellenello",
-    link: "https://en.wikipedia.org/wiki/User:Ellenello",
-    toolName: "metawiki-jon-harald-søby-diffedit",
-    toolTitle: "diffedit",
-    fieldEdited: "repository",
-    dateModified: 1666505047862,
-  },
-  {
-    user: "DannyBoyyy77",
-    link: "https://en.wikipedia.org/wiki/User:DannyBoyyy77",
-    toolName: "xtools-ec",
-    toolTitle: "XTools Edit Counter",
-    fieldEdited: "privacy_policy_url",
-    dateModified: 1666500047862,
-  },
-  {
-    user: "Javier Alejandro Herrera Carvajal",
-    link: "https://en.wikipedia.org/wiki/User:Javier%20Alejandro%20Herrera%20Carvajal",
-    toolName: "toolforge-croptool",
-    toolTitle: "CropTool",
-    fieldEdited: "available_ui_languages",
-    dateModified: 1666410745862,
-  },
-  {
-    user: "Tabby578",
-    link: "https://en.wikipedia.org/wiki/User:Tabby578",
-    toolName: "pywikibot",
-    toolTitle: "Pywikibot",
-    fieldEdited: "tool_type",
-    dateModified: 1666304737862,
-  },
-];
+  latestActivity: [
+    {
+      user: "DannyBoyyy77",
+      link: "https://en.wikipedia.org/wiki/User:DannyBoyyy77",
+      toolName: "xtools-ec",
+      toolTitle: "XTools Edit Counter",
+      fieldEdited: "icon",
+      dateModified: 1666514747862,
+    },
+    {
+      user: "Ellenello",
+      link: "https://en.wikipedia.org/wiki/User:Ellenello",
+      toolName: "metawiki-jon-harald-søby-diffedit",
+      toolTitle: "diffedit",
+      fieldEdited: "repository",
+      dateModified: 1666505047862,
+    },
+    {
+      user: "DannyBoyyy77",
+      link: "https://en.wikipedia.org/wiki/User:DannyBoyyy77",
+      toolName: "xtools-ec",
+      toolTitle: "XTools Edit Counter",
+      fieldEdited: "privacy_policy_url",
+      dateModified: 1666500047862,
+    },
+    {
+      user: "Javier Alejandro Herrera Carvajal",
+      link: "https://en.wikipedia.org/wiki/User:Javier%20Alejandro%20Herrera%20Carvajal",
+      toolName: "toolforge-croptool",
+      toolTitle: "CropTool",
+      fieldEdited: "available_ui_languages",
+      dateModified: 1666410745862,
+    },
+    {
+      user: "Tabby578",
+      link: "https://en.wikipedia.org/wiki/User:Tabby578",
+      toolName: "pywikibot",
+      toolTitle: "Pywikibot",
+      fieldEdited: "tool_type",
+      dateModified: 1666304737862,
+    },
+  ],
+};
 
 /* ------  Functions to populate page -------- */
 
 function createGreeting() {
   document.querySelector(
     ".user-name"
-  ).innerText = `Welcome back, ${mockUser.user}!`;
+  ).innerText = `Welcome back, ${userActivity.user}!`;
 }
 
-/* This function takes an array of values and a table id, and populates the given table.
-It is similar to the populateTable() function I wrote in the 
-leaderboard.js file, and the two could probably be combined.
+/* This function takes an array of values and a table id (either "user-contributions"or "global-contributions"), and populates the given table. It is similar to the 
+populateTable() function I wrote in the leaderboard.js file, and the two could probably be combined.
  */
 
 function fillTable(contributionsArray, tableID) {
-  sortedContributions = contributionsArray.sort(
+  const activity = contributionsArray.latestActivity;
+  sortedContributions = activity.sort(
     (a, b) => b.dateModified - a.dateModified
   );
   const tableBody = document.getElementById(tableID);
@@ -151,7 +152,7 @@ function fillTable(contributionsArray, tableID) {
     let dateObj = new Date(entry.dateModified);
     date.innerText = dateObj.toLocaleDateString();
     row.appendChild(date);
-    // If this is the "global activity" we have the "user" field
+    // If this is the "global activity" table, we have to fill the "user" column
     // Otherwise it can be skipped.
     if (tableID === "global-contributions") {
       let user = document.createElement("td");
@@ -264,7 +265,7 @@ const missingValues = new Chart(chart1, {
 // });
 
 createGreeting();
-fillTable(mockUser.latestActivity, "user-contributions");
+fillTable(userActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
 
 // The Dashboard is required to show the following metrics with mock figures (feel free to add other analytics you think may be useful to monitor): Total number of Tools in the records, number of tools with missing information, percentage of tools with missing information compared with the total number of tools in the records, number of tools edited using this record management tool
