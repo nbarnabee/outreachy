@@ -29,37 +29,39 @@ I felt that utilizing a front-end framework would be overkill for such a relativ
 
 ### Alternate options
 
-My inspection of the Toolhub site indicated that it was built using Vue and Vuetify. If I were to work on the full version of this project, I would write it in Vue, in order to keep the syntax and styling standard.
+My inspection of the Toolhub site indicated that it was built using Vue and Vuetify. If I were to work on the full version of this project, I would write it in Vue and use Vuetify, in order to keep to a standard styling and syntax.
 
 ## The Process
 
-In addition to fulfilling the requirements listed above, I wanted to design a site that would mesh visually with the existing Toolhub website. I mimicked the colors, logos, spacing and general style of Toolhub.
+In addition to fulfilling the requirements listed above, I wanted to design a site that would mesh visually with the existing Toolhub website. When choosing colors, spacing and general style, I mimicked Toolhub as far as possible, and utilized their logo.
 
 ![Toolhub homepage](/docs/images/toolhub-home.jpg)
 
-I also wanted to, as much as possible, generate the page content dynamically, mimicking how the forms and tables on a _real_ version of this site would be populated with data taken from API calls. In order to accomplish this, I included a series of mock data objects in my JS files that contained information I would expect to be able to receive from the API, as well as information about users.
+I also wanted to, as much as possible, generate the page content dynamically, mimicking how the forms and tables on a _real_ version of this site would be populated with data taken from API calls. In order to accomplish this, I included a series of mock data objects in my JS files that contained information I would expect to be able to receive from the API.
 
 ![Mock dataset](/docs/images/mock_data.jpg)
 
 ### The Home Page
 
-The Home Page contains the editing interface. I felt it important to present as much information to the user as possible, so that it would be clear what the task was and what they were being expected to find. In this way I hoped to minimize user confusion and present a more streamline experience.
+The Home Page contains the tool editing interface and is the heart of the app. I felt it important to present as much information to the user as possible, so that it would be clear what the task was and what they were being expected to find. In this way I hoped to minimize user confusion and present a more streamlined experience.
 
-I also wanted to include relevant links where possible, to assist users in their task; the links vary depending on the nature of the task and the availability of the information.
+To make the search for information as painfree as possible, I included relevant links to potential data sources; the links vary depending on the nature of the task and the availability of the information (e.g., if the tool in question has a "repository" link available, it will be displayed).
 
 ![Toolhunt home page in action](/docs/images/in_use.gif)
 
-Being mindful of the possibility that users might still attempt to enter invalid information, I wrote functions to generate different input types depending on the type of information requested. For example, if the task involves searching for a "tool_type", the function generates a `select` element containing the possible options. A request for a `url` generates an input of `type="url"`. And, using the patterns available from the Toolhub API documentation, it would be possible to implement client-side form validation, though I have not accomplished that yet. (I thought I had better submit my current work for feedback.)
+Being mindful of the possibility that users might enter improperly formatted information, I wrote functions to generate different input types depending on the type of information requested. For example, if the task involves searching for a "tool_type", the function generates a `select` element containing the possible options. A request for a `url` generates an input of `type="url"`.  Using the patterns available from the Toolhub API documentation, it would be possible to implement client-side form validation; that is the number one item on my "to-do" list.
 
-Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
+For the "for_wikis" and "available_ui_languages" tasks, where multiple entries may be given, I included an option to generate additional input elements.  Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
 
 ### The Dashboard
 
 ![Toolhunt Dashboard](/docs/images/dashboard.jpg)
 
-In addition to displaying the required metrics, I decided to display information about a user's recent contributions (envisioning this as a site that users would visit while logged on - otherwise, their contributions would be impossible to track and a leaderboard would be pointless!), as well as information about other users, recent activity, and the overall status of the project.
+In addition to displaying the required metrics, I decided to display information about a user's recent contributions (envisioning this as a site that users would visit while logged on - otherwise, their contributions would be impossible to track and a leaderboard would be pointless!), as well as information about other users, recent activity, and the overall status of the project. 
 
-Additional charts could measure edits made over time, and track the improvement of the figures - which are, at present, pretty dire!
+Additional charts could measure edits made over time, and track the improvement of the figures - which are, at present, pretty dire!  
+
+ As on the home page, the data displayed here is generated on page load.
 
 ### The Leaderboard
 
