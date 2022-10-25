@@ -109,6 +109,16 @@ select {
   background-color: white;
 }
 
+/* ------ Specific elements ----- */
+
+@media (min-width: 900px) {
+  .skip-box {
+    position: fixed;
+    right: 20%;
+    bottom: 10%;
+  }
+}
+
 /* ------ Navigation -------  */
 
 nav {
