@@ -44,6 +44,10 @@ h3 {
   margin-block: 2rem;
 }
 
+.padding-bottom {
+  padding-bottom: 1rem;
+}
+
 /* Visuals */
 
 .shadowed {
@@ -169,16 +173,12 @@ nav > .link-container > a:hover {
   margin: 1rem;
   display: flex;
   flex-direction: column;
+  min-width: 375px;
 }
 
 .card-header {
   height: 48px;
   background-color: var(--lgt-grey);
-}
-
-.card-title {
-  padding: 1rem;
-  width: 100%;
 }
 
 .card-body {
@@ -192,6 +192,11 @@ nav > .link-container > a:hover {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.chart-text {
+  max-width: 30ch;
+  padding: 10px 0;
 }
 
 @media (min-width: 900px) {
@@ -208,6 +213,11 @@ nav > .link-container > a:hover {
     align-self: flex-end;
     margin-right: 24px;
   }
+
+  .chart-text {
+    max-width: 25ch;
+    padding-left: 20px;
+  }
 }
 
 @media (min-width: 1264px) {
@@ -216,7 +226,7 @@ nav > .link-container > a:hover {
   }
 }
 
-/* ---- Modal --------- */
+/* ---- Modal (index page) --------- */
 
 .modal {
   background-color: rgba(0, 0, 0, 0.5);
@@ -258,7 +268,7 @@ nav > .link-container > a:hover {
 table {
   width: 100%;
   margin-inline: auto;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   border-collapse: collapse;
 }
 
@@ -284,5 +294,6 @@ tbody > tr:nth-child(odd) {
 @media (min-width: 1000px) {
   table {
     max-width: 900px;
+    margin-bottom: 2rem;
   }
 }
