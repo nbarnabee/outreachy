@@ -43,7 +43,7 @@ const missingFieldStats = {
 const userActivity = {
   user: "NicoleLBee",
   contributions: {
-    thirtyDays: 1,
+    recent: 1,
     total: 4,
   },
   latestActivity: [
@@ -79,7 +79,7 @@ const userActivity = {
 
 const globalActivity = {
   contributions: {
-    thirtyDays: 73,
+    recent: 73,
     total: 226,
   },
   latestActivity: [
@@ -188,6 +188,29 @@ function makeElementWithLink(entry, type) {
   return link;
 }
 
+/* ----  Filling in the "At A Glance" and "Contribution Stats" cards --- */
+
+function fillStatsCards(global, user, globalUsers) {
+  document.getElementById("tool-num-total").innerText = global.totalTools;
+  document.getElementById("tool-missing-data-total").innerText =
+    global.toolsMissingInfo;
+  missingPercent = (
+    (global.toolsMissingInfo / global.totalTools) *
+    100
+  ).toFixed(2);
+  document.getElementById(
+    "tool-missing-data-percent"
+  ).innerText = `${missingPercent}%`;
+  document.getElementById("user-contributions-recent").innerText =
+    user.contributions.recent;
+  document.getElementById("user-contributions-total").innerText =
+    user.contributions.total;
+  document.getElementById("global-contributions-recent").innerText =
+    globalUsers.contributions.recent;
+  document.getElementById("global-contributions-total").innerText =
+    globalUsers.contributions.total;
+}
+
 /* ------- Defining the charts --------- */
 
 // Displaying the # of missing values
@@ -201,18 +224,8 @@ const missingValues = new Chart(chart1, {
       {
         label: "# of missing values",
         data: [347, 759, 450, 1146],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-        ],
+        backgroundColor: ["#7698ff", "#ff7062", "#5ee7be", "#ffff6e"],
+        borderColor: ["#567fe9", "#fd524a", "#3ccba3", "#ffe852"],
         borderWidth: 1,
       },
     ],
@@ -267,5 +280,6 @@ const missingValues = new Chart(chart1, {
 createGreeting();
 fillTable(userActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
+fillStatsCards(missingFieldStats, userActivity, globalActivity);
 
 // The Dashboard is required to show the following metrics with mock figures (feel free to add other analytics you think may be useful to monitor): Total number of Tools in the records, number of tools with missing information, percentage of tools with missing information compared with the total number of tools in the records, number of tools edited using this record management tool
