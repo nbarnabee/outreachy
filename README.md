@@ -1,10 +1,13 @@
 # Outreachy Application Task for Wikimedia: Setup Frontend Web App for Toolhub Records Management
 
-Live at: https://nbarnabee.github.io/outreachy/
+![Toolhunt home page](/docs/images/home.jpg)
+
+Live at: https://nbarnabee.github.io/outreachy/  
+Project description at: https://phabricator.wikimedia.org/T318921
 
 ## The Task
 
-This task required me to set up a front-end infrastructure for a web application intended to present users with a streamlined and gamified way to edit information associated with Toolhub tools, inspired by the Citation Hunt.
+This task required me to set up a front-end infrastructure for a web application intended to present users with a streamlined and gamified way to edit information associated with Toolhub tools, inspired by [Citation Hunt](https://citationhunt.toolforge.org/en?id=89280fcc).
 
 The specifications were as follows:
 
@@ -13,11 +16,10 @@ The specifications were as follows:
 3. The pages should be build with hardcoded strings; they should not make requests to the API for data.
 4. The pages should have a navigation bar with links to the other pages.
 5. The Dashboard should show the following metrics:
-
-- Total number of tools in the records
-- Number of tools with missing information
-- Percentage of tools with missing information
-- Number of tools edited using this tool
+    - Total number of tools in the records
+    - Number of tools with missing information
+    - Percentage of tools with missing information
+    - Number of tools edited using this tool
 
 ## The Tools
 
@@ -33,7 +35,11 @@ My inspection of the Toolhub site indicated that it was built using Vue and Vuet
 
 In addition to fulfilling the requirements listed above, I wanted to design a site that would mesh visually with the existing Toolhub website. I mimicked the colors, logos, spacing and general style of Toolhub.
 
+![Toolhub homepage](/docs/images/toolhub-home.jpg)
+
 I also wanted to, as much as possible, generate the page content dynamically, mimicking how the forms and tables on a _real_ version of this site would be populated with data taken from API calls. In order to accomplish this, I included a series of mock data objects in my JS files that contained information I would expect to be able to receive from the API, as well as information about users.
+
+![Mock dataset](/docs/images/mock_data.jpg)
 
 ### The Home Page
 
@@ -41,17 +47,23 @@ The Home Page contains the editing interface. I felt it important to present as 
 
 I also wanted to include relevant links where possible, to assist users in their task; the links vary depending on the nature of the task and the availability of the information.
 
+![Toolhunt home page in action](/docs/images/in_use.gif)
+
 Being mindful of the possibility that users might still attempt to enter invalid information, I wrote functions to generate different input types depending on the type of information requested. For example, if the task involves searching for a "tool_type", the function generates a `select` element containing the possible options. A request for a `url` generates an input of `type="url"`. And, using the patterns available from the Toolhub API documentation, it would be possible to implement client-side form validation, though I have not accomplished that yet. (I thought I had better submit my current work for feedback.)
 
 Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
 
 ### The Dashboard
 
+![Toolhunt Dashboard](/docs/images/dashboard.jpg)
+
 In addition to displaying the required metrics, I decided to display information about a user's recent contributions (envisioning this as a site that users would visit while logged on - otherwise, their contributions would be impossible to track and a leaderboard would be pointless!), as well as information about other users, recent activity, and the overall status of the project.
 
 Additional charts could measure edits made over time, and track the improvement of the figures - which are, at present, pretty dire!
 
 ### The Leaderboard
+
+![Toolhunt Leaderboard](/docs/images/leaderboard.jpg)
 
 The Leaderboard is fairly straightforward; again, the data displayed in the tables is taken from a mock data set I included in the JavaScript files. While Citation Hunt only lists the top contributors from the past 30 days, I thought it might be interesting to include list of the top contributors overall.
 
