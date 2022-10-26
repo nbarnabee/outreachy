@@ -168,7 +168,7 @@ function fillTable(contributionsArray, tableID) {
     if (tableID === "global-contributions") {
       let user = document.createElement("td");
       // Check to see that the user does have a profile link
-      if (user.link) user.appendChild(makeElementWithLink(entry, "user"));
+      if (entry.user.link) user.appendChild(makeElementWithLink(entry, "user"));
       else user.innerText = entry.user;
       row.appendChild(user);
     }
