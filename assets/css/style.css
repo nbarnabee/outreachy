@@ -296,6 +296,11 @@ th[scope="col"] {
   text-align: left;
 }
 
+.leaderboard-tables > table {
+  width: 100%;
+  margin-inline: auto;
+}
+
 .leaderboard-tables tr > td:nth-child(even),
 .leaderboard-tables tr > th:nth-child(even) {
   text-align: center;
@@ -341,7 +346,10 @@ tbody > tr:nth-child(odd) {
 
 @media (min-width: 1000px) {
   table {
-    /* width: 100%; */
     max-width: 900px;
+  }
+
+  .leaderboard-tables > table {
+    width: 80%;
   }
 }
