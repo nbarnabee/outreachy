@@ -37,6 +37,18 @@ const taskType = {
     input: ["select"],
     multiple: false,
     pattern: [null],
+    options: [
+      "web app",
+      "desktop app",
+      "bot",
+      "gadget",
+      "user script",
+      "command line tool",
+      "coding framework",
+      "lua module",
+      "template",
+      "other",
+    ],
   },
   repository: {
     description: "A link to the repository where the tool code is hosted.",
@@ -188,10 +200,12 @@ function createTaskStatement(tool, task) {
 
 function createInput(task) {
   const inputs = [];
-  if (task === "tool_type") {
-    // For "tool_type" users must select from a pre-defined set of answers.
-    // I wrote a separate function to generate the select menu.
-    inputs.push(buildSelectMenu());
+  if (taskType[task].options) {
+    /* For the task "tool_type" users must select from a pre-defined set of answers.
+    However, it might be possible to define a set of expected answers for additional task types. 
+    Therefore, at Damilare's suggestion, I've expanded its functionality
+    Now, any tool which has a defined "options" key will trigger it. */
+    inputs.push(buildSelectMenu(task));
   } else {
     taskType[task].input.forEach((entry, i) => {
       const newInput = document.createElement("input");
@@ -213,25 +227,13 @@ function createInput(task) {
 
 /* a note about available_ui_languages generally - if, as stated in the API docs, the default value should be "en," then surely that should be auto-generated on tool creation? */
 
-function buildSelectMenu() {
-  const tool_types = [
-    "web app",
-    "desktop app",
-    "bot",
-    "gadget",
-    "user script",
-    "command line tool",
-    "coding framework",
-    "lua module",
-    "template",
-    "other",
-  ];
+function buildSelectMenu(task) {
   const newSelect = document.createElement("select");
-  newSelect.setAttribute("name", "tool_type");
-  tool_types.forEach((type) => {
+  newSelect.setAttribute("name", task);
+  taskType[task].options.forEach((entry) => {
     let option = document.createElement("option");
-    option.value = [type];
-    option.innerText = [type];
+    option.value = [entry];
+    option.innerText = [entry];
     newSelect.appendChild(option);
   });
   return newSelect;
