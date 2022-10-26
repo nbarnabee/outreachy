@@ -183,7 +183,7 @@ nav > .link-container > a:hover {
   margin: 1rem;
   display: flex;
   flex-direction: column;
-  min-width: 375px;
+  min-width: 350px;
 }
 
 .card-header {
@@ -193,7 +193,6 @@ nav > .link-container > a:hover {
 
 .card-body {
   display: flex;
-  gap: 1rem;
 }
 
 .card-text {
