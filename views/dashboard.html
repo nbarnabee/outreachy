@@ -40,29 +40,45 @@
       </div>
     </div>
 
-    <table class="shadowed" id="my-contributions">
-      <caption>
-        <h3 class="table-title clr-white bg-blue">My Contributions</h3>
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">
-            <h4>Date</h4>
-          </th>
-          <th scope="col">
-            <h4>Tool</h4>
-          </th>
-          <th scope="col">
-            <h4>Contribution</h4>
-          </th>
-        </tr>
-      </thead>
-      <tbody id="user-contributions">
-      </tbody>
-    </table>
+    <section class="row container">
+      <table class="shadowed" id="my-contributions">
+        <caption>
+          <h3 class="table-title clr-white bg-blue">My Contributions</h3>
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">
+              <h4>Date</h4>
+            </th>
+            <th scope="col">
+              <h4>Contribution</h4>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="user-contributions">
+        </tbody>
+      </table>
+      <div class="card shadowed border">
+        <h3 class="card-title bg-grey">Contribution Stats</h3>
+        <div class="card-body">
+          <div class="card-text">
+            <p>My contributions in the last 30 days:</p>
+            <p>My total contributions: </p>
+            <p>Global contributions in the last 30 days: </p>
+            <p>Total contributions: </p>
+          </div>
+          <div class="card-text">
+            <p id="user-contributions-recent">1</p>
+            <p id="user-contributions-total">1</p>
+            <p id="global-contributions-recent">1</p>
+            <p id="global-contributions-total">1</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="row container">
-      <div class="column">
+      <div>
         <div class="card shadowed border">
           <h3 class="card-title bg-grey">Toolhub at a Glance</h3>
           <div class="card-body">
@@ -79,19 +95,11 @@
           </div>
         </div>
         <div class="card shadowed border">
-          <h3 class="card-title bg-grey">Contribution Stats</h3>
+          <h3 class="card-title bg-grey">Another Card</h3>
           <div class="card-body">
             <div class="card-text">
-              <p>My contributions in the last 30 days:</p>
-              <p>My total contributions: </p>
-              <p>Global contributions in the last 30 days: </p>
-              <p>Total contributions: </p>
-            </div>
-            <div class="card-text">
-              <p id="user-contributions-recent">1</p>
-              <p id="user-contributions-total">1</p>
-              <p id="global-contributions-recent">1</p>
-              <p id="global-contributions-total">1</p>
+              <p>I really couldn't think of anything to put here. This is just me playing with the layout. Perhaps
+                another chart would be appropriate.</p>
             </div>
           </div>
         </div>
@@ -115,7 +123,7 @@
       </div>
     </section>
 
-    <table class="shadowed" id="latest-activity">
+    <table class="shadowed inline-auto" id="latest-activity">
       <caption>
         <h3 class="table-title clr-white bg-blue">Latest Activity</h3>
       </caption>
@@ -126,9 +134,6 @@
           </th>
           <th scope="col">
             <h4>User</h4>
-          </th>
-          <th scope="col">
-            <h4>Tool</h4>
           </th>
           <th scope="col">
             <h4>Contribution</h4>
