@@ -28,14 +28,15 @@ h2 {
   line-height: 2rem;
 }
 
-h2.reduced-size {
-  font-size: 1.5rem;
-}
-
 h3 {
   font-size: 1.25rem;
   font-weight: 500;
   line-height: 2rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 /* Utility */
@@ -229,6 +230,12 @@ nav > .link-container > a:hover {
   }
 }
 
+@media (min-width: 900px) and (max-width: 1000px) {
+  .graph-container {
+    max-width: 50%;
+  }
+}
+
 @media (min-width: 1264px) {
   .container {
     max-width: 1185px;
@@ -272,7 +279,7 @@ nav > .link-container > a:hover {
   /* transition: transform 300ms ease-in-out; */
 }
 
-/* -- Tables (Leaderboard page) -- */
+/* -- Leaderboard & Dashboard page -- */
 
 table {
   margin-inline: auto;
@@ -289,9 +296,14 @@ th[scope="col"] {
   text-align: center;
 }
 
-tr > * {
-  padding: 4px 16px;
+table tr {
+  border: var(--border);
 }
+
+tr > * {
+  padding: 6px 10px;
+}
+
 tbody > tr:nth-child(odd) {
   background-color: var(--lgt-grey);
 }
@@ -302,6 +314,24 @@ tbody > tr:nth-child(odd) {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
+}
+
+/* Hiding less relevant information contained in the dashboard tables on small screens */
+
+#my-contributions tr > td:nth-of-type(1),
+#my-contributions tr > th:nth-of-type(1),
+#latest-activity tr > td:nth-of-type(1),
+#latest-activity tr > th:nth-of-type(1) {
+  display: none;
+}
+
+@media (min-width: 500px) {
+  #my-contributions tr > td:nth-of-type(1),
+  #my-contributions tr > th:nth-of-type(1),
+  #latest-activity tr > td:nth-of-type(1),
+  #latest-activity tr > th:nth-of-type(1) {
+    display: block;
+  }
 }
 
 @media (min-width: 1000px) {
