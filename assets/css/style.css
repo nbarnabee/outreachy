@@ -276,7 +276,6 @@ nav > .link-container > a:hover {
 /* -- Tables (Leaderboard page) -- */
 
 table {
-  width: 100%;
   margin-inline: auto;
   margin-bottom: 1rem;
   border-collapse: collapse;
@@ -284,6 +283,11 @@ table {
 
 th[scope="col"] {
   text-align: left;
+}
+
+.leaderboard-tables tr > td:nth-child(even),
+.leaderboard-tables tr > th:nth-child(even) {
+  text-align: center;
 }
 
 tr > * {
@@ -303,6 +307,7 @@ tbody > tr:nth-child(odd) {
 
 @media (min-width: 1000px) {
   table {
+    width: 100%;
     max-width: 900px;
     margin-bottom: 2rem;
   }
