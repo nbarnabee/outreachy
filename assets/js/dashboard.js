@@ -172,11 +172,10 @@ function fillTable(contributionsArray, tableID) {
       else user.innerText = entry.user;
       row.appendChild(user);
     }
-    let tool = document.createElement("td");
-    tool.appendChild(makeElementWithLink(entry, "tool"));
-    row.appendChild(tool);
     let contribution = document.createElement("td");
-    contribution.innerText = `Added ${entry.fieldEdited}`;
+    contribution.innerText = `Added ${entry.fieldEdited} to `;
+    let toolLink = makeElementWithLink(entry, "tool");
+    contribution.appendChild(toolLink);
     row.appendChild(contribution);
   }
 }
