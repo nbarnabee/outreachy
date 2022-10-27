@@ -41,12 +41,6 @@ h4 {
 
 /* Utility */
 
-.spacer {
-  margin-block: 1rem;
-  display: table;
-  content: "";
-}
-
 .padding-bottom {
   padding-bottom: 1rem;
 }
@@ -58,6 +52,14 @@ h4 {
 @media (max-width: 460px) {
   .inline-auto {
     margin-inline: 10px;
+  }
+}
+
+@media (min-width: 900px) {
+  .spacer {
+    margin-block: 0.5rem;
+    display: table;
+    content: "";
   }
 }
 
