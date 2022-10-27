@@ -251,6 +251,7 @@ function createTaskDescription(task) {
 function makeButtons(task) {
   let buttonContainer = document.createElement("div");
   buttonContainer.classList.add("row");
+  buttonContainer.classList.add("row-gap");
   // "for_wikis" and "available_ui_languages" can take multiple inputs
   if (taskType[task].multiple === true) {
     buttonContainer.appendChild(makeAddButton(task));
