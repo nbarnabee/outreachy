@@ -16,10 +16,10 @@ The specifications were as follows:
 3. The pages should be build with hardcoded strings; they should not make requests to the API for data.
 4. The pages should have a navigation bar with links to the other pages.
 5. The Dashboard should show the following metrics:
-    - Total number of tools in the records
-    - Number of tools with missing information
-    - Percentage of tools with missing information
-    - Number of tools edited using this tool
+   - Total number of tools in the records
+   - Number of tools with missing information
+   - Percentage of tools with missing information
+   - Number of tools edited using this tool
 
 ## The Tools
 
@@ -49,19 +49,19 @@ To make the search for information as painfree as possible, I included relevant 
 
 ![Toolhunt home page in action](/docs/images/in_use.gif)
 
-Being mindful of the possibility that users might enter improperly formatted information, I wrote functions to generate different input types depending on the type of information requested. For example, if the task involves searching for a "tool_type", the function generates a `select` element containing the possible options. A request for a `url` generates an input of `type="url"`.  Using the patterns available from the Toolhub API documentation, it would be possible to implement client-side form validation; that is the number one item on my "to-do" list.
+Being mindful of the possibility that users might enter improperly formatted information, I wrote functions to generate different input types depending on the type of information requested. For example, if the task involves searching for a "tool_type", the function generates a `select` element containing the possible options. A request for a `url` generates an input of `type="url"`. Using the patterns available from the Toolhub API documentation, it would be possible to implement client-side form validation; that is the number one item on my "to-do" list.
 
-For the "for_wikis" and "available_ui_languages" tasks, where multiple entries may be given, I included an option to generate additional input elements.  Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
+For the "for_wikis" and "available_ui_languages" tasks, where multiple entries may be given, I included an option to generate additional input elements. Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
 
 ### The Dashboard
 
 ![Toolhunt Dashboard](/docs/images/dashboard.jpg)
 
-In addition to displaying the required metrics, I decided to display information about a user's recent contributions (envisioning this as a site that users would visit while logged on - otherwise, their contributions would be impossible to track and a leaderboard would be pointless!), as well as information about other users, recent activity, and the overall status of the project. 
+In addition to displaying the required metrics, I decided to display information about a user's recent contributions (envisioning this as a site that users would visit while logged on - otherwise, their contributions would be impossible to track and a leaderboard would be pointless!), as well as information about other users, recent activity, and the overall status of the project.
 
-Additional charts could measure edits made over time, and track the improvement of the figures - which are, at present, pretty dire!  
+Additional charts could measure edits made over time, and track the improvement of the figures - which are, at present, pretty dire!
 
- As on the home page, the data displayed here is generated on page load.
+As on the home page, the data displayed here is generated on page load.
 
 ### The Leaderboard
 
@@ -78,3 +78,5 @@ I also feel that I am coming away from this with a body of functions that could 
 ## Room for Improvement
 
 I considered adding additional charts to the Dashboard page but ultimately decided to refocus on the Home page. I would also like to implement client side validation using the patterns given in the Toolhub API documentation.
+
+My CSS file is, frankly, a mess and could do with a refactoring.
