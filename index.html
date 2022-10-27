@@ -29,39 +29,43 @@
     </nav>
   </header>
   <main>
-    <div class="container row">
+    <section class="container row">
       <img src="./assets/icons/toolhub-logo.svg" width="120px" height="120px" alt="Toolhub logo">
       <div>
         <h1>Toolhunt</h1>
         <p>Many of the tools on Toolhub are missing valuable information. Can you help us improve the listings by
           hunting down links and data?</p>
+        <p><b>Search</b> for a tool to work on, or click <b>Surprise Me!</b> to receive a random task.</p>
         <p>If you can find the requested information, fill out the form and click <b>Submit</b>.
           If
           you don't like
-          the look of your task, or can't find the requested information, click <b>Skip</b>.</p>
+          the look of your task, or can't find the requested information, click <b>Skip</b> to get a new one.</p>
       </div>
-    </div>
+    </section>
 
-    <form id="task-form" class="container centered">
-      <!-- statement of the task -->
-      <!-- input field -->
-      <!-- if the task is tool_type, a select menu instead of an input bar -->
-      <!-- field description -->
-      <!-- option to add more fields, where appropriate (e.g., the task is "for_wikis" or "available_ui_languages") -->
-      <!-- submit button -->
-    </form>
-    <div id="tool-info" class="container container-small centered shadowed">
-      <h3>These links may help you with your search:</h3>
-      <ul>
-        <li id="wikidata-link" hidden><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"
-            target="_blank">Wikidata</a></li>
-        <li id="wikimedia-link" hidden><a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank">Wikimedia
-            Commons</a></li>
-        <li id="toolhub-link"><span class="tool-name"></span> on Toolhub:&nbsp;</li>
-        <li id="url-link"><span class="tool-name"></span> on the web:&nbsp;</li>
-        <li id="repository-link" hidden>Repository:&nbsp;</li>
-      </ul>
-    </div>
+    <section id="task-display">
+      <form id="task-form" class="container centered">
+        <!-- statement of the task -->
+        <!-- input field -->
+        <!-- if the task is tool_type, a select menu instead of an input bar -->
+        <!-- field description -->
+        <!-- option to add more fields, where appropriate (e.g., the task is "for_wikis" or "available_ui_languages") -->
+        <!-- submit button -->
+      </form>
+      <div id="tool-info" class="container container-small centered shadowed">
+        <h3>These links may help you with your search:</h3>
+        <ul>
+          <li id="wikidata-link" hidden><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"
+              target="_blank">Wikidata</a></li>
+          <li id="wikimedia-link" hidden><a href="https://commons.wikimedia.org/wiki/Main_Page"
+              target="_blank">Wikimedia
+              Commons</a></li>
+          <li id="toolhub-link"><span class="tool-name"></span> on Toolhub:&nbsp;</li>
+          <li id="url-link"><span class="tool-name"></span> on the web:&nbsp;</li>
+          <li id="repository-link" hidden>Repository:&nbsp;</li>
+        </ul>
+      </div>
+    </section>
 
     <div class="container centered offset skip-box">
       <label for="info-missing"><input type="checkbox" name="info-missing" value="true" id="info-missing">Information
