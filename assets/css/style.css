@@ -132,6 +132,10 @@ select {
   }
 }
 
+input[type="search"]:after {
+  content: url("magnifying-glass.gif");
+}
+
 /* ------ Navigation -------  */
 
 nav {
@@ -186,6 +190,10 @@ nav > .link-container > a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.row-gap {
+  gap: 0.5rem;
 }
 
 .offset > button {
@@ -286,6 +294,20 @@ nav > .link-container > a:hover {
 .modal-open .modal {
   transform: translateX(0);
   /* transition: transform 300ms ease-in-out; */
+}
+
+/* ---- Home page ----- */
+
+#tool-info.shadowed {
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 900px) {
+  #tool-info.shadowed {
+    border: var(--border);
+    box-shadow: var(--shadow);
+  }
 }
 
 /* -- Leaderboard & Dashboard page -- */
