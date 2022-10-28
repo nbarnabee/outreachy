@@ -201,8 +201,8 @@ function createTaskStatement(tool, task) {
 function createInput(task) {
   const inputs = [];
   if (taskType[task].options) {
-    /* For the task "tool_type" users must select from a pre-defined set of answers.
-    However, it might be possible to define a set of expected answers for additional task types. 
+    /* For the task "tool_type" users must select from a pre-defined set of options.
+    However, it might be possible to define a set of possible options for additional task types. 
     Therefore, at Damilare's suggestion, I've expanded its functionality
     Now, any tool which has a defined "options" key will trigger it. */
     inputs.push(buildSelectMenu(task));
