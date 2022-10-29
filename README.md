@@ -11,7 +11,8 @@ Project description at: https://phabricator.wikimedia.org/T318921
   - [Homepage](#the-home-page)
   - [The Dashboard](#the-dashboard)
   - [The Leaderboard](#the-leaderboard)
-- [Testing](#testing) -[Installation](#installation)
+- [Testing](#testing) 
+   - [Installation](#installation)
 - [What I Learned](#what-i-learned)
 - [Room for Improvement](#room-for-improvement)
 
