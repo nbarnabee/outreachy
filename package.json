@@ -1,0 +1,28 @@
+{
+  "name": "outreachy",
+  "version": "1.0.0",
+  "description": "Application task T318921 for Wikimedia: setup frontend web app for Toolhub records management",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbarnabee/outreachy.git"
+  },
+  "keywords": [
+    "toolhub",
+    "wikimedia",
+    "citationhunt",
+    "toolhunt"
+  ],
+  "author": "Nicole Barnabee-Burns",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nbarnabee/outreachy/issues"
+  },
+  "homepage": "https://github.com/nbarnabee/outreachy#readme"
+}
