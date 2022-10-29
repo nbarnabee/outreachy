@@ -201,10 +201,7 @@ function makeElementWithLink(entry, type) {
 }
 
 /* ----  Filling in the "At A Glance," "Contribution Stats," and
-"How Much Are We Missing?" cards 
-This function accepts three objects: one containing the global Toolhub 
-stats, one containing information about the current user, and one 
-containing information about global users --- */
+"How Much Are We Missing?" cards  --- */
 
 function fillStatsCards(global, user, globalUsers) {
   document.getElementById("tool-num-total").innerText = global.totalTools;
