@@ -182,6 +182,7 @@ function fillTable(contributionsArray, tableID) {
 
 // For generating the links to insert in the table
 // Currently, the value of "type" would be either "tool" or "user"
+// "Entry" is an object that contains information either about a given user or a given tool.
 function makeElementWithLink(entry, type) {
   let link = document.createElement("a");
   if (type === "tool") {
@@ -199,7 +200,10 @@ function makeElementWithLink(entry, type) {
 }
 
 /* ----  Filling in the "At A Glance," "Contribution Stats," and
-"How Much Are We Missing?" cards --- */
+"How Much Are We Missing?" cards 
+This function accepts three objects: one containing the global Toolhub 
+stats, one containing information about the current user, and one 
+containing information about global users --- */
 
 function fillStatsCards(global, user, globalUsers) {
   document.getElementById("tool-num-total").innerText = global.totalTools;
