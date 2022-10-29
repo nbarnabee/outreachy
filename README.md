@@ -5,6 +5,16 @@
 Live at: https://nbarnabee.github.io/outreachy/  
 Project description at: https://phabricator.wikimedia.org/T318921
 
+- [The Task](#the-task)
+- [The Tools](#the-tools)
+- [The Process](#the-process)
+  - [Homepage](#the-home-page)
+  - [The Dashboard](#the-dashboard)
+  - [The Leaderboard](#the-leaderboard)
+- [Testing](#testing) -[Installation](#installation)
+- [What I Learned](#what-i-learned)
+- [Room for Improvement](#room-for-improvement)
+
 ## The Task
 
 This task required me to set up a front-end infrastructure for a web application intended to present users with a streamlined and gamified way to edit information associated with Toolhub tools, inspired by [Citation Hunt](https://citationhunt.toolforge.org/en?id=89280fcc).
@@ -23,9 +33,11 @@ The specifications were as follows:
 
 ## The Tools
 
-### Tech used: Vanilla JavaScript, CSS, HTML, Chart.js
+### Tech used: Vanilla JavaScript, CSS, HTML, Chart.js, Jest, jsdom
 
 I felt that utilizing a front-end framework would be overkill for such a relatively simple site. Therefore, I chose to build the site using vanilla JS, CSS and HTML, with some assistance from the Chart.js library for rendering a pie chart.
+
+In order to run tests, I installed Jest and the jsdom testing environment.
 
 ### Alternate options
 
@@ -68,6 +80,16 @@ As on the home page, the data displayed here is generated on page load.
 ![Toolhunt Leaderboard](/docs/images/leaderboard.jpg)
 
 The Leaderboard is fairly straightforward; again, the data displayed in the tables is taken from a mock data set I included in the JavaScript files. While Citation Hunt only lists the top contributors from the past 30 days, I thought it might be interesting to include list of the top contributors overall.
+
+## Testing
+
+In order to test the functions, I decided to use the Jest testing framework. I installed it and the jsdom test environment, but quickly discovered that it did not play nicely with chart.js or canvas. Specifically, Jest would refuse to run until I had defined "Chart." Installing chart.js as a dependency and setting `const Chart = require("./chartjs")` in `dashboard.js` would appease Jest, but would cause the page to break if I attempted to render it.
+
+Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I'm sure that there's a better way of doing this, but ultimately concluded that I was wasting too much time and energy trying to discover it.
+
+### Installation
+
+In order to run the tests on your own computer, fork and clone the repo, then open the code in your developer environment and enter `npm install`. This will install the relevant dependencies. Then type `npm test` to run the suite of tests.
 
 ## What I Learned
 
