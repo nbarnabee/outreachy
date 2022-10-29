@@ -139,10 +139,11 @@ const globalActivity = {
 
 /* ------  Functions to populate page -------- */
 
-function createGreeting() {
-  document.querySelector(
-    ".user-name"
-  ).innerText = `Welcome back, ${userActivity.user}!`;
+// This function takes a string and populates the innerText of the h1 element on the page
+
+function createGreeting(name) {
+  const greeting = document.querySelector(".user-name");
+  greeting.innerText = `Welcome back, ${name}!`;
 }
 
 /* This function takes an array of values and a table id (either "user-contributions"or "global-contributions"), and populates the given table. It is similar to the 
@@ -277,7 +278,7 @@ const missingValues = new Chart(chart1, {
   },
 });
 
-createGreeting();
+createGreeting(userActivity.user);
 fillTable(userActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
 fillStatsCards(globalStats, userActivity, globalActivity);
