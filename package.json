@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/nbarnabee/outreachy/issues"
   },
-  "homepage": "https://github.com/nbarnabee/outreachy#readme"
+  "homepage": "https://github.com/nbarnabee/outreachy#readme",
+  "devDependencies": {
+    "jest": "^29.2.2"
+  }
 }
