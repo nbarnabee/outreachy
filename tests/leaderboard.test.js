@@ -13,13 +13,15 @@ const {
   createScoreEntry,
 } = require("./leaderboard_copy.js");
 
-/* The populateTable function accepts a string argument that 
-is an id value for a table, then takes values from an array
- of objects and populates the referenced table. 
+/* The flow for the leaderboard page is as follows:
 
-To do so, it calls a sequence of smaller functions.  
- For testing purposes I'll feed it data from an array that only contains a single object, and see if the 
- values contained in the data cells match those of the object. */
+On page load, the populateTable function is called, and is passed an array of objects.
+
+For each object, populateTable creates a table row and appends two <td> elements, one the return value of a call to createUserEntry (which calls createUserLink) and the other which is the return value of a call to createScoreEntry
+
+To test these functions I'll use an array that contains a single element, and test the functions in reverse order.
+
+*/
 
 const testLeaderboard = [
   {
@@ -67,18 +69,25 @@ test("Check if createUserEntry has the correct structure", () => {
   );
 });
 
+/* Again, I am not sure why the innerText does not appear between the <span> tags.  As the next text will prove, it's definitely there and correct! */
+
 test("Check if createUserEntry contains the correct user name", () => {
   const testUser = testLeaderboard[0];
   const userName = testUser.user;
   const entry = createUserEntry(testLeaderboard[0]);
-  // Now I have to dig down deep to get to the span.
+  // Now I have to dig down to get to the span.
   let spanNode = entry.childNodes[0].childNodes[0];
   expect(spanNode.innerText).toBe(userName);
 });
 
 /* Finally I reach the function that calls all of the rest, populateTable.  
-It takes an array of objects and a string value that refers to the id of the 
-table that is to be populated, currently either "latest or "allTime", and for each object in the "leaderboard" array, generates a table containing two <td> objects, which are the results of calls to createUserEntry and createScoreEntry, and appends the row to the DOM element with the id = to the "tableID" argument.
+
+It takes an array of objects and a string value that refers to the 
+id of the table that is to be populated, currently either "latest or 
+"allTime", and for each object in the "leaderboard" array, generates 
+a table containing two <td> objects, which are the results of calls 
+to createUserEntry and createScoreEntry, and appends the row to the 
+DOM element with the id = to the "tableID" argument.
 
 As I have already determined that the functions are correctly returning 
 <td> elements, I'll check whether the new row has been successfully appended.
@@ -104,5 +113,6 @@ I was hoping to check the contents of the cells, but the results
 continue to be inconsistent, and I am not familiar enough with Jest 
 to figure out exactly what I'm doing wrong. 
 
-For instance, I can't seem to target the <td> children of the <tr> I targeted above - 
-at least not using Jest.  I can manage it in the console. */
+For instance, I can't seem to target the <td> children 
+of the <tr> I targeted above - at least not while using Jest.  
+I can manage it in the console. */
