@@ -40,16 +40,16 @@ function populateTable(tableID) {
     let row = document.createElement("tr");
     tableBody.appendChild(row);
     row.appendChild(createUserEntry(entry));
-    row.appendChild(createScoreEntry(entry, tableID));
+    row.appendChild(createScoreEntry(entry[tableID]));
   }
 }
 
 /* This function accepts a user object and returns a <td> 
-element that contains the user name and a profile link */
+element that contains a <span> with the innerText value = to the user name, wrapped in an <a> element that contains a link to the user profile */
 
 function createUserEntry(entry) {
   let userEntry = document.createElement("td");
-  let userLink = createUserLink(entry);
+  let userLink = createUserLink(entry.link);
   userEntry.appendChild(userLink);
   let user = document.createElement("span");
   user.innerText = entry.user;
@@ -57,23 +57,20 @@ function createUserEntry(entry) {
   return userEntry;
 }
 
-/* This function accepts a user object and creates a link to a user's profile that is passed back to createUserEntry() */
+/* This function accepts a string and returns an <a> element with an "href" attribute value = to the given string, and a "target" attribute value = to "_blank" */
 
-function createUserLink(entry) {
+function createUserLink(link) {
   let userLink = document.createElement("a");
-  userLink.setAttribute("href", entry.link);
+  userLink.setAttribute("href", link);
   userLink.setAttribute("target", "_blank");
   return userLink;
 }
 
-/* This function accepts a user object and a string 
-referencing the table that's being populated, and 
-creates a <td> element containing the user's 
-score that is passed back to createUserEntry() */
+/* This function accepts a number and return a <td> element containing that number */
 
-function createScoreEntry(entry, tableID) {
+function createScoreEntry(num) {
   let score = document.createElement("td");
-  score.innerText = entry[tableID];
+  score.innerText = num;
   return score;
 }
 
