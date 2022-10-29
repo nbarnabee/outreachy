@@ -31,12 +31,15 @@ const leaderboard = [
   },
 ];
 
-/* For each object within an array of objects, this function returns a <tr> element that contains two <td> elements:  one containing the user name and a link to the user's profile, and the other containing the user's score */
+/* For each object within a given array of objects, this function creates a <tr> element that contains two <td> elements:  
+one containing the user name and a link to the user's profile, and the other containing the user's score 
 
-function populateTable(tableID) {
-  sortedLeaderboard = leaderboard.sort((a, b) => b[tableID] - a[tableID]);
+It then appends the <tr> elements to the <tbody> element indicated by the tableID */
+
+function populateTable(array, tableID) {
+  sortedArray = array.sort((a, b) => b[tableID] - a[tableID]);
   const tableBody = document.getElementById(tableID);
-  for (let entry of sortedLeaderboard) {
+  for (let entry of sortedArray) {
     let row = document.createElement("tr");
     tableBody.appendChild(row);
     row.appendChild(createUserEntry(entry));
@@ -74,5 +77,5 @@ function createScoreEntry(num) {
   return score;
 }
 
-populateTable("latest");
-populateTable("allTime");
+populateTable(leaderboard, "latest");
+populateTable(leaderboard, "allTime");
