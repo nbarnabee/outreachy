@@ -348,4 +348,8 @@ document.querySelector(".close-modal").addEventListener("click", function () {
   getTask(oldNum);
 });
 
-getTask(null);
+document.getElementById("surprise-button").addEventListener("click", () => {
+  document.querySelector(".task-wrapper").hidden = false;
+  clearElements();
+  getTask(null);
+});
