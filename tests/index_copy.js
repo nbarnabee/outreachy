@@ -272,6 +272,7 @@ function makeAddButton(task) {
   addButton.setAttribute("type", "button");
   addButton.innerText = "Add another value";
   addButton.addEventListener("click", function () {
+    // createInput returns an array, but I want only the first element
     const newInput = createInput(task)[0];
     let inputs = Array.from(document.getElementsByName([task]));
     inputs[inputs.length - 1].insertAdjacentElement("afterend", newInput);
@@ -321,7 +322,7 @@ function makeLink(tool, linkType) {
   return toolLink;
 }
 
-// Function to reset the content of the divs "tool-info" and "task-info" when the "skip button is pressed"
+// Function to reset the content of the divs "tool-info" and "task-info" when the "skip" button is pressed
 
 function clearElements() {
   document.getElementById("task-form").innerHTML = "";
@@ -347,3 +348,22 @@ document.querySelector(".close-modal").addEventListener("click", function () {
 });
 
 getTask(null);
+
+module.exports = {
+  taskType,
+  mm_wikidata_todo,
+  totally_fake,
+  pywikibot,
+  availableTools,
+  populateTaskDiv,
+  createTaskStatement,
+  createInput,
+  buildSelectMenu,
+  createTaskDescription,
+  makeButtons,
+  makeAddButton,
+  populateToolLinks,
+  makeLink,
+  clearElements,
+  fakeSubmit,
+};

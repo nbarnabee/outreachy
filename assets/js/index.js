@@ -225,7 +225,8 @@ function createInput(task) {
   return inputs;
 }
 
-/* a note about available_ui_languages generally - if, as stated in the API docs, the default value should be "en," then surely that should be auto-generated on tool creation? */
+/* a note about available_ui_languages generally - if, as stated in the API docs, 
+the default value should be "en," then surely that should be auto-generated on tool creation? */
 
 function buildSelectMenu(task) {
   const newSelect = document.createElement("select");
@@ -272,6 +273,7 @@ function makeAddButton(task) {
   addButton.setAttribute("type", "button");
   addButton.innerText = "Add another value";
   addButton.addEventListener("click", function () {
+    // createInput returns an array, but I want only the first element
     const newInput = createInput(task)[0];
     let inputs = Array.from(document.getElementsByName([task]));
     inputs[inputs.length - 1].insertAdjacentElement("afterend", newInput);
@@ -321,7 +323,7 @@ function makeLink(tool, linkType) {
   return toolLink;
 }
 
-// Function to reset the content of the divs "tool-info" and "task-info" when the "skip button is pressed"
+// Function to reset the content of the divs "tool-info" and "task-info" when the "skip" button is pressed
 
 function clearElements() {
   document.getElementById("task-form").innerHTML = "";
