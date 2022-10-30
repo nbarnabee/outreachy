@@ -104,17 +104,11 @@ select {
   max-width: 800px;
 }
 
-input:first-of-type {
-  margin-top: 12px;
-}
-
-input:last-of-type {
-  margin-bottom: 12px;
-}
-
 input[type="checkbox"] {
+  margin-top: 12px;
   margin-right: 5px;
   margin-bottom: 0px;
+  cursor: pointer;
 }
 
 select {
@@ -249,6 +243,56 @@ nav > .link-container > a:hover {
 /* ---- Specific rules for Home Page elements ----- */
 /* ------------------------------------------------ */
 
+/* ------  Search bar section -------  */
+
+.search-bar-container {
+  display: flex;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  width: 350px;
+}
+
+@media (min-width: 600px) {
+  .search-bar-container {
+    width: 500px;
+  }
+}
+
+.search-bar-container:focus-within {
+  outline: 2px solid blue;
+}
+
+#search-bar {
+  flex-grow: 1;
+  border: none;
+  margin: 0;
+  padding-inline: 12px;
+  line-height: 1.5;
+  box-shadow: none;
+}
+
+#search-bar:focus {
+  border: none;
+  outline: none;
+}
+
+#search-bar-button {
+  display: inline;
+  height: 36px;
+  width: 36px;
+  margin: 8px;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+}
+
+#search-bar-button > img {
+  height: 36px;
+  width: 36px;
+  padding-bottom: 5px;
+}
+
 /* ---- Modal --------- */
 
 .modal {
@@ -287,6 +331,14 @@ nav > .link-container > a:hover {
 }
 
 /*----  Tool & Task sections --------  */
+
+#task-display input:first-of-type {
+  margin-top: 12px;
+}
+
+#task-display input:last-of-type {
+  margin-bottom: 12px;
+}
 
 #tool-info.shadowed {
   border: none;
