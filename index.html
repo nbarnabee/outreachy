@@ -43,35 +43,48 @@
       </div>
     </section>
 
-    <section id="task-display">
-      <form id="task-form" class="container centered">
-        <!-- statement of the task -->
-        <!-- input field -->
-        <!-- if the task is tool_type, a select menu instead of an input bar -->
-        <!-- field description -->
-        <!-- option to add more fields, where appropriate (e.g., the task is "for_wikis" or "available_ui_languages") -->
-        <!-- submit button -->
-      </form>
-      <div id="tool-info" class="container container-small centered shadowed">
-        <h3>These links may help you with your search:</h3>
-        <ul>
-          <li id="wikidata-link" hidden><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"
-              target="_blank">Wikidata</a></li>
-          <li id="wikimedia-link" hidden><a href="https://commons.wikimedia.org/wiki/Main_Page"
-              target="_blank">Wikimedia
-              Commons</a></li>
-          <li id="toolhub-link"><span class="tool-name"></span> on Toolhub:&nbsp;</li>
-          <li id="url-link"><span class="tool-name"></span> on the web:&nbsp;</li>
-          <li id="repository-link" hidden>Repository:&nbsp;</li>
-        </ul>
+    <section class="container centered">
+      <div class="search-bar-container">
+        <input type="text" id="search-bar" placeholder="Search for a tool">
+        <button type="button" id="search-bar-button"><img src="./assets/icons/search_icon.svg" alt="Search"></button>
       </div>
-
-      <div class="skip-box">
-        <label for="info-missing"><input type="checkbox" name="info-missing" value="true" id="info-missing">Information
-          could not be found.</label>
-        <button id="get-new-task">Skip</button>
-      </div>
+      <div class="centered" id="surprise-button"><button type="button">Surprise me!</button></div>
     </section>
+
+    <div class="spacer"></div>
+
+    <div class="task-wrapper" hidden>
+      <section id="task-display">
+        <form id="task-form" class="container centered">
+          <!-- statement of the task -->
+          <!-- input field -->
+          <!-- if the task is tool_type, a select menu instead of an input bar -->
+          <!-- field description -->
+          <!-- option to add more fields, where appropriate (e.g., the task is "for_wikis" or "available_ui_languages") -->
+          <!-- submit button -->
+        </form>
+        <div class="spacer"></div>
+        <div id="tool-info" class="container container-small centered shadowed">
+          <h3>These links may help you with your search:</h3>
+          <ul>
+            <li id="wikidata-link" hidden><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"
+                target="_blank">Wikidata</a></li>
+            <li id="wikimedia-link" hidden><a href="https://commons.wikimedia.org/wiki/Main_Page"
+                target="_blank">Wikimedia
+                Commons</a></li>
+            <li id="toolhub-link"><span class="tool-name"></span> on Toolhub:&nbsp;</li>
+            <li id="url-link"><span class="tool-name"></span> on the web:&nbsp;</li>
+            <li id="repository-link" hidden>Repository:&nbsp;</li>
+          </ul>
+        </div>
+        <div class="skip-box">
+          <label for="info-missing"><input type="checkbox" name="info-missing" value="true"
+              id="info-missing">Information
+            could not be found.</label>
+          <button id="get-new-task">Skip</button>
+        </div>
+      </section>
+    </div>
 
 
 
