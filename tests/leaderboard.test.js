@@ -39,8 +39,9 @@ test("Check if createScoreEntry is returning a <td> element", () => {
   expect(wrapper.innerHTML).toBe("<td></td>");
 });
 
-// I don't understand why wrapper.innerHTML isn't returning the value "2" as well.
-// When I do this in the browser console, the return value of wrapper.innerHTML is "<td>2</td>"
+/* I would like to simultaneously check whether the inner text of the 
+element is "2," but from what I can gather this isn't supported in Jest.
+But I can write another test for it.    */
 
 test("Check if the <td> element returned by createScoreEntry contains the correct value", () => {
   const score = createScoreEntry(2);
@@ -56,7 +57,9 @@ test("Check if createUserLink is inserting the passed link into the 'href' attri
 });
 
 /* createUserEntry should accept an object and return a <td> 
-element that contains a <span> element containing the user name, wrapped in an <a> element that is the result of a call to the createUserLink function 
+element that contains a <span> element containing the user name, wrapped 
+in an <a> element that is the result of a call to the createUserLink 
+function 
 
 I'll test it with the contents of the leaderboard array defined above.*/
 
@@ -69,7 +72,7 @@ test("Check if createUserEntry has the correct structure", () => {
   );
 });
 
-/* Again, I am not sure why the innerText does not appear between the <span> tags.  As the next text will prove, it's definitely there and correct! */
+/* Again, I have to write a second test to check that the value of innerText is correct. */
 
 test("Check if createUserEntry contains the correct user name", () => {
   const testUser = testLeaderboard[0];
@@ -80,7 +83,8 @@ test("Check if createUserEntry contains the correct user name", () => {
   expect(spanNode.innerText).toBe(userName);
 });
 
-/* Finally I reach the function that calls all of the rest, populateTable.  
+/* Finally I reach the function that calls all of the rest, 
+populateTable.  
 
 It takes an array of objects and a string value that refers to the 
 id of the table that is to be populated, currently either "latest or 
@@ -108,11 +112,8 @@ test("Has populateTable appended a row to the targeted <tbody> element?", () => 
   expect(targetTable.childNodes[0].tagName).toBe("TR");
 });
 
-/* I'm pretty confident that this is working properly.
-I was hoping to check the contents of the cells, but the results 
-continue to be inconsistent, and I am not familiar enough with Jest 
-to figure out exactly what I'm doing wrong. 
-
-For instance, I can't seem to target the <td> children 
+/* I can't seem to target the <td> children 
 of the <tr> I targeted above - at least not while using Jest.  
-I can manage it in the console. */
+I can manage it in the console.  Chaining "childnodes" does not work 
+here as it did in the previous test, and I'm too inexperienced to 
+understand why.  This is a problem I'll have to solve later.*/
