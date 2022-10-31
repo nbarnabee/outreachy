@@ -250,7 +250,9 @@ nav > .link-container > a:hover {
   border: var(--border);
   box-shadow: var(--shadow);
   margin-bottom: 20px;
-  width: 350px;
+  position: relative;
+  justify-content: space-between;
+  width: 80vw;
 }
 
 .search-bar-container:focus-within {
@@ -287,10 +289,6 @@ nav > .link-container > a:hover {
   padding-bottom: 5px;
 }
 
-.search-bar-container {
-  position: relative;
-}
-
 .search-bar-container > .suggestions {
   position: absolute;
   top: 55px;
@@ -325,6 +323,13 @@ nav > .link-container > a:hover {
   cursor: pointer;
 }
 
+#suggestions-list span {
+  display: none;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
 #suggestions-list li:hover {
   background-color: var(--lgt-grey);
 }
@@ -332,7 +337,14 @@ nav > .link-container > a:hover {
 @media (min-width: 600px) {
   .search-bar-container,
   #suggestions-list {
-    width: 500px;
+    width: 70vw;
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 900px) {
+  #suggestions-list span {
+    display: inline-block;
   }
 }
 
