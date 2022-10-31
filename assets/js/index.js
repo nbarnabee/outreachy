@@ -1,4 +1,6 @@
+/* --------------------- */
 /*  ---  MOCK DATA ---- */
+/* ----------------------- */
 
 const taskType = {
   wikidata_qid: {
@@ -143,6 +145,35 @@ const pywikibot = {
 
 const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
 
+/* ------------------------------ */
+/* ------ BUTTON-RELATED FUNCTIONS ---- */
+/* -------------------------------- */
+
+/* -------- SEARCH -------------- */
+
+/* ---------- SURPRISE ME -------------- */
+
+document.getElementById("surprise-button").addEventListener("click", () => {
+  document.querySelector(".task-wrapper").hidden = false;
+  clearElements();
+  getTask(null);
+});
+
+/* ----------- SUBMIT (opens and closes modal) ------- */
+/* ---- Closing the modal triggers a tool reset.  --- */
+
+function fakeSubmit() {
+  document.body.classList.add("modal-open");
+}
+
+document.querySelector(".close-modal").addEventListener("click", function () {
+  document.body.classList.remove("modal-open");
+  clearElements();
+  getTask(oldNum);
+});
+
+/* ----------- SKIP ---------------- */
+
 /* I'm declaring taskNum and oldNum globally so that I can access their values 
 when "skipping" a task. This ensures that the same task won't come up twice in a row. */
 
@@ -154,6 +185,22 @@ document.getElementById("get-new-task").addEventListener("click", function () {
   clearElements();
   getTask(oldNum);
 });
+
+// Function to reset the content of the divs "tool-info" and "task-info" when the "skip" button is pressed
+
+function clearElements() {
+  document.getElementById("task-form").innerHTML = "";
+  const disposableLinks = Array.from(document.querySelectorAll(".disposable"));
+  disposableLinks.forEach((link) => link.remove());
+  document.getElementById("repository-link").hidden = true;
+  document.getElementById("wikidata-link").hidden = true;
+  document.getElementById("wikimedia-link").hidden = true;
+  document.getElementById("info-missing").checked = false;
+}
+
+/* ---------------------------------------- */
+/* ------- POPULATING THE TOOL/TASK SECTIONS ---- */
+/* --------------------------------------- */
 
 /* Function that picks a tool from the mock data set 
 and selects one of the elements from its "missing" array */
@@ -322,34 +369,3 @@ function makeLink(tool, linkType) {
   toolLink.innerText = tool[linkType];
   return toolLink;
 }
-
-// Function to reset the content of the divs "tool-info" and "task-info" when the "skip" button is pressed
-
-function clearElements() {
-  document.getElementById("task-form").innerHTML = "";
-  const disposableLinks = Array.from(document.querySelectorAll(".disposable"));
-  disposableLinks.forEach((link) => link.remove());
-  document.getElementById("repository-link").hidden = true;
-  document.getElementById("wikidata-link").hidden = true;
-  document.getElementById("wikimedia-link").hidden = true;
-  document.getElementById("info-missing").checked = false;
-}
-
-/* Upon clicking the submit button, the modal pops open.  Closing the modal triggers
-a tool reset.  */
-
-function fakeSubmit() {
-  document.body.classList.add("modal-open");
-}
-
-document.querySelector(".close-modal").addEventListener("click", function () {
-  document.body.classList.remove("modal-open");
-  clearElements();
-  getTask(oldNum);
-});
-
-document.getElementById("surprise-button").addEventListener("click", () => {
-  document.querySelector(".task-wrapper").hidden = false;
-  clearElements();
-  getTask(null);
-});
