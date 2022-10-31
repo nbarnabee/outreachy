@@ -109,6 +109,7 @@ const taskType = {
 
 const mm_wikidata_todo = {
   title: "Wikidata Todo",
+  name: "mm_wikidata_todo",
   toolhub: "https://toolhub.wikimedia.org/tools/mm_wikidata_todo",
   description: "Shows you little things you can do on Wikidata.",
   url: "http://tools.wmflabs.org/wikidata-todo",
@@ -127,6 +128,7 @@ const mm_wikidata_todo = {
 
 const totally_fake = {
   title: "A totally fake tool",
+  name: "totally_fake",
   description: "I just made this one up to test some things.",
   toolhub: "https://toolhub.wikimedia.org/tools/mm_wikidata_todo",
   url: "http://www.google.com",
@@ -135,6 +137,7 @@ const totally_fake = {
 
 const pywikibot = {
   title: "Pywikibot",
+  name: "pywikibot",
   description:
     "Python library and collection of scripts that automate work on MediaWiki sites",
   toolhub: "https://toolhub.wikimedia.org/tools/pywikibot",
@@ -150,6 +153,73 @@ const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
 /* -------------------------------- */
 
 /* -------- SEARCH -------------- */
+
+const searchBar = document.getElementById("search-bar");
+const suggestions = document.getElementById("suggestions-list");
+
+const searchStrings = [];
+
+// Takes an array of objects and adds values to the search array
+
+function makeSearchStrings(dataArray) {
+  dataArray.forEach((item) => {
+    searchStrings.push(item.name);
+    searchStrings.push(item.title);
+  });
+}
+
+makeSearchStrings(availableTools);
+
+/* This function will be called after every keyup event in the search bar.
+TO DO:  add debounce */
+
+function searchHandler(e) {
+  const inputVal = e.currentTarget.value;
+  let results = [];
+  if (inputVal.length > 0) {
+    results = search(inputVal);
+  }
+  showSuggestions(results, inputVal);
+}
+
+function search(str) {
+  let results = [];
+  const val = str.toLowerCase();
+  for (let i = 0; i < searchStrings.length; i++) {
+    if (searchStrings[i].toLowerCase().indexOf(val) > -1) {
+      results.push(searchStrings[i]);
+    }
+  }
+  return results;
+}
+
+function showSuggestions(results, inputVal) {
+  suggestions.innerHTML = "";
+  if (results.length > 0) {
+    for (i = 0; i < results.length; i++) {
+      let item = results[i];
+      const match = item.match(new RegExp(inputVal, "i"));
+      item = item.replace(match[0], `<strong>${match[0]}</strong>`);
+      suggestions.innerHTML += `<li>${item}</li>`;
+    }
+    suggestions.classList.add("has-suggestions");
+  } else {
+    results = [];
+    suggestions.innerHTML = "";
+    suggestions.classList.remove("has-suggestions");
+  }
+}
+
+// when you click on one of the suggested items, the value in the search box will be set to its value
+function useSuggestion(e) {
+  searchBar.value = e.target.innerText;
+  searchBar.focus();
+  suggestions.innerHTML = "";
+  suggestions.classList.remove("has-suggestions");
+}
+
+searchBar.addEventListener("keyup", searchHandler);
+suggestions.addEventListener("click", useSuggestion);
 
 /* ---------- SURPRISE ME -------------- */
 
