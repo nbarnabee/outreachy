@@ -107,7 +107,7 @@ const taskType = {
   },
 };
 
-const mm_wikidata_todo = {
+const wikidata_todo = {
   title: "Wikidata Todo",
   name: "mm_wikidata_todo",
   toolhub: "https://toolhub.wikimedia.org/tools/mm_wikidata_todo",
@@ -126,7 +126,7 @@ const mm_wikidata_todo = {
   ],
 };
 
-const totally_fake = {
+const a_totally_fake_tool = {
   title: "A totally fake tool",
   name: "totally_fake",
   description: "I just made this one up to test some things.",
@@ -146,7 +146,7 @@ const pywikibot = {
   missing: ["wikidata_qid", "api_url", "feedback_url", "privacy_policy_url"],
 };
 
-const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
+const availableTools = [pywikibot, wikidata_todo, a_totally_fake_tool];
 
 /* ------------------------------ */
 /* ------ BUTTON-RELATED FUNCTIONS ---- */
@@ -156,19 +156,6 @@ const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
 
 const searchBar = document.getElementById("search-bar");
 const suggestions = document.getElementById("suggestions-list");
-
-const searchStrings = [];
-
-// Takes an array of objects and adds values to the search array
-
-function makeSearchStrings(dataArray) {
-  dataArray.forEach((item) => {
-    searchStrings.push(item.name);
-    // searchStrings.push(item.title);
-  });
-}
-
-makeSearchStrings(availableTools);
 
 /* This function will be called after every keyup event in the search bar.
 TO DO:  add debounce */
@@ -188,9 +175,9 @@ function searchHandler(e) {
 function search(str) {
   let results = [];
   const val = str.toLowerCase();
-  for (let i = 0; i < searchStrings.length; i++) {
-    if (searchStrings[i].toLowerCase().indexOf(val) > -1) {
-      results.push(searchStrings[i]);
+  for (let i = 0; i < availableTools.length; i++) {
+    if (availableTools[i].title.toLowerCase().indexOf(val) > -1) {
+      results.push(availableTools[i]);
     }
   }
   return results;
@@ -199,18 +186,21 @@ function search(str) {
 /* When the "results" array contains content, this will add the array elements
  to the <ul> and add a new class that will set the list to display.
  
- The way that Toolhub displays the information is much more elegant
- To do: make this more like Toolhub */
+I'm sure there is a more elegant way to do this. */
 
-function showSuggestions(results, inputVal) {
+function showSuggestions(results) {
   suggestions.innerHTML = "";
   if (results.length > 0) {
-    for (i = 0; i < results.length; i++) {
-      let item = results[i];
-      const match = item.match(new RegExp(inputVal, "i"));
-      item = item.replace(match[0], `<strong>${match[0]}</strong>`);
-      suggestions.innerHTML += `<li>${item}</li>`;
-    }
+    results.forEach((item) => {
+      let listItem = document.createElement("li");
+      listItem.innerText = item.title;
+      listItem.setAttribute("data-value", item.title);
+      let itemDesc = document.createElement("span");
+      itemDesc.innerText = item.description;
+      itemDesc.setAttribute("data-value", item.title);
+      suggestions.appendChild(listItem);
+      listItem.appendChild(itemDesc);
+    });
     suggestions.classList.add("has-suggestions");
   } else {
     results = [];
@@ -222,7 +212,7 @@ function showSuggestions(results, inputVal) {
 /* On click, the value of the search bar will be set to the value of the list item */
 
 function useSuggestion(e) {
-  searchBar.value = e.target.innerText;
+  searchBar.value = e.target.dataset.value;
   searchBar.focus();
   suggestions.innerHTML = "";
   suggestions.classList.remove("has-suggestions");
@@ -238,7 +228,21 @@ document
   .addEventListener("click", findTool);
 
 function findTool() {
-  document.querySelector(".no-results").hidden = false;
+  let searchValue = searchBar.value;
+  for (let item of availableTools) {
+    if (item.title === searchValue) {
+      // If the value matches one of the available tools, build the task selector
+      buildTaskSelector(item);
+      searchBar.value = "";
+      return;
+    } else document.querySelector(".no-results").hidden = false;
+    searchBar.value = "";
+  }
+}
+
+function buildTaskSelector(item) {
+  const resultDiv = document.getElementById("search-result");
+  resultDiv.innerHTML = `<p>${item.title}</p>`;
 }
 
 /* ---------- SURPRISE ME -------------- */
