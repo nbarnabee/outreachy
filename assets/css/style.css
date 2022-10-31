@@ -253,12 +253,6 @@ nav > .link-container > a:hover {
   width: 350px;
 }
 
-@media (min-width: 600px) {
-  .search-bar-container {
-    width: 500px;
-  }
-}
-
 .search-bar-container:focus-within {
   outline: 2px solid blue;
 }
@@ -299,7 +293,7 @@ nav > .link-container > a:hover {
 
 .search-bar-container > .suggestions {
   position: absolute;
-  top: 60px;
+  top: 55px;
 }
 
 #suggestions-list {
@@ -309,10 +303,15 @@ nav > .link-container > a:hover {
   margin: 0;
   max-height: 200px;
   overflow-y: auto;
+  width: 350px;
+  background-color: white;
+  border: var(--border);
+  border-top: none;
 }
 
 #suggestions-list.has-suggestions {
   display: block;
+  z-index: 9999;
 }
 
 #suggestions-list li {
@@ -322,6 +321,13 @@ nav > .link-container > a:hover {
 
 #suggestions-list li:hover {
   background-color: var(--lgt-grey);
+}
+
+@media (min-width: 600px) {
+  .search-bar-container,
+  #suggestions-list {
+    width: 500px;
+  }
 }
 
 /* ---- Modal --------- */
