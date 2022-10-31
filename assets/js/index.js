@@ -152,7 +152,7 @@ const availableTools = [pywikibot, mm_wikidata_todo, totally_fake];
 /* ------ BUTTON-RELATED FUNCTIONS ---- */
 /* -------------------------------- */
 
-/* -------- SEARCH -------------- */
+/* -------- SEARCH & SEARCH BAR -------------- */
 
 const searchBar = document.getElementById("search-bar");
 const suggestions = document.getElementById("suggestions-list");
@@ -164,7 +164,7 @@ const searchStrings = [];
 function makeSearchStrings(dataArray) {
   dataArray.forEach((item) => {
     searchStrings.push(item.name);
-    searchStrings.push(item.title);
+    // searchStrings.push(item.title);
   });
 }
 
@@ -174,6 +174,9 @@ makeSearchStrings(availableTools);
 TO DO:  add debounce */
 
 function searchHandler(e) {
+  /* If the "no results found" span was visible, I need it to vanish as soon as
+  the user begins another query */
+  document.querySelector(".no-results").hidden = true;
   const inputVal = e.currentTarget.value;
   let results = [];
   if (inputVal.length > 0) {
@@ -193,6 +196,12 @@ function search(str) {
   return results;
 }
 
+/* When the "results" array contains content, this will add the array elements
+ to the <ul> and add a new class that will set the list to display.
+ 
+ The way that Toolhub displays the information is much more elegant
+ To do: make this more like Toolhub */
+
 function showSuggestions(results, inputVal) {
   suggestions.innerHTML = "";
   if (results.length > 0) {
@@ -210,7 +219,8 @@ function showSuggestions(results, inputVal) {
   }
 }
 
-// when you click on one of the suggested items, the value in the search box will be set to its value
+/* On click, the value of the search bar will be set to the value of the list item */
+
 function useSuggestion(e) {
   searchBar.value = e.target.innerText;
   searchBar.focus();
@@ -220,6 +230,16 @@ function useSuggestion(e) {
 
 searchBar.addEventListener("keyup", searchHandler);
 suggestions.addEventListener("click", useSuggestion);
+
+/* ---------- ACTUAL SEARCH ------------ */
+
+document
+  .getElementById("search-bar-button")
+  .addEventListener("click", findTool);
+
+function findTool() {
+  document.querySelector(".no-results").hidden = false;
+}
 
 /* ---------- SURPRISE ME -------------- */
 
