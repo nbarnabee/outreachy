@@ -446,10 +446,8 @@ function buildSelectMenu(options, nameValue) {
 }
 
 function createTaskDescription(task) {
-  let taskDescription = document.createElement("p");
-  if (taskType[task].description.includes("</")) {
-    taskDescription.innerHTML = `${task}: ${taskType[task].description}`;
-  } else taskDescription.innerText = `${task}: ${taskType[task].description}`;
+  const taskDescription = document.createElement("p");
+  taskDescription.innerHTML = `<b>${task}</b>: ${taskType[task].description}`;
   taskDescription.style.maxWidth = "66ch";
   return taskDescription;
 }
