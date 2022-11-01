@@ -148,6 +148,40 @@ const pywikibot = {
 
 const availableTools = [pywikibot, wikidata_todo, a_totally_fake_tool];
 
+/* -----------------------------------------  */
+/* --------- CREATE ELEMENTS --------------- */
+/* ---------------------------------------  */
+
+// A set of general functions used to create various page elements
+
+/* This function takes an array that contains the possible options and a string 
+which will be set as the select element's "name" value, and returns a <select> element */
+
+function buildSelectMenu(options, nameValue) {
+  const newSelect = document.createElement("select");
+  newSelect.setAttribute("name", nameValue);
+  options.forEach((entry) => {
+    let optionElement = document.createElement("option");
+    optionElement.value = [entry];
+    optionElement.innerText = [entry];
+    newSelect.appendChild(optionElement);
+  });
+  return newSelect;
+}
+
+/* A function which accepts an innerText string, a callback function, an optional array 
+for listing class names, and an optional value */
+
+function makeButton(text, callBack, classArr, val) {
+  const button = document.createElement("button");
+  button.setAttribute("type", "button");
+  button.innerText = text;
+  button.addEventListener("click", callBack);
+  if (classArr) classArr.forEach((item) => button.classList.add(item));
+  if (val) button.value = val;
+  return button;
+}
+
 /* ------------------------------ */
 /* ------ BUTTON-RELATED FUNCTIONS ---- */
 /* -------------------------------- */
@@ -338,7 +372,6 @@ does another search or selects another task from the options given  */
 
 function clearElements() {
   document.getElementById("task-form").innerHTML = "";
-  // document.getElementById("search-result").innerHTML = "";
   document.querySelector(".task-wrapper").hidden = true;
   const disposableItems = Array.from(document.querySelectorAll(".disposable"));
   disposableItems.forEach((item) => item.remove());
@@ -488,38 +521,4 @@ function makeLink(tool, linkType) {
   toolLink.style.textDecoration = "underline";
   toolLink.innerText = tool[linkType];
   return toolLink;
-}
-
-/* -----------------------------------------  */
-/* --------- CREATE ELEMENTS --------------- */
-/* ---------------------------------------  */
-
-// A set of general functions used to create various page elements
-
-/* This function takes an array that contains the possible options and a string 
-which will be set as the select element's "name" value, and returns a <select> element */
-
-function buildSelectMenu(options, nameValue) {
-  const newSelect = document.createElement("select");
-  newSelect.setAttribute("name", nameValue);
-  options.forEach((entry) => {
-    let optionElement = document.createElement("option");
-    optionElement.value = [entry];
-    optionElement.innerText = [entry];
-    newSelect.appendChild(optionElement);
-  });
-  return newSelect;
-}
-
-/* A function which accepts an innerText string, a callback function, an optional array 
-for listing class names, and an optional value */
-
-function makeButton(text, callBack, classArr, val) {
-  const button = document.createElement("button");
-  button.setAttribute("type", "button");
-  button.innerText = text;
-  button.addEventListener("click", callBack);
-  if (classArr) classArr.forEach((item) => button.classList.add(item));
-  if (val) button.value = val;
-  return button;
 }
