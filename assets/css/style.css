@@ -415,6 +415,10 @@ nav > .link-container > a:hover {
   box-shadow: none;
 }
 
+#tool-info {
+  align-items: flex-start;
+}
+
 @media (min-width: 900px) {
   #tool-info.shadowed {
     border: var(--border);
