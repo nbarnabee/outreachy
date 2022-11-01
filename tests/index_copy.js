@@ -526,3 +526,32 @@ function makeLink(tool, linkType) {
   toolLink.innerText = tool[linkType];
   return toolLink;
 }
+
+module.exports = {
+  taskType,
+  wikidata_todo,
+  a_totally_fake_tool,
+  pywikibot,
+  availableTools,
+  buildSelectMenu,
+  makeButton,
+  showSearch,
+  fakeSubmit,
+  searchHandler,
+  buildSuggestionsMenu,
+  showSuggestions,
+  makeListElement,
+  useSuggestion,
+  findTool,
+  buildSearchResults,
+  getSearchTask,
+  clearElements,
+  getTask,
+  populateTaskDiv,
+  makeTaskHeading,
+  buildInputs,
+  makeTaskDescription,
+  buildButtonContainer,
+  populateToolLinks,
+  makeLink,
+};
