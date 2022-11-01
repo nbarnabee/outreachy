@@ -261,20 +261,18 @@ function buildSuggestionsMenu(str) {
 }
 
 /* When the "menu" array contains content, this will add the array elements
- to the <ul> and add a new class that will set the list to display.
- 
-I'm sure there is a more elegant way to do this. */
+ to the <ul> and add a new class that will set the list to display.  */
 
 function showSuggestions(menu) {
   suggestions.innerHTML = "";
   if (menu.length > 0) {
     menu.forEach((item) => {
-      let listItem = document.createElement("li");
-      listItem.innerText = item.title;
-      listItem.setAttribute("data-value", item.title);
-      let itemDesc = document.createElement("span");
-      itemDesc.innerText = item.description;
-      itemDesc.setAttribute("data-value", item.title);
+      let listItem = makeListElement("li", item.title, {
+        "data-value": item.title,
+      });
+      let itemDesc = makeListElement("span", item.description, {
+        "data-value": item.title,
+      });
       suggestions.appendChild(listItem);
       listItem.appendChild(itemDesc);
     });
@@ -284,6 +282,15 @@ function showSuggestions(menu) {
     suggestions.innerHTML = "";
     suggestions.classList.remove("has-suggestions");
   }
+}
+
+function makeListElement(tagType, innerText, attributeObj) {
+  let newItem = document.createElement(tagType);
+  newItem.innerText = innerText;
+  for (let entry in attributeObj) {
+    newItem.setAttribute(entry, attributeObj[entry]);
+  }
+  return newItem;
 }
 
 /* On click, the value of the search bar will be set to the value of the list item */
@@ -381,9 +388,9 @@ function clearElements() {
   document.getElementById("info-missing").checked = false;
 }
 
-/* ---------------------------------------- */
+/* ----------------------------------------------- */
 /* ------- POPULATING THE TOOL/TASK SECTIONS ---- */
-/* --------------------------------------- */
+/* ---------------------------------------------- */
 
 /* Function that picks a tool from the mock data set 
 and selects one of the elements from its "missing" array */
@@ -451,9 +458,6 @@ function createInput(task) {
   }
   return inputs;
 }
-
-/* a note about available_ui_languages generally - if, as stated in the API docs, 
-the default value should be "en," then surely that should be auto-generated on tool creation? */
 
 function createTaskDescription(task) {
   const taskDescription = document.createElement("p");
