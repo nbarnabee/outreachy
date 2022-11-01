@@ -154,16 +154,28 @@ const availableTools = [pywikibot, wikidata_todo, a_totally_fake_tool];
 
 /* ---------- SEARCH & SURPRISE ME -------------- */
 
-document.getElementById("show-search-bar").addEventListener("click", () => {
-  document.querySelector(".search-bar-container").style.display = "flex";
-  document.querySelector(".start-button-container").style.display = "none";
-});
+document
+  .getElementById("show-search-bar")
+  .addEventListener("click", showSearch);
 
 document.getElementById("surprise-button").addEventListener("click", () => {
   document.querySelector(".task-wrapper").hidden = false;
   document.querySelector(".start-button-container").style.display = "none";
   getTask();
 });
+
+function showSearch() {
+  document.querySelector(".search-bar-container").style.display = "flex";
+  document.querySelector(".start-button-container").style.display = "none";
+  const backButton = document.createElement("button");
+  backButton.setAttribute("type", "button");
+  backButton.classList.add("remove-on-get-task");
+  backButton.innerText = "< Back";
+  backButton.addEventListener("click", () => {
+    location.reload();
+  });
+  document.getElementById("start-search-wrapper").appendChild(backButton);
+}
 
 /* ----------- SUBMIT (opens and closes modal) ------- */
 /* ---- Closing the modal triggers a page refresh.  --- */
@@ -200,33 +212,33 @@ function searchHandler(e) {
   the user begins another query */
   document.querySelector(".no-results").hidden = true;
   const inputVal = e.currentTarget.value;
-  let results = [];
+  let menu = [];
   if (inputVal.length > 0) {
-    results = search(inputVal);
+    menu = buildSuggestionsMenu(inputVal);
   }
-  showSuggestions(results, inputVal);
+  showSuggestions(menu, inputVal);
 }
 
-function search(str) {
-  let results = [];
+function buildSuggestionsMenu(str) {
+  let menu = [];
   const val = str.toLowerCase();
   for (let i = 0; i < availableTools.length; i++) {
     if (availableTools[i].title.toLowerCase().indexOf(val) > -1) {
-      results.push(availableTools[i]);
+      menu.push(availableTools[i]);
     }
   }
-  return results;
+  return menu;
 }
 
-/* When the "results" array contains content, this will add the array elements
+/* When the "menu" array contains content, this will add the array elements
  to the <ul> and add a new class that will set the list to display.
  
 I'm sure there is a more elegant way to do this. */
 
-function showSuggestions(results) {
+function showSuggestions(menu) {
   suggestions.innerHTML = "";
-  if (results.length > 0) {
-    results.forEach((item) => {
+  if (menu.length > 0) {
+    menu.forEach((item) => {
       let listItem = document.createElement("li");
       listItem.innerText = item.title;
       listItem.setAttribute("data-value", item.title);
@@ -238,7 +250,7 @@ function showSuggestions(results) {
     });
     suggestions.classList.add("has-suggestions");
   } else {
-    results = [];
+    menu = [];
     suggestions.innerHTML = "";
     suggestions.classList.remove("has-suggestions");
   }
@@ -321,6 +333,10 @@ function getSearchTask(e) {
     }
   });
   clearElements();
+  if (document.querySelector(".remove-on-get-task")) {
+    // removes the "back" button, if it exists
+    document.querySelector(".remove-on-get-task").remove();
+  }
   populateTaskDiv(toolObj, task);
   populateToolLinks(toolObj, task);
 }
