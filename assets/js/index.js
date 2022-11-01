@@ -167,13 +167,9 @@ document.getElementById("surprise-button").addEventListener("click", () => {
 function showSearch() {
   document.querySelector(".search-bar-container").style.display = "flex";
   document.querySelector(".start-button-container").style.display = "none";
-  const backButton = document.createElement("button");
-  backButton.setAttribute("type", "button");
-  backButton.classList.add("remove-on-get-task");
-  backButton.innerText = "< Back";
-  backButton.addEventListener("click", () => {
-    location.reload();
-  });
+  const backButton = makeButton("< Back", () => location.reload(), [
+    "remove-on-get-task",
+  ]);
   document.getElementById("start-search-wrapper").appendChild(backButton);
 }
 
@@ -305,19 +301,15 @@ function buildSearchResult(item) {
   else {
     titleTask.innerText = `${item.title} is missing the following values.  Which one would you like to find?`;
     titleTask.appendChild(buildSelectMenu(item.missing, "task"));
-    resultWrapper.appendChild(makeSearchResultButton(item.name));
+    const searchResultButton = makeButton(
+      "Get Task",
+      getSearchTask,
+      ["remove-on-search"],
+      item.name
+    );
+    resultWrapper.appendChild(searchResultButton);
   }
   resultDiv.appendChild(titleTask);
-}
-
-function makeSearchResultButton(itemName) {
-  const button = document.createElement("button");
-  button.setAttribute("type", "button");
-  button.classList.add("remove-on-search");
-  button.value = itemName;
-  button.innerText = "Get Task";
-  button.addEventListener("click", getSearchTask);
-  return button;
 }
 
 function getSearchTask(e) {
@@ -392,7 +384,7 @@ function populateTaskDiv(tool, task) {
   // array expected
   taskInputs.forEach((entry) => taskForm.appendChild(entry));
   taskForm.appendChild(createTaskDescription(task));
-  taskForm.appendChild(makeButtons(task));
+  taskForm.appendChild(makeButtonContainer(task));
 }
 
 function createTaskStatement(tool, task) {
@@ -430,21 +422,6 @@ function createInput(task) {
 /* a note about available_ui_languages generally - if, as stated in the API docs, 
 the default value should be "en," then surely that should be auto-generated on tool creation? */
 
-/* This function now takes an array that contains the possible options, and a string 
-which will be set as the select element's "name" value */
-
-function buildSelectMenu(options, nameValue) {
-  const newSelect = document.createElement("select");
-  newSelect.setAttribute("name", nameValue);
-  options.forEach((entry) => {
-    let optionElement = document.createElement("option");
-    optionElement.value = [entry];
-    optionElement.innerText = [entry];
-    newSelect.appendChild(optionElement);
-  });
-  return newSelect;
-}
-
 function createTaskDescription(task) {
   const taskDescription = document.createElement("p");
   taskDescription.innerHTML = `<b>${task}</b>: ${taskType[task].description}`;
@@ -452,36 +429,23 @@ function createTaskDescription(task) {
   return taskDescription;
 }
 
-function makeButtons(task) {
+function makeButtonContainer(task) {
   let buttonContainer = document.createElement("div");
   buttonContainer.classList.add("row");
   buttonContainer.classList.add("row-gap");
   // "for_wikis" and "available_ui_languages" can take multiple inputs
   if (taskType[task].multiple === true) {
-    buttonContainer.appendChild(makeAddButton(task));
+    const addInput = function () {
+      const newInput = createInput(task)[0];
+      let inputs = Array.from(document.getElementsByName([task]));
+      inputs[inputs.length - 1].insertAdjacentElement("afterend", newInput);
+    };
+    const addButton = makeButton("Add another value", addInput);
+    buttonContainer.appendChild(addButton);
   }
-  let submitButton = document.createElement("button");
-  submitButton.setAttribute("type", "button");
-  submitButton.innerText = "Submit";
-  submitButton.addEventListener("click", fakeSubmit);
+  let submitButton = makeButton("Submit", fakeSubmit);
   buttonContainer.appendChild(submitButton);
   return buttonContainer;
-}
-
-/* This function produces a button that, when clicked, 
-  will append a new input element to the existing inputs */
-
-function makeAddButton(task) {
-  let addButton = document.createElement("button");
-  addButton.setAttribute("type", "button");
-  addButton.innerText = "Add another value";
-  addButton.addEventListener("click", function () {
-    // createInput returns an array, but I want only the first element
-    const newInput = createInput(task)[0];
-    let inputs = Array.from(document.getElementsByName([task]));
-    inputs[inputs.length - 1].insertAdjacentElement("afterend", newInput);
-  });
-  return addButton;
 }
 
 /* Functions for populating the div with id "tool-info" with a list of relevant 
@@ -524,4 +488,38 @@ function makeLink(tool, linkType) {
   toolLink.style.textDecoration = "underline";
   toolLink.innerText = tool[linkType];
   return toolLink;
+}
+
+/* -----------------------------------------  */
+/* --------- CREATE ELEMENTS --------------- */
+/* ---------------------------------------  */
+
+// A set of general functions used to create various page elements
+
+/* This function takes an array that contains the possible options and a string 
+which will be set as the select element's "name" value, and returns a <select> element */
+
+function buildSelectMenu(options, nameValue) {
+  const newSelect = document.createElement("select");
+  newSelect.setAttribute("name", nameValue);
+  options.forEach((entry) => {
+    let optionElement = document.createElement("option");
+    optionElement.value = [entry];
+    optionElement.innerText = [entry];
+    newSelect.appendChild(optionElement);
+  });
+  return newSelect;
+}
+
+/* A function which accepts an innerText string, a callback function, an optional array 
+for listing class names, and an optional value */
+
+function makeButton(text, callBack, classArr, val) {
+  const button = document.createElement("button");
+  button.setAttribute("type", "button");
+  button.innerText = text;
+  button.addEventListener("click", callBack);
+  if (classArr) classArr.forEach((item) => button.classList.add(item));
+  if (val) button.value = val;
+  return button;
 }
