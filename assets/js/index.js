@@ -395,12 +395,12 @@ function createInput(task) {
     taskType[task].input.forEach((entry, i) => {
       const newInput = document.createElement("input");
       newInput.type = [entry];
-      newInput.required = true;
       newInput.setAttribute("name", task);
       /* In the event that an ISO 639 language code is required, I want that to be
        clearly indicated.  The value should default to "en" in all cases other than
       "available_ui_languages" */
-      if (i === 1) newInput.value = "en";
+      if (i === 1)
+        newInput.placeholder = "ISO 639-1 language code (defaults to 'en')";
       else if (task === "available_ui_languages")
         newInput.placeholder = "ISO 639-1 language code";
       else newInput.placeholder = task;
