@@ -39,12 +39,16 @@
         <p>If you can find the requested information, fill out the form and click <b>Submit</b>.
           If
           you don't like
-          the look of your task, or can't find the requested information, click <b>Get new task</b> to get a new one.
+          the look of your task, or can't find the requested information, click <b>Find a new task</b> to get a new one.
         </p>
       </div>
     </section>
 
     <section class="container centered">
+      <div class="start-button-container row">
+        <button type="button" id="show-search-bar">Search for a tool</button>
+        <button type="button" id="surprise-button">Surprise me!</button>
+      </div>
       <div class="search-bar-container">
         <input type="text" id="search-bar" placeholder="Search for a tool">
         <div class="suggestions">
@@ -60,8 +64,6 @@
           <!-- the "build the task menu" button will go here -->
         </section>
       </div>
-      <div class="spacer"></div>
-      <div class="centered" id="surprise-button"><button type="button">Surprise me!</button></div>
     </section>
 
 
@@ -93,7 +95,7 @@
           <label for="info-missing"><input type="checkbox" name="info-missing" value="true"
               id="info-missing">Information
             could not be found.</label>
-          <button id="get-new-task">Get new task</button>
+          <button id="get-new-task">Find a new task</button>
         </div>
       </section>
     </div>
