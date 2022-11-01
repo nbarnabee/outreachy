@@ -419,21 +419,21 @@ We have a main function, which calls a set of functions that produce the followi
 function populateTaskDiv(tool, task) {
   document.querySelector(".task-wrapper").hidden = false;
   let taskForm = document.getElementById("task-form");
-  taskForm.appendChild(createTaskStatement(tool, task));
-  const taskInputs = createInput(task);
+  taskForm.appendChild(makeTaskHeading(tool, task));
+  const taskInputs = buildInputs(task);
   // array expected
   taskInputs.forEach((entry) => taskForm.appendChild(entry));
-  taskForm.appendChild(createTaskDescription(task));
-  taskForm.appendChild(makeButtonContainer(task));
+  taskForm.appendChild(makeTaskDescription(task));
+  taskForm.appendChild(buildButtonContainer(task));
 }
 
-function createTaskStatement(tool, task) {
-  let taskStatement = document.createElement("h3");
-  taskStatement.innerText = `${tool.title} is missing its ${task}.`;
-  return taskStatement;
+function makeTaskHeading(tool, task) {
+  let taskHeading = document.createElement("h3");
+  taskHeading.innerText = `${tool.title} is missing its ${task}.`;
+  return taskHeading;
 }
 
-function createInput(task) {
+function buildInputs(task) {
   const inputs = [];
   if (taskType[task].options) {
     /* For the task "tool_type" users must select from a pre-defined set of options.
@@ -459,21 +459,21 @@ function createInput(task) {
   return inputs;
 }
 
-function createTaskDescription(task) {
+function makeTaskDescription(task) {
   const taskDescription = document.createElement("p");
   taskDescription.innerHTML = `<b>${task}</b>: ${taskType[task].description}`;
   taskDescription.style.maxWidth = "66ch";
   return taskDescription;
 }
 
-function makeButtonContainer(task) {
+function buildButtonContainer(task) {
   let buttonContainer = document.createElement("div");
   buttonContainer.classList.add("row");
   buttonContainer.classList.add("row-gap");
   // "for_wikis" and "available_ui_languages" can take multiple inputs
   if (taskType[task].multiple === true) {
     const addInput = function () {
-      const newInput = createInput(task)[0];
+      const newInput = buildInputs(task)[0];
       let inputs = Array.from(document.getElementsByName([task]));
       inputs[inputs.length - 1].insertAdjacentElement("afterend", newInput);
     };
