@@ -228,6 +228,7 @@ document
   .addEventListener("click", findTool);
 
 function findTool() {
+  suggestions.classList.remove("has-suggestions");
   let searchValue = searchBar.value;
   for (let item of availableTools) {
     if (item.title === searchValue) {
