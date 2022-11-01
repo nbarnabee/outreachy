@@ -284,8 +284,8 @@ function showSuggestions(menu) {
   }
 }
 
-function makeListElement(tagType, innerText, attributeObj) {
-  let newItem = document.createElement(tagType);
+function makeListElement(tagName, innerText, attributeObj) {
+  let newItem = document.createElement(tagName);
   newItem.innerText = innerText;
   for (let entry in attributeObj) {
     newItem.setAttribute(entry, attributeObj[entry]);
