@@ -246,7 +246,7 @@ nav > .link-container > a:hover {
 /* ------  Search bar section -------  */
 
 .search-bar-container {
-  display: flex;
+  display: none;
   border: var(--border);
   box-shadow: var(--shadow);
   margin-bottom: 20px;
@@ -292,6 +292,8 @@ nav > .link-container > a:hover {
 .search-bar-container > .suggestions {
   position: absolute;
   top: 55px;
+  z-index: 9999;
+  background-color: white;
 }
 
 .search-bar-container > span {
@@ -315,7 +317,6 @@ nav > .link-container > a:hover {
 
 #suggestions-list.has-suggestions {
   display: block;
-  z-index: 9999;
 }
 
 #suggestions-list li {
@@ -332,12 +333,6 @@ nav > .link-container > a:hover {
 
 #suggestions-list li:hover {
   background-color: var(--lgt-grey);
-}
-
-#surprise-button button {
-  margin: 5rem;
-  font-size: 1.2rem;
-  padding: 4px 6px;
 }
 
 @media (min-width: 600px) {
