@@ -243,6 +243,10 @@ nav > .link-container > a:hover {
 /* ---- Specific rules for Home Page elements ----- */
 /* ------------------------------------------------ */
 
+.start-button-container > button {
+  margin-inline: 1rem;
+}
+
 /* ------  Search bar section -------  */
 
 .search-bar-container {
