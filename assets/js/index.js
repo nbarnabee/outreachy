@@ -242,7 +242,9 @@ function findTool() {
 
 function buildTaskSelector(item) {
   const resultDiv = document.getElementById("search-result");
-  resultDiv.innerHTML = `<p>${item.title}</p>`;
+  const titleTask = document.createElement("p");
+  titleTask.innerText = `${item.title} is missing the following values.  Which one would you like to find?`;
+  resultDiv.appendChild(titleTask);
 }
 
 /* ---------- SURPRISE ME -------------- */
@@ -344,9 +346,8 @@ function createInput(task) {
   if (taskType[task].options) {
     /* For the task "tool_type" users must select from a pre-defined set of options.
     However, it might be possible to define a set of possible options for additional task types. 
-    Therefore, at Damilare's suggestion, I've expanded its functionality
-    Now, any tool which has a defined "options" key will trigger it. */
-    inputs.push(buildSelectMenu(task));
+    Any tool which has a defined "options" key will trigger it. */
+    inputs.push(buildSelectMenu(taskType[task].options, task));
   } else {
     taskType[task].input.forEach((entry, i) => {
       const newInput = document.createElement("input");
@@ -369,14 +370,17 @@ function createInput(task) {
 /* a note about available_ui_languages generally - if, as stated in the API docs, 
 the default value should be "en," then surely that should be auto-generated on tool creation? */
 
-function buildSelectMenu(task) {
+/* This function now takes an array that contains the possible options, and a string 
+which will be set as the select element's "name" value */
+
+function buildSelectMenu(options, nameValue) {
   const newSelect = document.createElement("select");
-  newSelect.setAttribute("name", task);
-  taskType[task].options.forEach((entry) => {
-    let option = document.createElement("option");
-    option.value = [entry];
-    option.innerText = [entry];
-    newSelect.appendChild(option);
+  newSelect.setAttribute("name", nameValue);
+  options.forEach((entry) => {
+    let optionElement = document.createElement("option");
+    optionElement.value = [entry];
+    optionElement.innerText = [entry];
+    newSelect.appendChild(optionElement);
   });
   return newSelect;
 }
