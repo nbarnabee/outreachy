@@ -232,19 +232,57 @@ function findTool() {
   for (let item of availableTools) {
     if (item.title === searchValue) {
       // If the value matches one of the available tools, build the task selector
-      buildTaskSelector(item);
+      // I also want to clear any other tasks that might be displayed
+      clearElements();
+      buildSearchResult(item);
       searchBar.value = "";
       return;
-    } else document.querySelector(".no-results").hidden = false;
-    searchBar.value = "";
+    }
   }
+  document.querySelector(".no-results").hidden = false;
+  searchBar.value = "";
 }
 
-function buildTaskSelector(item) {
+function buildSearchResult(item) {
+  const resultWrapper = document.querySelector(".search-result-wrapper");
   const resultDiv = document.getElementById("search-result");
+  // resultWrapper.hidden = false;
   const titleTask = document.createElement("p");
-  titleTask.innerText = `${item.title} is missing the following values.  Which one would you like to find?`;
+  if (item.missing.length === 0)
+    titleTask.innerText = `${item.title} isn't missing any values.  How wonderful!  You'll have to find another tool to work on.`;
+  else {
+    titleTask.innerText = `${item.title} is missing the following values.  Which one would you like to find?`;
+    titleTask.appendChild(buildSelectMenu(item.missing, "task"));
+    resultWrapper.appendChild(makeSearchResultButton(item.name));
+  }
   resultDiv.appendChild(titleTask);
+}
+
+function makeSearchResultButton(itemName) {
+  const button = document.createElement("button");
+  button.setAttribute("type", "button");
+  button.classList.add("disposable");
+  button.value = itemName;
+  button.innerText = "Get Task";
+  button.addEventListener("click", getSearchTask);
+  return button;
+}
+
+function getSearchTask(e) {
+  /* It is possible that there could be multiple select menus on the page, but 
+  the particular select menu that I am looking for here will always be the first.  */
+  const selectMenus = Array.from(document.getElementsByTagName("select"));
+  const task = selectMenus[0].value;
+  let toolObj;
+  availableTools.forEach((tool) => {
+    if (tool.name === e.target.value) {
+      toolObj = tool;
+      return;
+    }
+  });
+  clearElements();
+  populateTaskDiv(toolObj, task);
+  populateToolLinks(toolObj, task);
 }
 
 /* ---------- SURPRISE ME -------------- */
@@ -256,16 +294,14 @@ document.getElementById("surprise-button").addEventListener("click", () => {
 });
 
 /* ----------- SUBMIT (opens and closes modal) ------- */
-/* ---- Closing the modal triggers a tool reset.  --- */
+/* ---- Closing the modal triggers a page refresh.  --- */
 
 function fakeSubmit() {
   document.body.classList.add("modal-open");
 }
 
 document.querySelector(".close-modal").addEventListener("click", function () {
-  document.body.classList.remove("modal-open");
-  clearElements();
-  getTask(oldNum);
+  location.reload();
 });
 
 /* ----------- SKIP ---------------- */
@@ -286,8 +322,11 @@ document.getElementById("get-new-task").addEventListener("click", function () {
 
 function clearElements() {
   document.getElementById("task-form").innerHTML = "";
-  const disposableLinks = Array.from(document.querySelectorAll(".disposable"));
-  disposableLinks.forEach((link) => link.remove());
+  document.getElementById("search-result").innerHTML = "";
+  document.getElementById("surprise-button").style.display = "none";
+  document.querySelector(".task-wrapper").hidden = true;
+  const disposableItems = Array.from(document.querySelectorAll(".disposable"));
+  disposableItems.forEach((item) => item.remove());
   document.getElementById("repository-link").hidden = true;
   document.getElementById("wikidata-link").hidden = true;
   document.getElementById("wikimedia-link").hidden = true;
@@ -317,6 +356,8 @@ function getTask(num) {
 
 /* Functions for populating the div with id "task-info"
 
+This takes an object (the tool) and a string (the task)
+
 We have a main function, which calls a set of functions that produce the following elements: 
 1. A statement of the task.
 2. An input element (or elements) appropriate to the task type.
@@ -326,6 +367,7 @@ We have a main function, which calls a set of functions that produce the followi
 */
 
 function populateTaskDiv(tool, task) {
+  document.querySelector(".task-wrapper").hidden = false;
   let taskForm = document.getElementById("task-form");
   taskForm.appendChild(createTaskStatement(tool, task));
   const taskInputs = createInput(task);
