@@ -152,7 +152,42 @@ const availableTools = [pywikibot, wikidata_todo, a_totally_fake_tool];
 /* ------ BUTTON-RELATED FUNCTIONS ---- */
 /* -------------------------------- */
 
-/* -------- SEARCH & SEARCH BAR -------------- */
+/* ---------- SEARCH & SURPRISE ME -------------- */
+
+document.getElementById("show-search-bar").addEventListener("click", () => {
+  document.querySelector(".search-bar-container").style.display = "flex";
+  document.querySelector(".start-button-container").style.display = "none";
+});
+
+document.getElementById("surprise-button").addEventListener("click", () => {
+  document.querySelector(".task-wrapper").hidden = false;
+  document.querySelector(".start-button-container").style.display = "none";
+  getTask();
+});
+
+/* ----------- SUBMIT (opens and closes modal) ------- */
+/* ---- Closing the modal triggers a page refresh.  --- */
+
+function fakeSubmit() {
+  document.body.classList.add("modal-open");
+}
+
+document.querySelector(".close-modal").addEventListener("click", function () {
+  location.reload();
+});
+
+/* ----------- GET NEW TASK ---------------- */
+// Reloads the page
+
+document.getElementById("get-new-task").addEventListener("click", function () {
+  location.reload();
+});
+
+/* ------------------------------ */
+/* ------ SEARCH BAR FUNCTIONS ---- */
+/* -------------------------------- */
+
+/* -------- AUTO-SUGGESTIONS -------------- */
 
 const searchBar = document.getElementById("search-bar");
 const suggestions = document.getElementById("suggestions-list");
@@ -221,7 +256,7 @@ function useSuggestion(e) {
 searchBar.addEventListener("keyup", searchHandler);
 suggestions.addEventListener("click", useSuggestion);
 
-/* ---------- ACTUAL SEARCH ------------ */
+/* ---------- SEARCHING ------------ */
 
 document
   .getElementById("search-bar-button")
@@ -247,7 +282,11 @@ function findTool() {
 function buildSearchResult(item) {
   const resultWrapper = document.querySelector(".search-result-wrapper");
   const resultDiv = document.getElementById("search-result");
-  // resultWrapper.hidden = false;
+  // remove any existing "get task" buttons
+  if (document.querySelector(".remove-on-search")) {
+    document.querySelector(".remove-on-search").remove();
+  }
+  resultDiv.innerHTML = "";
   const titleTask = document.createElement("p");
   if (item.missing.length === 0)
     titleTask.innerText = `${item.title} isn't missing any values.  How wonderful!  You'll have to find another tool to work on.`;
@@ -262,7 +301,7 @@ function buildSearchResult(item) {
 function makeSearchResultButton(itemName) {
   const button = document.createElement("button");
   button.setAttribute("type", "button");
-  button.classList.add("disposable");
+  button.classList.add("remove-on-search");
   button.value = itemName;
   button.innerText = "Get Task";
   button.addEventListener("click", getSearchTask);
@@ -286,45 +325,12 @@ function getSearchTask(e) {
   populateToolLinks(toolObj, task);
 }
 
-/* ---------- SURPRISE ME -------------- */
-
-document.getElementById("surprise-button").addEventListener("click", () => {
-  document.querySelector(".task-wrapper").hidden = false;
-  clearElements();
-  getTask(null);
-});
-
-/* ----------- SUBMIT (opens and closes modal) ------- */
-/* ---- Closing the modal triggers a page refresh.  --- */
-
-function fakeSubmit() {
-  document.body.classList.add("modal-open");
-}
-
-document.querySelector(".close-modal").addEventListener("click", function () {
-  location.reload();
-});
-
-/* ----------- SKIP ---------------- */
-
-/* I'm declaring taskNum and oldNum globally so that I can access their values 
-when "skipping" a task. This ensures that the same task won't come up twice in a row. */
-
-let taskNum, oldNum;
-
-// Function that resets the page and selects a new task when the user clicks "skip"
-
-document.getElementById("get-new-task").addEventListener("click", function () {
-  clearElements();
-  getTask(oldNum);
-});
-
-// Function to reset the content of the divs "tool-info" and "task-info" when the "skip" button is pressed
+/* Function to reset the content of the divs "tool-info" and "task-info" if the user 
+does another search or selects another task from the options given  */
 
 function clearElements() {
   document.getElementById("task-form").innerHTML = "";
-  document.getElementById("search-result").innerHTML = "";
-  document.getElementById("surprise-button").style.display = "none";
+  // document.getElementById("search-result").innerHTML = "";
   document.querySelector(".task-wrapper").hidden = true;
   const disposableItems = Array.from(document.querySelectorAll(".disposable"));
   disposableItems.forEach((item) => item.remove());
@@ -341,16 +347,11 @@ function clearElements() {
 /* Function that picks a tool from the mock data set 
 and selects one of the elements from its "missing" array */
 
-function getTask(num) {
-  oldNum = num;
+function getTask() {
   let toolNum = Math.floor(Math.random() * availableTools.length);
   let tool = availableTools[toolNum];
-  taskNum = Math.floor(Math.random() * tool.missing.length);
-  while (taskNum === oldNum) {
-    taskNum = Math.floor(Math.random() * tool.missing.length);
-  }
+  let taskNum = Math.floor(Math.random() * tool.missing.length);
   let task = tool.missing[taskNum];
-  oldNum = taskNum;
   populateToolLinks(tool, task);
   populateTaskDiv(tool, task);
 }
