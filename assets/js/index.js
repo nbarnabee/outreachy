@@ -238,6 +238,11 @@ const suggestions = document.getElementById("suggestions-list");
 TO DO:  add debounce */
 
 function searchHandler(e) {
+  /* If the user has pressed "enter," run the search function */
+  if (e.keyCode === 13) {
+    findTool();
+    return;
+  }
   /* If the "no results found" span was visible, I need it to vanish as soon as
   the user begins another query */
   document.querySelector(".no-results").hidden = true;
