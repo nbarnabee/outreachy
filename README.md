@@ -8,10 +8,10 @@ Project description at: https://phabricator.wikimedia.org/T318921
 - [The Task](#the-task)
 - [The Tools](#the-tools)
 - [The Process](#the-process)
-  - [Homepage](#the-home-page)
-      -[Workflow](#user-workflow)
-  - [The Dashboard](#the-dashboard)
-  - [The Leaderboard](#the-leaderboard)
+- [Homepage](#the-home-page)  
+    - [Workflow](#user-workflow)
+- [The Dashboard](#the-dashboard)
+- [The Leaderboard](#the-leaderboard)
 - [Testing](#testing) 
    - [Installation](#installation)
 - [What I Learned](#what-i-learned)
@@ -55,11 +55,11 @@ I also wanted to, as much as possible, generate the page content dynamically, mi
 
 ![Mock dataset](/docs/images/mock_data.jpg)
 
-### The Home Page
+## The Home Page
 
 The Home Page contains the tool editing interface and is the heart of the app. I felt it important to present as much information to the user as possible, so that it would be clear what the task was and what they were being expected to find. In this way I hoped to minimize user confusion and present a more streamlined experience.  
 
-#### User Workflow 
+### User Workflow 
 
 Upon loading the page, the user is presented with a choice: search for a particular tool or accept a random test.  (The initial version of the site defaulted to the random test.)  The "random test" option is very straightforward, while the tool search option allows the user to select a tool, browse a list of missing entries, and select a task.
 
@@ -71,7 +71,7 @@ Being mindful of the possibility that users might enter improperly formatted inf
 
 For the "for_wikis" and "available_ui_languages" tasks, where multiple entries may be given, I included an option to generate additional input elements. Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
 
-### The Dashboard
+## The Dashboard
 
 ![Toolhunt Dashboard](/docs/images/dashboard.jpg)
 
@@ -81,7 +81,7 @@ Additional charts could measure edits made over time, and track the improvement 
 
 As on the home page, the data displayed here is generated on page load.
 
-### The Leaderboard
+## The Leaderboard
 
 ![Toolhunt Leaderboard](/docs/images/leaderboard.jpg)
 
@@ -91,20 +91,39 @@ The Leaderboard is fairly straightforward; again, the data displayed in the tabl
 
 In order to test the functions, I decided to use the Jest testing framework. I installed it and the jsdom test environment, but quickly discovered that it did not play nicely with chart.js or canvas. Specifically, Jest would refuse to run until I had defined "Chart." Installing chart.js as a dependency and setting `const Chart = require("./chartjs")` in `dashboard.js` would appease Jest, but would cause the page to break if I attempted to render it.
 
-Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I've since read about bundling files using webpack, which seems to be a solution that would solve my problems, but have not. 
+Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I've since read about bundling files using webpack, which seems to be a solution that would solve my problems, but have not had the opportunity to explore it further. 
+
+Instead I ran with my "good enough for now" method of copying the files and wrote a series of representive tests for each of my .js files.
+
+![Tests](/docs/images/tests.jpg)
 
 ### Installation
 
-In order to run the tests on your own computer, fork and clone the repo, then open the code in your developer environment and enter `npm install`. This will install the relevant dependencies. Then type `npm test` to run the suite of tests.
+Fork and clone the repo, open the code in your developer environment and enter `npm install`, which will install the relevant dependencies. Then type `npm test` in the console to run the suite of tests.
 
 ## What I Learned
 
 As the Leaderboard and the Dashboard were relatively straightforward to design and implement, I spent most of my energy on the Home page. Although I sometimes wondered if I wasn't going to excessive lengths to render the elements according to the task type, working on those functions required me to think deeply about how users might go about completing the tasks and how the site presentation could most effectively help them.
 
-I also feel that I am coming away from this with a body of functions that could easily be refactored to take in data from actual API calls, and certainly the functions are capable of being tested with additional mock data sets such as the ones I've written, to ensure that they are producing the desired results.
+I also feel that I am coming away from this with a body of functions that could easily be refactored to take in data from actual API calls, and certainly the functions are capable of being tested with additional mock data sets such as the ones I've written, to ensure that they are producing the desired results.  
+
+I also learned a great deal about testing, which was a completely new subject.  I had heard about test-driven development but did not fully understand it; having now had the experience of writing incremental tests for my functions, I have a new appreciation for the concept.  I ended up refactoring several of my functions, breaking them down into smaller functions that could be more easily tested.
 
 ## Room for Improvement
 
-I considered adding additional charts to the Dashboard page but ultimately decided to refocus on the Home page. I would also like to implement client side validation using the patterns given in the Toolhub API documentation.
+**Searching & search bar**
+- Implement debounce
+- Implement a way to clear the current value (as is currently possible while searching on the Toolhub website)
 
-My CSS file is, frankly, a mess and could do with a refactoring.
+**Submitting tool information**
+- Implement client side validation of user entries using the patterns given in the Toolhub API documentation.
+
+**General improvements**
+-  Add additional charts and metrics to the Dashboard page, specifically charts that track the values which are most often missing, and the values that are most often added using the tool. 
+- Refactor my CSS
+- Install webpack and use it to bundle the static files
+- Write additional tests
+- Implement language support and explore ways in which the app could be better internationalized
+
+
+
