@@ -93,7 +93,7 @@ In order to test the functions, I decided to use the Jest testing framework. I i
 
 Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I've since read about bundling files using webpack, which seems to be a solution that would solve my problems, but have not had the opportunity to explore it further. 
 
-Instead I ran with my "good enough for now" method of copying the files and wrote a series of representive tests for each of my .js files.
+Instead I ran with my "good enough for now" method of copying the files and wrote a series of representative tests for each of my .js files.
 
 ![Tests](/docs/images/tests.jpg)
 
