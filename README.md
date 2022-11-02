@@ -9,6 +9,7 @@ Project description at: https://phabricator.wikimedia.org/T318921
 - [The Tools](#the-tools)
 - [The Process](#the-process)
   - [Homepage](#the-home-page)
+      -[Workflow](#user-workflow)
   - [The Dashboard](#the-dashboard)
   - [The Leaderboard](#the-leaderboard)
 - [Testing](#testing) 
@@ -56,11 +57,15 @@ I also wanted to, as much as possible, generate the page content dynamically, mi
 
 ### The Home Page
 
-The Home Page contains the tool editing interface and is the heart of the app. I felt it important to present as much information to the user as possible, so that it would be clear what the task was and what they were being expected to find. In this way I hoped to minimize user confusion and present a more streamlined experience.
+The Home Page contains the tool editing interface and is the heart of the app. I felt it important to present as much information to the user as possible, so that it would be clear what the task was and what they were being expected to find. In this way I hoped to minimize user confusion and present a more streamlined experience.  
 
-To make the search for information as painfree as possible, I included relevant links to potential data sources; the links vary depending on the nature of the task and the availability of the information (e.g., if the tool in question has a "repository" link available, it will be displayed).
+#### User Workflow 
+
+Upon loading the page, the user is presented with a choice: search for a particular tool or accept a random test.  (The initial version of the site defaulted to the random test.)  The "random test" option is very straightforward, while the tool search option allows the user to select a tool, browse a list of missing entries, and select a task.
 
 ![Toolhunt home page in action](/docs/images/in_use.gif)
+
+Once a task has been chosen, my priority was to make the search for information as painfree as possible.  I wrote functions to generate relevant links to potential data sources, depending on the nature of the task and the availability of the information (e.g., if the tool in question has a "repository" link available, it will be displayed).
 
 Being mindful of the possibility that users might enter improperly formatted information, I wrote functions to generate different input types depending on the type of information requested. For example, if the task involves searching for a "tool_type", the function generates a `select` element containing the possible options. A request for a `url` generates an input of `type="url"`. Using the patterns available from the Toolhub API documentation, it would be possible to implement client-side form validation; that is the number one item on my "to-do" list.
 
@@ -86,7 +91,7 @@ The Leaderboard is fairly straightforward; again, the data displayed in the tabl
 
 In order to test the functions, I decided to use the Jest testing framework. I installed it and the jsdom test environment, but quickly discovered that it did not play nicely with chart.js or canvas. Specifically, Jest would refuse to run until I had defined "Chart." Installing chart.js as a dependency and setting `const Chart = require("./chartjs")` in `dashboard.js` would appease Jest, but would cause the page to break if I attempted to render it.
 
-Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I'm sure that there's a better way of doing this, but ultimately concluded that I was wasting too much time and energy trying to discover it.
+Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I've since read about bundling files using webpack, which seems to be a solution that would solve my problems, but have not. 
 
 ### Installation
 
