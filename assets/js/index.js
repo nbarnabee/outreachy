@@ -170,7 +170,9 @@ function buildSelectMenu(options, nameValue) {
 }
 
 /* A function which accepts an innerText string, a callback function, an optional array 
-for listing class names, and an optional value */
+for listing class names, and an optional value 
+
+This has replaced all of the individual, specific functions I initially used to make buttons */
 
 function makeButton(text, callBack, classArr, val) {
   const button = document.createElement("button");
