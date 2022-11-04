@@ -35,7 +35,7 @@ The specifications were as follows:
 
 ## The Tools
 
-### Tech used: Vanilla JavaScript, CSS, HTML, Chart.js, Jest, jsdom
+### Tech used: Vanilla JavaScript, CSS, HTML, Chart.js, Jest, jsdom, webpack
 
 I felt that utilizing a front-end framework would be overkill for such a relatively simple site. Therefore, I chose to build the site using vanilla JS, CSS and HTML, with some assistance from the Chart.js library for rendering a pie chart.
 
@@ -89,11 +89,11 @@ The Leaderboard is fairly straightforward; again, the data displayed in the tabl
 
 ## Testing
 
-In order to test the functions, I decided to use the Jest testing framework. I installed it and the jsdom test environment, but quickly discovered that it did not play nicely with chart.js or canvas. Specifically, Jest would refuse to run until I had defined "Chart." Installing chart.js as a dependency and setting `const Chart = require("./chartjs")` in `dashboard.js` would appease Jest, but would cause the page to break if I attempted to render it.
+In order to test the functions, I decided to use the Jest testing framework. I installed it and the jsdom test environment, but after inserting `module.exports` into my .js files, discovered that I was receiving `module is not defined` errors in the browser.  I did a bit of research, installed webpack and bundled the .js files, which solved the first of my problems.    
 
-Similarly, my .js files did not like the use of `module.exports` and would throw console errors during rending. I spent some time attempting to solve these problems but eventually decided to create new versions of my .js files that would not contain code pertaining to the charts, but would be otherwise identical to the "live" files. I've since read about bundling files using webpack, which seems to be a solution that would solve my problems, but have not had the opportunity to explore it further. 
+Unfortunately, it was still the case that Jest did not want to play nicely with chart.js.  I installed chart.js as a dev dependency and set `const Chart = require("./chartjs")` in `dashboard.js`, only to be faced a new problem:  `ResizeObserver` was undefined.  I am still in the process of trying to solve this problem, but in the interim have settled for creating a dummy copy of `dashboard.js` in which all of the code pertaining to the chart is commented out.   
 
-Instead I ran with my "good enough for now" method of copying the files and wrote a series of representative tests for each of my .js files.
+That done, I wrote a series of representative tests for each of my .js files.
 
 ![Tests](/docs/images/tests.jpg)
 
@@ -121,7 +121,7 @@ I also learned a great deal about testing, which was a completely new subject.  
 **General improvements**
 -  Add additional charts and metrics to the Dashboard page, specifically charts that track the values which are most often missing, and the values that are most often added using the tool. 
 - Refactor my CSS
-- Install webpack and use it to bundle the static files
+- Solve the ResizeObserver problem
 - Write additional tests
 - Implement language support and explore ways in which the app could be better internationalized
 
