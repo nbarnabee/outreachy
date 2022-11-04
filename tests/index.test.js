@@ -35,7 +35,7 @@ const {
   buildButtonContainer,
   populateToolLinks,
   makeLink,
-} = require("./index_copy.js");
+} = require("../assets/js/index.js");
 
 /* buildSelectMenu takes an array of option values and a string, and returns a select element */
 

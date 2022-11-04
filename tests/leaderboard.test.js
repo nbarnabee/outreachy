@@ -11,7 +11,7 @@ const {
   createUserEntry,
   createUserLink,
   createScoreEntry,
-} = require("./leaderboard_copy.js");
+} = require("../assets/js/leaderboard.js");
 
 /* The flow for the leaderboard page is as follows:
 
