@@ -1,3 +1,5 @@
+const Chart = require("chart.js");
+
 // The following data was produced in my Juypter notebook.
 
 const globalStats = {

@@ -6,7 +6,7 @@
 const fs = require("fs");
 window.document.body.innerHTML = fs.readFileSync("./views/dashboard.html");
 
-const dashboard = require("./dashboard_copy.js");
+const dashboard = require("../assets/js/dashboard.js");
 
 /* ------------------------------------------  */
 
