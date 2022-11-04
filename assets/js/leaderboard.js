@@ -79,3 +79,10 @@ function createScoreEntry(num) {
 
 populateTable(leaderboard, "latest");
 populateTable(leaderboard, "allTime");
+
+module.exports = {
+  populateTable,
+  createUserEntry,
+  createUserLink,
+  createScoreEntry,
+};

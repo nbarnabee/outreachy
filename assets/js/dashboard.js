@@ -282,3 +282,14 @@ createGreeting(userActivity.user);
 fillTable(userActivity, "user-contributions");
 fillTable(globalActivity, "global-contributions");
 fillStatsCards(globalStats, userActivity, globalActivity);
+
+module.exports = {
+  globalStats,
+  userActivity,
+  globalActivity,
+  calcOneToTen,
+  createGreeting,
+  fillTable,
+  makeElementWithLink,
+  fillStatsCards,
+};
