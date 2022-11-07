@@ -10,4 +10,5 @@ module.exports = {
     path: __dirname + "build",
     filename: "[name].js",
   },
+  mode: "none",
 };
