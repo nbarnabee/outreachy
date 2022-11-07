@@ -216,6 +216,30 @@ function fakeSubmit() {
   document.body.classList.add("modal-open");
 }
 
+function submitEntry() {
+  const inputs = Array.from(document.querySelectorAll(".submission"));
+  for (let input of inputs) {
+    if (input.value) {
+      const value = input.value;
+      const pattern = new RegExp(`${input.dataset.pattern}`);
+      console.log(pattern);
+      if (pattern.test(value) === false) {
+        input.classList.add("red-border");
+        console.log("failed");
+        return;
+      }
+    } else {
+      console.log("doesn't have a value");
+      input.classList.add("red-border");
+      return;
+      // const warning = document.createElement("span");
+      // input.appendChild(warning);
+      // warning.innerText = "Input required.";
+    }
+  }
+  document.body.classList.add("modal-open");
+}
+
 document.querySelector(".close-modal").addEventListener("click", function () {
   location.reload();
 });
@@ -452,6 +476,8 @@ function buildInputs(task) {
       const newInput = document.createElement("input");
       newInput.type = [entry];
       newInput.setAttribute("name", task);
+      newInput.setAttribute("data-pattern", taskType[task].pattern[i]);
+      newInput.classList.add("submission");
       /* In the event that an ISO 639 language code is required, I want that to be
        clearly indicated.  The value should default to "en" in all cases other than
       "available_ui_languages" */
@@ -487,7 +513,7 @@ function buildButtonContainer(task) {
     const addButton = makeButton("Add another value", addInput);
     buttonContainer.appendChild(addButton);
   }
-  let submitButton = makeButton("Submit", fakeSubmit);
+  let submitButton = makeButton("Submit", submitEntry);
   buttonContainer.appendChild(submitButton);
   return buttonContainer;
 }
