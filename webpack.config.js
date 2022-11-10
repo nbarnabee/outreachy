@@ -7,7 +7,7 @@ module.exports = {
     Leaderboard: "./assets/js/leaderboard.js",
   },
   output: {
-    path: __dirname + "build",
+    path: path.join(__dirname, "build"),
     filename: "[name].js",
   },
   mode: "none",
