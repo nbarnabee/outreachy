@@ -542,9 +542,8 @@ function submitEntry() {
           return;
         } else console.log("pattern checked");
       } else console.log("no pattern to check");
-    } else if (input.placeholder.includes("en"))
-      input.value =
-        "en"; // dealing with the entries that default to "en" - it's not a problem if they're empty
+    } else if (input.placeholder.includes("en")) input.value = "en";
+    // dealing with the entries that default to "en" - it's not a problem if they're empty
     else {
       console.log("doesn't have a value");
       setFailedValidation(input);
@@ -555,19 +554,17 @@ function submitEntry() {
 }
 
 function setFailedValidation(input) {
+  alert(`Please enter a valid ${input.placeholder}`);
   input.classList.add("red-border");
   input.addEventListener("focus", () => {
     input.classList.remove("red-border");
   });
 }
 
-// `Please enter a valid ${input.placeholder}`
-
 document.querySelector(".close-modal").addEventListener("click", function () {
   location.reload();
 });
 
-/*
 module.exports = {
   taskType,
   wikidata_todo,
@@ -594,5 +591,6 @@ module.exports = {
   buildButtonContainer,
   populateToolLinks,
   makeLink,
+  submitEntry,
+  setFailedValidation,
 };
-*/
