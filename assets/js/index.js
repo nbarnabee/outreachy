@@ -8,7 +8,7 @@ const taskType = {
     input: ["text"],
     inputDescription: ["item ID"],
     multiple: false,
-    pattern: ["^Qd+$"],
+    pattern: ["^Q\\d+$"],
   },
   for_wikis: {
     description:
@@ -16,7 +16,7 @@ const taskType = {
     input: ["text"],
     multiple: true,
     pattern: [
-      "^(*|(.*)?.?(mediawiki|wiktionary|wiki(pedia|quote|books|source|news|versity|data|voyage|media)).org)$",
+      "^(\\*|(.*)?\\.?(mediawiki|wiktionary|wiki(pedia|quote|books|source|news|versity|data|voyage|media))\\.org)$",
     ],
   },
   icon: {
@@ -24,7 +24,7 @@ const taskType = {
       "A link to a Wikimedia Commons file description page for an icon that depicts the tool.",
     input: ["url"],
     multiple: false,
-    pattern: ["^https://commons.wikimedia.org/wiki/File:.+..+$"],
+    pattern: ["^https://commons\\.wikimedia\\.org/wiki/File:.+\\..+$"],
   },
   available_ui_languages: {
     description:
@@ -208,41 +208,6 @@ function showSearch() {
   ]);
   document.getElementById("start-search-wrapper").appendChild(backButton);
 }
-
-/* ----------- SUBMIT (opens and closes modal) ------- */
-/* ---- Closing the modal triggers a page refresh.  --- */
-
-function fakeSubmit() {
-  document.body.classList.add("modal-open");
-}
-
-function submitEntry() {
-  const inputs = Array.from(document.querySelectorAll(".submission"));
-  for (let input of inputs) {
-    if (input.value) {
-      const value = input.value;
-      const pattern = new RegExp(`${input.dataset.pattern}`);
-      console.log(pattern);
-      if (pattern.test(value) === false) {
-        input.classList.add("red-border");
-        console.log("failed");
-        return;
-      }
-    } else {
-      console.log("doesn't have a value");
-      input.classList.add("red-border");
-      return;
-      // const warning = document.createElement("span");
-      // input.appendChild(warning);
-      // warning.innerText = "Input required.";
-    }
-  }
-  document.body.classList.add("modal-open");
-}
-
-document.querySelector(".close-modal").addEventListener("click", function () {
-  location.reload();
-});
 
 /* ----------- GET NEW TASK ---------------- */
 // Reloads the page
@@ -477,6 +442,7 @@ function buildInputs(task) {
       newInput.type = [entry];
       newInput.setAttribute("name", task);
       newInput.setAttribute("data-pattern", taskType[task].pattern[i]);
+      // I add the "submission" class to the new inputs so that I can more easily target them later.
       newInput.classList.add("submission");
       /* In the event that an ISO 639 language code is required, I want that to be
        clearly indicated.  The value should default to "en" in all cases other than
@@ -560,6 +526,43 @@ function makeLink(tool, linkType) {
   return toolLink;
 }
 
+/* ----------- SUBMIT  ------- */
+/* ---- Performs validation on input fields  --- */
+
+function submitEntry() {
+  const inputs = Array.from(document.querySelectorAll(".submission"));
+  for (let input of inputs) {
+    if (input.value) {
+      // is there a regex pattern to check?  if so, check it
+      if (input.dataset.pattern !== "null") {
+        const pattern = new RegExp(`${input.dataset.pattern}`);
+        if (pattern.test(input.value) === false) {
+          setFailedValidation(input);
+          console.log("failed test");
+          return;
+        } else console.log("pattern checked");
+      } else console.log("no pattern to check");
+    } else {
+      console.log("doesn't have a value");
+      setFailedValidation(input);
+      return;
+    }
+  }
+  document.body.classList.add("modal-open");
+}
+
+function setFailedValidation(input) {
+  input.classList.add("red-border");
+  input.addEventListener("focus", () => {
+    input.classList.remove("red-border");
+  });
+}
+
+document.querySelector(".close-modal").addEventListener("click", function () {
+  location.reload();
+});
+
+/*
 module.exports = {
   taskType,
   wikidata_todo,
@@ -587,3 +590,4 @@ module.exports = {
   populateToolLinks,
   makeLink,
 };
+*/
