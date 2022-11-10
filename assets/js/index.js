@@ -542,7 +542,10 @@ function submitEntry() {
           return;
         } else console.log("pattern checked");
       } else console.log("no pattern to check");
-    } else {
+    } else if (input.placeholder.includes("en"))
+      input.value =
+        "en"; // dealing with the entries that default to "en" - it's not a problem if they're empty
+    else {
       console.log("doesn't have a value");
       setFailedValidation(input);
       return;
@@ -557,6 +560,8 @@ function setFailedValidation(input) {
     input.classList.remove("red-border");
   });
 }
+
+// `Please enter a valid ${input.placeholder}`
 
 document.querySelector(".close-modal").addEventListener("click", function () {
   location.reload();
