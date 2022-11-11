@@ -117,6 +117,9 @@ I also learned a great deal about testing, which was a completely new subject.  
 - Implement debounce
 - Implement a way to clear the current value (as is currently possible while searching on the Toolhub website)
 
+**Submissions**
+- Improve alert messages upon validation failure
+
 **General improvements**
 -  Add additional charts and metrics to the Dashboard page, specifically charts that track the values which are most often missing, and the values that are most often added using the tool. 
 - Refactor my CSS
