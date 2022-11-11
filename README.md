@@ -71,6 +71,8 @@ Being mindful of the possibility that users might enter improperly formatted inf
 
 For the "for_wikis" and "available_ui_languages" tasks, where multiple entries may be given, I included an option to generate additional input elements. Clicking the "submit" or "skip" buttons refreshes the displayed data. In a full version of the tool, the "Information could not be found" checkbox would relay additional information to the server, deprioritizing the displayed task.
 
+Clicking the Submit function triggers a function that carries out client-side validation by testing the input values against the RegExp patterns specified in the <a href="https://toolhub.wikimedia.org/api-docs#put-/api/tools/-name-/annotations/" target="_blank">Toolhub documentation.</a>
+
 ## The Dashboard
 
 ![Toolhunt Dashboard](/docs/images/dashboard.jpg)
@@ -114,9 +116,6 @@ I also learned a great deal about testing, which was a completely new subject.  
 **Searching & search bar**
 - Implement debounce
 - Implement a way to clear the current value (as is currently possible while searching on the Toolhub website)
-
-**Submitting tool information**
-- Implement client side validation of user entries using the patterns given in the Toolhub API documentation.
 
 **General improvements**
 -  Add additional charts and metrics to the Dashboard page, specifically charts that track the values which are most often missing, and the values that are most often added using the tool. 
