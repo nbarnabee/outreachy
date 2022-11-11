@@ -532,22 +532,31 @@ function makeLink(tool, linkType) {
 function submitEntry() {
   const inputs = Array.from(document.querySelectorAll(".submission"));
   for (let input of inputs) {
-    if (input.value) {
-      // is there a regex pattern to check?  if so, check it
-      if (input.dataset.pattern !== "null") {
-        const pattern = new RegExp(`${input.dataset.pattern}`);
-        if (pattern.test(input.value) === false) {
-          setFailedValidation(input);
-          console.log("failed test");
-          return;
-        } else console.log("pattern checked");
-      } else console.log("no pattern to check");
-    } else if (input.placeholder.includes("en")) input.value = "en";
-    // dealing with the entries that default to "en" - it's not a problem if they're empty
-    else {
-      console.log("doesn't have a value");
+    if (input.value === "" && input.placeholder.includes("en")) {
+      // dealing with the entries that default to "en" - it's not a problem if they're empty
+      input.value = "en";
+    }
+    // otherwise if the input field is empty the submission fails
+    else if (input.value === "") {
+      console.log("Empty input");
       setFailedValidation(input);
       return;
+    }
+    // otherwise, is there a regex pattern to check against?  if so, use it
+    else {
+      let pattern;
+      if (input.dataset.pattern !== "null") {
+        pattern = new RegExp(`${input.dataset.pattern}`);
+      } else if (input.type === "url") {
+        pattern = new RegExp(
+          /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+        );
+      }
+      if (pattern.test(input.value) === false) {
+        setFailedValidation(input);
+        console.log("Validation failed");
+        return;
+      } else console.log("Validation successful");
     }
   }
   document.body.classList.add("modal-open");
